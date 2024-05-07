@@ -1,0 +1,686 @@
+---
+title: "1 - Introduction"
+subtitle: "Deploy and maintain models with vetiver"
+format:
+  revealjs: 
+    slide-number: true
+    footer: <https://posit-conf-2024.github.io/vetiver>
+    preview-links: auto
+    incremental: true
+    theme: [default, styles.scss]
+    width: 1280
+    height: 720
+knitr:
+  opts_chunk:
+    echo: true
+    collapse: true
+    comment: "#>"
+---
+
+```{r}
+#| include: false
+#| file: setup.R
+```
+
+::: r-fit-text
+Welcome!
+:::
+
+::: columns
+::: {.column width="50%"}
+
+<center>
+
+### {{< fa wifi >}} 
+
+
+
+Wi-Fi network name
+
+TODO: WIFI
+
+</center>
+
+:::
+
+::: {.column width="50%"}
+
+<center>
+
+### {{< fa key >}} 
+
+Wi-Fi password
+
+TODO: WIFI
+
+</center>
+
+:::
+:::
+
+## Welcome! {.smaller}
+
+::: {.nonincremental}
+TODO: add bathrooms/lactation rooms/etc
+- Participants who do not wish to be photographed have red lanyards; please note everyone's lanyard colors before taking a photo and respect their choices
+- The Code of Conduct and COVID policies can be found at <https://posit.co/code-of-conduct/>
+  - Please review them carefully! ❤️ 
+  - You can report Code of Conduct violations in person, by email, or by phone; see the policy linked above for contact information
+:::
+
+## Who are you?
+
+-   You have intermediate R or Python knowledge
+
+-   You can read data from CSV and other flat files, transform and reshape data, and make a wide variety of graphs
+
+-   You can fit a model to data with your modeling framework of choice
+wide variety of graphs
+
+-   You have exposure to basic modeling and machine learning practice
+
+-   You do **not** need expert familiarity with advanced ML or MLOps topics
+
+
+## Who are we?
+
+. . .
+
+::: columns
+::: {.column width="50%"}
+<center>
+
+<img src="https://github.com/isabelizimm.png" style="border-radius: 50%;" width="300px"/>
+
+[{{< fa brands github >}} \@isabelizimm](https://github.com/isabelizimm)
+
+[{{< fa brands mastodon >}} \@isabelizimm@fosstodon.org](https://fosstodon.org/@isabelizimm)
+
+[{{< fa link >}} isabelizimm.me](https://isabelizimm.me/)
+
+</center>
+:::
+
+::: {.column width="50%"}
+<center>
+
+<img src="https://github.com/juliasilge.png" style="border-radius: 50%;" width="300px"/>
+
+[{{< fa brands github >}} \@juliasilge](https://github.com/juliasilge)
+
+[{{< fa brands mastodon >}} \@juliasilge@fosstodon.org](https://fosstodon.org/@juliasilge)
+
+[{{< fa brands youtube >}} youtube.com/juliasilge](https://www.youtube.com/juliasilge)
+
+[{{< fa link >}} juliasilge.com](https://juliasilge.com/)
+
+</center>
+:::
+:::
+
+# Asking for help
+
+. . .
+
+🟪 "I'm stuck and need help!"
+
+🟩 "I finished the exercise"
+
+. . .
+
+If you prefer, post on GitHub Discussions for help: 
+
+<https://github.com/posit-conf-2024/vetiver/discussions>
+
+
+## Plan for this workshop
+
+- *Versioning*
+    * Managing change in models ✅ 
+- *Deploying*
+    * Putting models in REST APIs 🎯
+- *Monitoring*
+    * Tracking model performance 👀
+
+# Introduce yourself to your neighbors 👋
+
+::: {.callout-tip}
+## Optional
+
+Post an introduction on GitHub Discussions: <https://github.com/posit-conf-2024/vetiver/discussions>
+:::
+
+## What is machine learning?
+
+![](images/ml_illustration.jpg){fig-align="center"}
+
+::: footer
+Illustration credit: <https://vas3k.com/blog/machine_learning/>
+:::
+
+## What is machine learning?
+
+![](images/modeling-process.svg){fig-align="center"}
+
+::: footer
+Illustration credit: Chapter 1 of [*Tidy Modeling with R*](https://www.tmwr.org/software-modeling.html)
+:::
+
+## MLOps is...
+
+. . .
+
+![](images/ai-landscape.jpg){fig-align="center"}
+
+::: footer
+:::
+
+## MLOps is... 
+
+a set of <u>practices</u> to *deploy* and *maintain* machine learning models in production **reliably** and **efficiently**
+
+
+## {background-color="white" background-image="https://vetiver.rstudio.com/images/ml_ops_cycle.png" background-size="contain"}
+
+::: footer
+:::
+
+## MLOps with vetiver 
+
+> Vetiver, the oil of tranquility, is used as a stabilizing ingredient in perfumery to preserve more volatile fragrances.
+
+
+# If you develop a model...
+
+. . .
+
+you can operationalize that model!
+
+# If you develop a model...
+
+you likely *should* be the one to operationalize that model!
+
+
+## Your turn 🏺 {transition="slide-in"}
+
+. . .
+
+::: {.callout-note icon=false}
+
+## Activity
+
+What language does your team use for machine learning?
+
+What kinds of models do you commonly use?
+
+Have you ever deployed a model?
+
+:::
+
+```{r}
+#| echo: false
+library(countdown)
+countdown(minutes = 3)
+```
+
+# Workshop infrastructure
+
+TODO: update infra
+- Log in at [pos.it/class](https://pos.it/class) with the identifier `vetiver2024`
+- Even if you plan to work locally, set this up with us so you can use Posit Connect as a deployment target
+- For Posit Workbench, use RStudio for R or VS Code for Python
+- Open the folder `class-work` in the `vetiver` directory
+
+## Your turn 🏺 {transition="slide-in"}
+
+::: {.callout-note icon=false}
+
+## Activity
+
+Log in at [pos.it/class](https://pos.it/class) with the identifier `vetiver2024`
+
+Start a new session, either RStudio or VS Code.
+
+In your new session, open the folder `class-work` in the `vetiver` directory, and choose the first Quarto file!
+
+:::
+
+```{r}
+#| echo: false
+library(countdown)
+countdown(minutes = 5)
+```
+
+
+##  TODO: Intro DATA {background-color="black" background-image="images/christopher-alvarenga-cfmSStcrDn4-unsplash.jpg" background-opacity=0.3}
+
+
+## TODO: Intro DATA
+
+. . .
+
+### R
+
+```{r}
+# TODO: Intro DATA
+```
+
+### Python
+
+```{python}
+# TODO: Intro DATA
+```
+
+
+## TODO: Intro DATA
+
+```{r}
+# TODO: Intro DATA
+```
+
+
+## Your turn 🏺 {transition="slide-in"}
+
+::: {.callout-note icon=false}
+
+## Activity
+
+Explore the `TODO: Intro DATA` data on your own!
+
+TODO: data
+::: {.nonincremental}
+* What's the distribution of the outcome `results`?
+* What's the distribution of the numeric variable `total_violations`?
+* How do results differ across facility type?
+:::
+
+Share something you noticed with your neighbor.
+
+:::
+
+```{r}
+#| echo: false
+countdown(minutes = 8)
+```
+
+::: notes
+Make a plot or summary and then share with neighbor
+:::
+
+## 
+
+```{r}
+#| fig-align: 'center'
+
+# TODO: plot data
+# library(tidyverse)
+# inspections |> 
+#   group_by(inspection_date = floor_date(inspection_date, unit = "month")) |> 
+#   summarise(results = mean(results == "PASS")) |> 
+#   ggplot(aes(inspection_date, results)) +
+#   geom_line(alpha = 0.8, linewidth = 1.5) +
+#   scale_y_continuous(labels = scales::percent) +
+#   labs(y = "% of inspections that have a PASS result", x = NULL)
+```
+
+## 
+
+```{python}
+#| fig-align: 'center'
+
+# TODO: plot data
+# from plotnine import ggplot, aes, geom_boxplot, coord_flip
+# (ggplot(inspections, aes('facility_type', 'total_violations', fill = 'facility_type')) 
+#   + geom_boxplot(alpha = 0.5, show_legend = False)
+#   + coord_flip()
+# )
+```
+
+## 
+
+```{r}
+#| fig-align: 'center'
+#| fig-width: 7.5
+#| fig-height: 5
+
+# TODO: plot data
+# inspections |>
+#   ggplot(aes(inspection_date, total_violations, z = as.integer(results) - 1)) +
+#   stat_summary_hex(alpha = 0.7) +
+#   scale_fill_viridis_c(labels = scales::percent) +
+#   labs(fill = "% passed", x = NULL)
+```
+
+
+## Time for building a model!
+
+```{r tree-example}
+#| echo: false
+#| fig.width: 20
+#| fig.height: 10
+#| fig-align: 'center'
+
+# TODO: model data
+# library(recipes)
+# inspection_rec <- 
+#   recipe(results ~ facility_type + risk + total_violations + inspection_date, 
+#          data = inspections) |> 
+#   step_date(inspection_date, features = c("month", "year"), keep_original_cols = FALSE) |> 
+#   prep()
+
+# tree_mod <- 
+#   rpart::rpart(
+#     results ~ total_violations + risk + inspection_date_year,
+#     data = juice(inspection_rec),
+#     control = rpart::rpart.control(maxdepth = 5, cp = 0.001)
+#   ) |> 
+#   partykit::as.party()
+  
+# plot(tree_mod)
+```
+
+
+## Spend your data budget
+
+### R
+
+```{r}
+# TODO: model data
+# library(tidymodels)
+# set.seed(123)
+# inspect_split <- initial_split(inspections, prop = 0.8)
+# inspect_train <- training(inspect_split)
+# inspect_test <- testing(inspect_split)
+```
+
+### Python
+
+```{python}
+# TODO: model data
+# from sklearn import model_selection
+# import numpy as np
+# np.random.seed(123)
+# inspections['inspection_date'] = pd.to_datetime(inspections['inspection_date'])
+# inspections['month'] = inspections['inspection_date'].dt.month
+# inspections['year'] = inspections['inspection_date'].dt.year
+# X, y = inspections.drop(columns=['aka_name', 'results', 'inspection_date']), inspections['results']
+# X_train, X_test, y_train, y_test = model_selection.train_test_split(
+#     X, y,
+#     test_size = 0.2
+# )
+```
+
+
+## Fit a logistic regression model 🚀
+
+Or your model of choice!
+
+::: {.panel-tabset}
+
+### R
+
+```{r}
+# TODO: model data
+# inspection_rec <- 
+#   recipe(results ~ facility_type + risk + total_violations + inspection_date, 
+#          data = inspect_train) |> 
+#   step_date(inspection_date, features = c("month", "year"), keep_original_cols = FALSE)
+
+# inspection_fit <-
+#   workflow(inspection_rec, logistic_reg()) |> 
+#   fit(data = inspect_train)
+```
+
+### Python
+
+```{python}
+# TODO: model data
+# from sklearn import preprocessing, linear_model, pipeline, compose
+
+# categorical_features = ['facility_type', 'risk', 'month']
+
+# oe = compose.make_column_transformer(
+#     (preprocessing.OrdinalEncoder(
+#             handle_unknown="use_encoded_value", unknown_value=-1),
+#         categorical_features,),
+#     remainder="passthrough",
+# ).fit(X_train)
+# lr = linear_model.LogisticRegression().fit(oe.transform(X_train), y_train)
+# inspection_fit = pipeline.Pipeline([("ordinal_encoder", oe), ("random_forest", lr)])
+```
+
+:::
+
+## Your turn 🏺 {transition="slide-in"}
+
+::: {.callout-note icon=false}
+
+## Activity
+
+Split your data in training and testing.
+
+Fit a model to your training data.
+
+:::
+
+```{r}
+#| echo: false
+countdown(minutes = 5)
+```
+
+
+# Create a deployable bundle
+
+## Create a deployable model object
+
+### R
+
+```{r}
+library(vetiver)
+# TODO: use model name
+#v <- vetiver_model(inspection_fit, "inspection-result-rstats")
+v
+```
+
+### Python
+
+```{python}
+from vetiver import VetiverModel
+# TODO: use model name
+#v = VetiverModel(inspection_fit, "inspection-result-python", prototype_data = X_train)
+v.description
+```
+
+## Deploy preprocessors and models together
+
+![](images/good_workflow.png){fig-align="center"}
+
+## What is wrong with this?
+
+![](images/bad_workflow.png){fig-align="center"}
+
+## Your turn 🏺 {transition="slide-in"}
+
+::: {.callout-note icon=false}
+
+## Activity
+
+Create your vetiver model object.
+
+Check out the default `description` that is created, and try out using a custom description.
+
+Show your custom description to your neighbor.
+
+:::
+
+```{r}
+#| echo: false
+countdown(minutes = 5)
+```
+
+
+# Version your model
+
+## {background-color="white" background-image="https://vetiver.rstudio.com/images/ml_ops_cycle.png" background-size="contain"}
+
+::: footer
+:::
+
+## pins 📌
+
+The pins package publishes data, models, and other R and Python objects, making it easy to share them across projects and with your colleagues.
+
+. . .
+
+::: {.callout-tip}
+
+## You can pin objects to a variety of pin **boards**, including:
+
+::: {.nonincremental}
+- a local folder (like a network drive or even a temporary directory)
+- Posit Connect
+- Amazon S3
+- Azure Storage
+- Google Cloud
+:::
+
+:::
+
+## Version your model
+
+Learn about the pins package [for Python](https://rstudio.github.io/pins-python/) and [for R](https://pins.rstudio.com/)
+
+::: {.panel-tabset}
+
+### Python
+
+```{python}
+#| message: true
+from pins import board_temp
+from vetiver import vetiver_pin_write
+
+board = board_temp(allow_pickle_read = True)
+vetiver_pin_write(board, v)
+```
+
+### R
+
+```{r}
+#| message: true
+library(pins)
+
+board <- board_temp()
+board |> vetiver_pin_write(v)
+```
+
+:::
+
+## Your turn 🏺 {transition="slide-in"}
+
+::: {.callout-note icon=false}
+
+## Activity
+
+Pin your vetiver model object to a temporary board.
+
+Retrieve the model metadata with `pin_meta()`.
+
+:::
+
+```{r}
+#| echo: false
+countdown(minutes = 5)
+```
+
+# Posit Connect
+
+- Posit Connect is a publishing platform for data science
+- For Python, generate an API key: <https://docs.posit.co/connect/user/api-keys/>
+- For R, set up publishing from RStudio: <https://docs.posit.co/connect/user/publishing/>
+
+## Version your model {auto-animate=true}
+
+### R
+
+```{r}
+#| eval: false
+library(pins)
+library(vetiver)
+# TODO: use model name 
+board <- board_temp()
+#v <- vetiver_model(inspection_fit, "inspection-result-rstats")
+board |> vetiver_pin_write(v)
+```
+
+### Python
+
+```{python}
+#| eval: false
+from pins import board_temp
+from vetiver import VetiverModel, vetiver_pin_write
+# TODO: use model name 
+
+board = board_temp(allow_pickle_read = True)
+#v = VetiverModel(inspection_fit, "inspection-result-python", prototype_data = X_train)
+vetiver_pin_write(board, v)
+```
+
+## Version your model {auto-animate=true}
+
+### R
+
+```{r}
+#| eval: false
+library(pins)
+library(vetiver)
+# TODO: update model name
+
+board <- board_connect()
+#v <- vetiver_model(inspection_fit, "julia.silge/inspection-result-rstats")
+board |> vetiver_pin_write(v)
+```
+
+### Python
+
+```{python}
+#| eval: false
+from pins import board_connect
+from vetiver import VetiverModel, vetiver_pin_write
+from dotenv import load_dotenv
+load_dotenv()
+# TODO: update model name
+
+board = board_connect(allow_pickle_read = True)
+#v = VetiverModel(inspection_fit, "isabel.zimmerman/inspection-result-python", prototype_data = X_train)
+vetiver_pin_write(board, v)
+```
+
+## Your turn 🏺 {transition="slide-in" .smaller}
+
+::: {.callout-note icon=false}
+
+## Activity
+
+Either:
+
+::: {.nonincremental}
+- Set up Connect publishing from RStudio.
+- Create an API key for your Posit Connect server, and save it on Workbench in your working directory (in `.Renviron` for R or `.env` for Python).
+:::
+
+Create a new vetiver model object that includes your username, and pin this vetiver model to your Connect instance.
+
+Visit your pin's homepage on Connect.
+
+Train your model again, using a different ML algorithm (decision tree or random forest are good options).
+
+Write this new version of your model to the same pin, and see what versions you have with `pin_versions`.
+
+:::
+
+```{r}
+#| echo: false
+countdown(minutes = 10)
+```
+
+

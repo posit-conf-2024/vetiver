@@ -1,0 +1,527 @@
+---
+title: "2 - Deploy your model"
+subtitle: "Deploy and maintain models with vetiver"
+format:
+  revealjs: 
+    slide-number: true
+    footer: <https://posit-conf-2024.github.io/vetiver>
+    preview-links: auto
+    incremental: true
+    theme: [default, styles.scss]
+    width: 1280
+    height: 720
+knitr:
+  opts_chunk: 
+    echo: true
+    collapse: true
+    comment: "#>"
+---
+
+```{r}
+#| include: false
+#| file: setup.R
+```
+
+## Plan for this workshop
+
+::: nonincremental
+-   *Versioning*
+    -   Managing change in models ✅
+-   *Deploying*
+    -   Putting models in REST APIs 🎯
+-   *Monitoring*
+    -   Tracking model performance 👀
+:::
+
+## Fit a random forest 🌳🌴🌲🌲🌴🌳🌴🌳🌲
+
+::: panel-tabset
+### R
+
+```{r}
+library(tidyverse)
+library(tidymodels)
+library(arrow)
+# TODO: update data + model 
+
+# path <- here::here("data", "inspections.parquet")
+# inspections <- read_parquet(path)
+
+# set.seed(123)
+# inspect_split <- initial_split(inspections, prop = 0.8)
+# inspect_train <- training(inspect_split)
+# inspect_test <- testing(inspect_split)
+
+# inspection_rec <- 
+#   recipe(results ~ facility_type + risk + total_violations + inspection_date, 
+#          data = inspect_train) |> 
+#   step_date(inspection_date, features = c("month", "year"), keep_original_cols = FALSE)
+
+# inspection_fit <-
+#   workflow(inspection_rec, rand_forest(mode = "classification", trees = 1e3)) |> 
+#   fit(data = inspect_train)
+```
+
+
+### Python
+
+```{python}
+import pandas as pd
+import numpy as np
+from sklearn import preprocessing, ensemble, pipeline, compose, model_selection
+# TODO: update data + model 
+# inspections = pd.read_parquet('../data/inspections.parquet')
+# inspections['inspection_date'] = pd.to_datetime(inspections['inspection_date'])
+# inspections['month'] = inspections['inspection_date'].dt.month
+# inspections['year'] = inspections['inspection_date'].dt.year
+
+# categorical_features = ['facility_type', 'risk', 'month']
+# X, y = inspections.drop(columns=['aka_name', 'results','inspection_date']), inspections['results']
+# X_train, X_test, y_train, y_test = model_selection.train_test_split(
+#     X, y,
+#     stratify = y,
+#     test_size = 0.2
+# )
+
+# oe = compose.make_column_transformer(
+#     (preprocessing.OrdinalEncoder(
+#             handle_unknown="use_encoded_value", unknown_value=-1),
+#         categorical_features,),
+#     remainder="passthrough",
+# ).fit(X_train)
+# rf = ensemble.RandomForestClassifier().fit(oe.transform(X_train), y_train)
+# inspection_fit = pipeline.Pipeline([("ordinal_encoder", oe), ("random_forest", rf)])
+```
+:::
+
+## Create your vetiver model and version
+
+### R
+
+```{r}
+#| eval: false
+library(vetiver)
+library(pins)
+# TODO: update model name
+#v <- vetiver_model(inspection_fit, "user.name/chicago-inspections-rstats")
+board <- board_connect()
+board |> vetiver_pin_write(v)
+```
+
+### Python
+
+```{python}
+#| eval: false
+from vetiver import VetiverModel, vetiver_pin_write
+from pins import board_connect
+from dotenv import load_dotenv
+load_dotenv()
+# TODO: update model name
+#v = VetiverModel(inspection_fit, "user.name/chicago-inspections-python", prototype_data = X_train)
+board = board_connect(allow_pickle_read = True)
+vetiver_pin_write(board, v)
+```
+
+
+## Make it easy to do the right thing
+
+-   Robust and human-friendly checking of new data
+-   Track and document software dependencies of models
+-   [Model cards](https://vetiver.rstudio.com/learn-more/model-card.html) for transparent, responsible reporting
+
+## Make it easy to do the right thing
+
+![](images/vetiver-templates.png){fig-align="center"}
+
+## Your turn 🏺 {transition="slide-in"}
+
+::: {.callout-note icon=false}
+
+## Activity
+
+Open the Model Card template, and spend a few minutes exploring how you might create a Model Card for this inspection model.
+
+Discuss something you notice about the Model Card with your neighbor.
+
+:::
+
+```{r}
+#| echo: false
+countdown(minutes = 5)
+```
+
+
+## {background-color="white" background-image="https://vetiver.rstudio.com/images/ml_ops_cycle.png" background-size="contain"}
+
+::: footer
+:::
+
+## You can deploy your model as a...
+
+. . .
+
+::: r-fit-text
+**REST API**
+:::
+
+## What is a REST API?
+
+. . .
+
+An **interface** that can **connect** applications in a **standard** way
+
+## Create a vetiver REST API
+
+### R
+
+```{r}
+#| eval: false
+library(plumber)
+
+pr() |>
+  vetiver_api(v) |>
+  pr_run()
+```
+
+### Python
+
+```{python}
+#| eval: false
+api = VetiverAPI(v)
+api.run()
+```
+
+## Your turn 🏺 {transition="slide-in"}
+
+::: {.callout-note icon=false}
+
+## Activity
+
+Create a vetiver API for your model and run it locally.
+
+Explore the visual documentation.
+
+How many endpoints are there?
+
+Discuss what you notice with your neighbor.
+
+:::
+
+```{r}
+#| echo: false
+countdown(minutes = 7)
+```
+
+## What does "deploy" mean?
+
+![](https://github.com/isabelizimm/pydata-nyc2022/blob/main/images/deploy-cloud.jpg?raw=true){fig-align="center"}
+
+## What does "deploy" mean?
+
+![](https://github.com/isabelizimm/pydata-nyc2022/blob/main/images/deploy-not-here.jpg?raw=true){fig-align="center"}
+
+# Where does vetiver work?
+
+-   Posit's pro products, like [Connect](https://posit.co/products/enterprise/connect/)
+
+-   AWS SageMaker (R only, for now)
+
+-   A public or private cloud, using Docker
+
+## Deploy to Posit Connect
+
+### R
+
+```{r}
+#| eval: false
+# TODO: update model name
+#vetiver_deploy_rsconnect(board, "user.name/chicago-inspections-rstats")
+```
+
+### Python
+
+```{python}
+#| eval: false
+from rsconnect.api import RSConnectServer
+
+connect_server = RSConnectServer(url = rsc_url, api_key = api_key)
+board = pins.board_connect(allow_pickle_read = True)
+# TODO: update model name
+vetiver.deploy_rsconnect(
+    connect_server = connect_server,
+    board = board,
+#    pin_name = "user.name/chicago-inspections-python",
+)
+```
+
+## Your turn 🏺 {transition="slide-in"}
+
+::: {.callout-note icon=false}
+
+## Activity
+
+Deploy your model to your Posit Connect server.
+
+Give your API a vanity URL.
+
+Set your API as accessible to "Anyone", for convenience.
+
+Compare the results to your local API. Is anything different?
+
+If you visit Connect, do you see your neighbor's API?
+
+:::
+
+```{r}
+#| echo: false
+countdown(minutes = 7)
+```
+
+## 
+
+::: r-fit-text
+You did it! 🥳
+:::
+
+## How do you make a request of your new API?
+
+::: panel-tabset
+
+### R
+
+```{r}
+# TODO: update url
+#url <- "https://colorado.posit.co/rsc/chicago-inspections-rstats/metadata"
+r <- httr::GET(url)
+metadata <- httr::content(r, as = "text", encoding = "UTF-8")
+jsonlite::fromJSON(metadata)
+```
+
+### Python
+
+```{python}
+import requests
+# TODO: update url
+#url = "https://colorado.posit.co/rsc/chicago-inspections-python/metadata" 
+print(requests.get(url).content)
+```
+
+:::
+
+## How do you make a request of your new API?
+
+- Python or R packages like [requests](https://requests.readthedocs.io/) or [httr](https://httr.r-lib.org/) (or [httr2](https://httr2.r-lib.org/)!)
+- curl
+- There is special support in vetiver for the `/predict` endpoint
+
+## Create a vetiver endpoint
+
+You can treat your model API much like it is a local model in memory!
+
+::: panel-tabset
+### R
+
+```{r}
+library(vetiver)
+# TODO: update url
+#url <- "https://colorado.posit.co/rsc/chicago-inspections-rstats/predict"
+endpoint <- vetiver_endpoint(url)
+predict(endpoint, slice_sample(inspect_test, n = 10))
+```
+
+### Python
+
+```{python}
+from vetiver.server import predict, vetiver_endpoint
+# TODO: update url
+#url = "https://colorado.posit.co/rsc/chicago-inspections-python/predict"
+endpoint = vetiver_endpoint(url)
+predict(endpoint = endpoint, data = X_test.head(10))
+```
+:::
+
+## Your turn 🏺 {transition="slide-in"}
+
+::: {.callout-note icon=false}
+
+## Activity
+
+Create a vetiver endpoint object for your API.
+
+Predict with your endpoint for new data.
+
+Optional: call another endpoint like `/ping` or `/metadata`.
+
+:::
+
+```{r}
+#| echo: false
+countdown(minutes = 10)
+```
+
+## Your turn 🏺 {transition="slide-in"}
+
+::: {.callout-note icon=false}
+
+## Activity
+
+Create a vetiver endpoint object for *your neighbor's* API.
+
+Predict with your endpoint for new data.
+
+You get extra credit if your neighbor's model is in a different language than yours!
+
+:::
+
+```{r}
+#| echo: false
+countdown(minutes = 5)
+```
+
+## Create a vetiver endpoint {auto-animate=true}
+
+What if your model API requires authentication?
+
+### R
+
+```r
+library(vetiver)
+# TODO: update url
+#url <- "https://colorado.posit.co/rsc/chicago-inspections-rstats/predict"
+endpoint <- vetiver_endpoint(url)
+predict(endpoint, slice_sample(inspect_test, n = 10))
+```
+
+### Python
+
+```python
+from vetiver.server import predict, vetiver_endpoint
+# TODO: update url
+#url = "https://colorado.posit.co/rsc/chicago-inspections-python/predict"
+endpoint = vetiver_endpoint(url)
+predict(endpoint = endpoint, data = ring_test)
+```
+
+## Create a vetiver endpoint {auto-animate=true}
+
+What if your model API requires authentication?
+
+### R
+
+```r
+library(vetiver)
+# TODO: update url
+#url <- "https://colorado.posit.co/rsc/chicago-inspections-rstats/predict"
+endpoint <- vetiver_endpoint(url)
+apiKey <- Sys.getenv("CONNECT_API_KEY")
+predict(endpoint, slice_sample(inspect_test, n = 10), 
+        httr::add_headers(Authorization = paste("Key", apiKey)))
+```
+
+### Python
+
+```python
+from vetiver.server import predict, vetiver_endpoint
+# TODO: update url
+#url = "https://colorado.posit.co/rsc/chicago-inspections-python/predict"
+endpoint = vetiver_endpoint(url)
+h = { 'Authorization': f'Key {api_key}' }
+predict(endpoint = endpoint, data = X_test, headers = h)
+```
+
+# Model input prototype
+
+**inputs** ➡️ outputs
+
+## Model input prototype
+
+Notice that our Python model has different inputs than our R model:
+
+::: panel-tabset
+
+### R
+
+```{r}
+glimpse(inspect_train)
+```
+
+### Python
+
+```{python}
+X_train
+```
+
+:::
+
+## Your turn 🏺 {transition="slide-in"}
+
+::: {.callout-note icon=false}
+
+## Activity
+
+Call the `prototype` endpoints for both the Python and R model.
+
+How do they compare?
+
+:::
+
+```{r}
+#| echo: false
+countdown(minutes = 5)
+```
+
+## Model input prototype
+
+::: panel-tabset
+
+### R
+
+```{r}
+# TODO: update url
+#url <- "https://colorado.posit.co/rsc/chicago-inspections-rstats/prototype"
+r <- httr::GET(url)
+prototype <- httr::content(r, as = "text", encoding = "UTF-8")
+jsonlite::fromJSON(prototype)
+```
+
+### Python
+
+```{python}
+import requests
+# TODO: update url
+#url = "https://colorado.posit.co/rsc/chicago-inspections-python/prototype" 
+print(requests.get(url).content)
+```
+
+:::
+
+## Model input prototype
+
+- In Python, you supply the model's input prototype via `prototype_data`
+- In R, the model input prototype is found automatically in most cases, but you can override this default via `save_prototype`
+- In both cases, it is ultimately up to you to decide what your API's inputs should be!
+- The vetiver framework has sensible defaults but is extensible for more complex use cases
+
+## Your turn 🏺 {transition="slide-in"}
+
+::: {.callout-note icon=false}
+
+## Activity
+
+Let's say you need to customize your model API's inputs for a more complex use case.
+
+Make a new vetiver model object and change the input data prototype.
+
+Run an API locally for your new vetiver model object and explore the visual documentation. (Note that making predictions will not work now, since we haven't updated the API behavior to match these inputs.)
+
+Discuss a possible situation you might use this with your neighbor.
+
+:::
+
+```{r}
+#| echo: false
+countdown(minutes = 7)
+```
+
+
+

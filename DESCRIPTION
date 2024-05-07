@@ -1,0 +1,31 @@
+Package: positconf2024-vetiver-workshop
+Title: positconf2024 vetiver workshop
+Version: 0.1
+Authors@R: c(
+    person("Julia", "Silge", , "julia.silge@posit.co", role = c("cre", "aut"),
+           comment = c(ORCID = "0000-0002-3671-836X")),
+    person("Isabel", "Zimmerman", , "isabel.zimmerman@posit.co", role = "aut"),
+    person("Posit Software, PBC", role = c("cph", "fnd"))
+  )
+License: MIT
+Depends: 
+    R (>= 3.1.0)
+Imports: 
+    arrow,
+    countdown,
+    flexdashboard,
+    gt,
+    hexbin,
+    partykit,
+    pins (>= 1.2.2),
+    plotly,
+    plumber,
+    ranger,
+    reticulate,
+    rmarkdown,
+    rpart,
+    rsample,
+    tidymodels,
+    tidyverse,
+    vetiver (>= 0.2.5)
+Encoding: UTF-8
