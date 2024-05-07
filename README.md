@@ -7,7 +7,7 @@ by Julia Silge and Isabel Zimmerman
 
 -----
 
-:spiral_calendar: September 18, 2024  
+:spiral_calendar: August 12, 2024  
 :alarm_clock:     09:00 - 17:00  
 :hotel:           ROOM TBD  
 :writing_hand:    [pos.it/conf](http://pos.it/conf)  
@@ -17,7 +17,7 @@ by Julia Silge and Isabel Zimmerman
 
 ## Overview
 
-These are the materials for a one-day workshop on [MLOps with vetiver](https://vetiver.rstudio.com/) on Monday, 18 Sept at [posit::conf 2024](http://pos.it/conf)!
+These are the materials for a one-day workshop on [MLOps with vetiver](https://vetiver.rstudio.com/) on Monday, 12 Aug at [posit::conf 2024](http://pos.it/conf)!
 
 Many data scientists understand what goes into training a machine learning or statistical model, but creating a strategy to deploy and maintain that model can be daunting. In this workshop, learn what MLOps (machine learning operations) is, what principles can be used to create a practical MLOps strategy, and what kinds of tasks and components are involved. We’ll use vetiver, a framework for MLOps tasks in Python and R, to version, deploy, and monitor the models you have trained and want to deploy and maintain in production reliably and efficiently.
 
@@ -35,7 +35,7 @@ We will provide an environment with [Posit Workbench](https://posit.co/products/
 
 - Clone the [repo](https://github.com/posit-conf-2024/vetiver) so you have the files and data locally
 - To use R: Install recent versions of [R](https://cran.r-project.org/) and [RStudio](https://www.rstudio.com/download), along with the packages outlined in our [`DESCRIPTION`](https://github.com/posit-conf-2024/vetiver/blob/main/DESCRIPTION) file
-- To use Python: Install recent versions of Python (3.7 or greater) and your preferred IDE, along with the packages outlined in our [`requirements.txt`](https://github.com/posit-conf-2024/vetiver/blob/main/requirements.txt). 
+- To use Python: Install Python 3.10 and your preferred IDE, along with the packages outlined in our [`requirements.txt`](https://github.com/posit-conf-2024/vetiver/blob/main/requirements.txt). 
 - Optionally, install [Docker Desktop](https://docs.docker.com/desktop/)
 
 Join us on [GitHub Discussions](https://github.com/posit-conf-2024/vetiver/discussions) to ask questions and share ideas.
