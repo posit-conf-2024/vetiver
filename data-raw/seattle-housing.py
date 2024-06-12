@@ -13,7 +13,6 @@ api_key = os.getenv("CONNECT_API_KEY")
 url = os.getenv("CONNECT_SERVER")
 connect_server = rsconnect.api.RSConnectServer(url=url, api_key=api_key)
 housing = pd.read_parquet("./data/housing.parquet", engine="pyarrow")
-housing["date"] = pd.to_datetime(housing["date"])
 
 X, y = housing[["bedrooms", "bathrooms", "sqft_living", "yr_built"]], housing["price"]
 X_train, X_test, y_train, y_test = model_selection.train_test_split(X, y, test_size=0.2)
@@ -32,5 +31,5 @@ vetiver.deploy_rsconnect(
     board=board,
     pin_name="isabel.zimmerman/seattle-housing-python",
     title="seattle-housing-python-model-api",
-    extra_files=["data-raw/requirements.txt"],
+    extra_files=["./data-raw/requirements.txt"],
 )
