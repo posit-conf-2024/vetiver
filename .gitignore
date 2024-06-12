@@ -2,3 +2,12 @@
 .Rhistory
 .RData
 .Ruserdata
+.Renviron
+.env
+.python-version
+
+/.quarto/
+docs/
+workshop-env/
+/vetiver-2023-workshop/
+/.luarc.json

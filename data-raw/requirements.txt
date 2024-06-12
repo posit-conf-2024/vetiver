@@ -1,0 +1,7 @@
+vetiver
+pins
+pandas
+numpy
+scikit-learn
+dotenv-python
+pyarrow
