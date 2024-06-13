@@ -17,7 +17,8 @@ housing = pd.read_parquet("./data/housing.parquet", engine="pyarrow")
 X, y = housing[["bedrooms", "bathrooms", "sqft_living", "yr_built"]], housing["price"]
 X_train, X_test, y_train, y_test = model_selection.train_test_split(X, y, test_size=0.2)
 
-housing_fit = ensemble.RandomForestRegressor().fit(X_train, y_train)
+housing_fit = ensemble.RandomForestRegressor(n_estimators=200).fit(X_train, y_train)
+
 
 v = VetiverModel(
     housing_fit, "isabel.zimmerman/seattle-housing-python", prototype_data=X_train
