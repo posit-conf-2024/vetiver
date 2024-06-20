@@ -25,6 +25,7 @@ library(tidymodels)
 set.seed(123)
 housing_split <- housing |> 
   filter(date < ymd("2015-01-01")) |>
+  mutate(price = log10(price)) |> 
   arrange(date) |> 
   initial_split(prop = 0.8)
 
