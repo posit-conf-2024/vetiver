@@ -1,7 +1,7 @@
 vetiver
 pins
 pandas
-numpy
+numpy<2.0.0
 scikit-learn
 dotenv-python
 pyarrow

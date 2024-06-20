@@ -92,7 +92,7 @@ housing_fit = ensemble.RandomForestRegressor(n_estimators=200).fit(X_train, y_tr
 library(vetiver)
 library(pins)
 
-v <- vetiver_model(housing, "user.name/seattle-housing-rstats")
+v <- vetiver_model(housing_fit, "user.name/seattle-housing-rstats")
 board <- board_connect()
 board |> vetiver_pin_write(v)
 ```
@@ -105,8 +105,8 @@ from vetiver import VetiverModel, vetiver_pin_write
 from pins import board_connect
 from dotenv import load_dotenv
 load_dotenv()
-# TODO: update model name
-#v = VetiverModel(inspection_fit, "user.name/chicago-inspections-python", prototype_data = X_train)
+
+v = VetiverModel(housing_fit, "user.name/chicago-inspections-python", prototype_data = X_train)
 board = board_connect(allow_pickle_read = True)
 vetiver_pin_write(board, v)
 ```
