@@ -52,17 +52,12 @@ housing_split <- initial_split(housing, prop = 0.8)
 housing_train <- training(housing_split)
 housing_test <- testing(housing_split)
 
-housing_rec <- 
-  recipe(price ~ bedrooms + bathrooms + sqft_living + yr_built, 
-  data = housing_train)
-
 housing_fit <-
   workflow(
-    housing_rec, 
-    rand_forest(trees = 200, mode = "regression")
-  ) |> 
+    price ~ bedrooms + bathrooms + sqft_living + yr_built,
+    linear_reg()
+    ) |>
   fit(data = housing_train)
-
 ```
 
 
@@ -75,7 +70,7 @@ from sklearn import preprocessing, ensemble, pipeline, compose, model_selection
 
 housing = pd.read_parquet("./data/housing.parquet", engine="pyarrow")
 
-X, y = housing[["bedrooms", "bathrooms", "sqft_living", "yr_built"]], housing["price"]
+X, y = housing[["bedrooms", "bathrooms", "sqft_living", "yr_built"]], np.log10(housing["price"])
 X_train, X_test, y_train, y_test = model_selection.train_test_split(X, y, test_size=0.2)
 
 housing_fit = ensemble.RandomForestRegressor(n_estimators=200).fit(X_train, y_train)
@@ -106,7 +101,7 @@ from pins import board_connect
 from dotenv import load_dotenv
 load_dotenv()
 
-v = VetiverModel(housing_fit, "user.name/chicago-inspections-python", prototype_data = X_train)
+v = VetiverModel(housing_fit, "user.name/seattle-housing-python", prototype_data = X_train)
 board = board_connect(allow_pickle_read = True)
 vetiver_pin_write(board, v)
 ```
