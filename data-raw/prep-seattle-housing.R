@@ -32,13 +32,9 @@ housing_split <- housing |>
 housing_train <- training(housing_split)
 housing_test <- testing(housing_split)
 
-housing_rec <- 
-  recipe(price ~ bedrooms + bathrooms + sqft_living + yr_built, 
-  data = housing_train)
-
 housing_fit <-
   workflow(
-    housing_rec, 
+    price ~ bedrooms + bathrooms + sqft_living + yr_built, 
     rand_forest(trees = 200, mode = "regression")
   ) |> 
   fit(data = housing_train)
