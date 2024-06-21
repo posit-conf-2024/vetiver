@@ -3,6 +3,7 @@ import pins
 import rsconnect
 import vetiver
 import pandas as pd
+import numpy as np
 
 from sklearn import ensemble, model_selection
 from vetiver import VetiverModel, vetiver_pin_write
@@ -14,7 +15,7 @@ url = os.getenv("CONNECT_SERVER")
 connect_server = rsconnect.api.RSConnectServer(url=url, api_key=api_key)
 housing = pd.read_parquet("./data/housing.parquet", engine="pyarrow")
 
-X, y = housing[["bedrooms", "bathrooms", "sqft_living", "yr_built"]], housing["price"]
+X, y = housing[["bedrooms", "bathrooms", "sqft_living", "yr_built"]], np.log10(housing["price"])
 X_train, X_test, y_train, y_test = model_selection.train_test_split(X, y, test_size=0.2)
 
 housing_fit = ensemble.RandomForestRegressor(n_estimators=200).fit(X_train, y_train)

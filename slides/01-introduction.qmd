@@ -343,10 +343,11 @@ housing |>
 ```{python}
 #| fig-align: 'center'
 
-from plotnine import ggplot, aes, geom_boxplot, coord_flip
+from plotnine import ggplot, aes, geom_boxplot, coord_flip, scale_y_log10
 (ggplot(housing, aes('waterfront', 'price', fill = 'waterfront')) 
   + geom_boxplot(alpha = 0.5, show_legend = False)
   + coord_flip()
+  + scale_y_log10()
 )
 ```
 
