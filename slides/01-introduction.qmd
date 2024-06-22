@@ -1,6 +1,6 @@
 ---
 title: "1 - Introduction"
-subtitle: "Deploy and maintain models with vetiver"
+subtitle: "Intro to MLOps with vetiver"
 format:
   revealjs: 
     slide-number: true

@@ -1,4 +1,4 @@
-Deploy and maintain models with vetiver
+Intro to MLOps with vetiver
 ================
 
 ### posit::conf 2024
