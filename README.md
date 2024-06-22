@@ -3,7 +3,7 @@ Deploy and maintain models with vetiver
 
 ### posit::conf 2024
 
-by Julia Silge and Isabel Zimmerman
+by Isabel Zimmerman and Julia Silge
 
 -----
 
@@ -56,9 +56,9 @@ Quarto files for working along [are available on GitHub](https://github.com/posi
 
 ## Instructors
 
-Julia Silge is a software engineer at Posit PBC focusing on open source MLOps tools, as well as an author and international keynote speaker. Julia loves making beautiful charts, Jane Austen, and her two cats.
+Isabel Zimmerman is a software engineer on the open source team at Posit PBC, where she works on building MLOps frameworks. When she's not geeking out over new data science techniques, she can be found hanging out with her dog or watching Marvel movies.
 
-Isabel Zimmerman is also a software engineer on the open source team at Posit PBC, where she works on building MLOps frameworks. When she's not geeking out over new data science techniques, she can be found hanging out with her dog or watching Marvel movies.
+Julia Silge is an engineering manager at Posit PBC focusing on open source MLOps tools, as well as an author and international keynote speaker. Julia loves making beautiful charts, Jane Austen, and her two cats.
 
 -----
 
