@@ -466,7 +466,7 @@ countdown(minutes = 5)
 
 ```{r}
 library(vetiver)
-v <- vetiver_model(housing_fit, "housing-result-rstats")
+v <- vetiver_model(housing_fit, "seattle-housing-rstats")
 v
 ```
 
@@ -474,7 +474,7 @@ v
 
 ```{python}
 from vetiver import VetiverModel
-v = VetiverModel(housing_fit, "housing-result-python", prototype_data = X_train)
+v = VetiverModel(housing_fit, "seattle-housing-python", prototype_data = X_train)
 v.description
 ```
 
@@ -594,7 +594,7 @@ countdown(minutes = 5)
 library(pins)
 library(vetiver)
 board <- board_temp()
-v <- vetiver_model(housing_fit, "housing-result-rstats")
+v <- vetiver_model(housing_fit, "seattle-housing-rstats")
 board |> vetiver_pin_write(v)
 ```
 
@@ -606,7 +606,7 @@ from pins import board_temp
 from vetiver import VetiverModel, vetiver_pin_write
 
 board = board_temp(allow_pickle_read = True)
-v = VetiverModel(housing_fit, "housing-result-python", prototype_data = X_train)
+v = VetiverModel(housing_fit, "seattle-housing-python", prototype_data = X_train)
 vetiver_pin_write(board, v)
 ```
 
@@ -620,7 +620,7 @@ library(pins)
 library(vetiver)
 
 board <- board_connect()
-v <- vetiver_model(housing_fit, "julia.silge/housing-result-rstats")
+v <- vetiver_model(housing_fit, "julia.silge/seattle-housing-rstats")
 board |> vetiver_pin_write(v)
 ```
 
@@ -634,7 +634,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 board = board_connect(allow_pickle_read = True)
-v = VetiverModel(housing_fit, "isabel.zimmerman/housing-result-python", prototype_data = X_train)
+v = VetiverModel(housing_fit, "isabel.zimmerman/seattle-housing-python", prototype_data = X_train)
 vetiver_pin_write(board, v)
 ```
 
