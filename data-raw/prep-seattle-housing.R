@@ -25,19 +25,16 @@ library(tidymodels)
 set.seed(123)
 housing_split <- housing |> 
   filter(date < ymd("2015-01-01")) |>
+  mutate(price = log10(price)) |> 
   arrange(date) |> 
   initial_split(prop = 0.8)
 
 housing_train <- training(housing_split)
 housing_test <- testing(housing_split)
 
-housing_rec <- 
-  recipe(price ~ bedrooms + bathrooms + sqft_living + yr_built, 
-  data = housing_train)
-
 housing_fit <-
   workflow(
-    housing_rec, 
+    price ~ bedrooms + bathrooms + sqft_living + yr_built, 
     rand_forest(trees = 200, mode = "regression")
   ) |> 
   fit(data = housing_train)

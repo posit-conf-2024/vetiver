@@ -252,30 +252,47 @@ countdown(minutes = 5)
 ```
 
 
-##  TODO: Intro DATA {background-color="black" background-image="images/christopher-alvarenga-cfmSStcrDn4-unsplash.jpg" background-opacity=0.3}
+##  Seattle housing data {background-color="black" background-image="images/stephen-plopper-UmEYn_GYqFo-unsplash.jpg" background-opacity=0.3}
 
 
-## TODO: Intro DATA
+::: {.nonincremental}
+-   Home sale prices for King County, including Seattle, between May 2014 and May 2015
+-   Can certain measurements be used to predict the sale price?
+-   Data from [Kaggle](https://www.kaggle.com/harlfoxem/housesalesprediction) by way of `mlr3data::kc_housing`
+:::
+
+## Seattle housing data {.smaller}
+
+-   `N = 14633`
+-   A numeric outcome, `price`
+-   Other variables to use for prediction:
+    -   `bedrooms`, `bathrooms`, `sqft_living`, and `yr_built` are **numeric** predictors
+    -   `waterfront` could be a **logical** (or maybe **nominal**) predictor
+    -   `date` could be a **date** predictor
 
 . . .
 
 ### R
 
 ```{r}
-# TODO: Intro DATA
+library(arrow)
+path <- here::here("data", "housing.parquet")
+housing <- read_parquet(path)
 ```
 
 ### Python
 
 ```{python}
-# TODO: Intro DATA
+import pandas as pd
+housing = pd.read_parquet('./data/housing.parquet')
 ```
 
 
-## TODO: Intro DATA
+## Home prices in Seattle
 
 ```{r}
-# TODO: Intro DATA
+#| echo: false
+gt::gt(dplyr::slice_sample(housing, n = 15))
 ```
 
 
@@ -285,13 +302,12 @@ countdown(minutes = 5)
 
 ## Activity
 
-Explore the `TODO: Intro DATA` data on your own!
+Explore the `housing` data on your own!
 
-TODO: data
 ::: {.nonincremental}
-* What's the distribution of the outcome `results`?
-* What's the distribution of the numeric variable `total_violations`?
-* How do results differ across facility type?
+* What's the distribution of the outcome `price`?
+* What's the distribution of the numeric variable `sqft_living`?
+* How do results differ across the waterfront category?
 :::
 
 Share something you noticed with your neighbor.
@@ -312,15 +328,14 @@ Make a plot or summary and then share with neighbor
 ```{r}
 #| fig-align: 'center'
 
-# TODO: plot data
-# library(tidyverse)
-# inspections |> 
-#   group_by(inspection_date = floor_date(inspection_date, unit = "month")) |> 
-#   summarise(results = mean(results == "PASS")) |> 
-#   ggplot(aes(inspection_date, results)) +
-#   geom_line(alpha = 0.8, linewidth = 1.5) +
-#   scale_y_continuous(labels = scales::percent) +
-#   labs(y = "% of inspections that have a PASS result", x = NULL)
+library(tidyverse)
+housing |>
+  group_by(date = floor_date(date, unit = "week")) |>
+  summarise(price = mean(price)) |>
+  ggplot(aes(date, price)) +
+  geom_line(alpha = 0.8, linewidth = 1.5) +
+  scale_y_continuous(labels = scales::dollar) +
+  labs(y = "Mean price", x = NULL)
 ```
 
 ## 
@@ -328,12 +343,12 @@ Make a plot or summary and then share with neighbor
 ```{python}
 #| fig-align: 'center'
 
-# TODO: plot data
-# from plotnine import ggplot, aes, geom_boxplot, coord_flip
-# (ggplot(inspections, aes('facility_type', 'total_violations', fill = 'facility_type')) 
-#   + geom_boxplot(alpha = 0.5, show_legend = False)
-#   + coord_flip()
-# )
+from plotnine import ggplot, aes, geom_boxplot, coord_flip, scale_y_log10
+(ggplot(housing, aes('waterfront', 'price', fill = 'waterfront')) 
+  + geom_boxplot(alpha = 0.5, show_legend = False)
+  + coord_flip()
+  + scale_y_log10()
+)
 ```
 
 ## 
@@ -343,12 +358,11 @@ Make a plot or summary and then share with neighbor
 #| fig-width: 7.5
 #| fig-height: 5
 
-# TODO: plot data
-# inspections |>
-#   ggplot(aes(inspection_date, total_violations, z = as.integer(results) - 1)) +
-#   stat_summary_hex(alpha = 0.7) +
-#   scale_fill_viridis_c(labels = scales::percent) +
-#   labs(fill = "% passed", x = NULL)
+housing |>
+  ggplot(aes(long, lat, z = log10(price))) +
+  stat_summary_hex(alpha = 0.7) +
+  scale_fill_viridis_c() +
+  labs(fill = "Mean price\n(log10)", x = NULL)
 ```
 
 
@@ -360,23 +374,15 @@ Make a plot or summary and then share with neighbor
 #| fig.height: 10
 #| fig-align: 'center'
 
-# TODO: model data
-# library(recipes)
-# inspection_rec <- 
-#   recipe(results ~ facility_type + risk + total_violations + inspection_date, 
-#          data = inspections) |> 
-#   step_date(inspection_date, features = c("month", "year"), keep_original_cols = FALSE) |> 
-#   prep()
-
-# tree_mod <- 
-#   rpart::rpart(
-#     results ~ total_violations + risk + inspection_date_year,
-#     data = juice(inspection_rec),
-#     control = rpart::rpart.control(maxdepth = 5, cp = 0.001)
-#   ) |> 
-#   partykit::as.party()
+tree_mod <- 
+  rpart::rpart(
+    log10(price) ~ bedrooms + waterfront + yr_built,
+    data = housing,
+    control = rpart::rpart.control(maxdepth = 5, cp = 0.008)
+  ) |> 
+  partykit::as.party()
   
-# plot(tree_mod)
+plot(tree_mod)
 ```
 
 
@@ -385,33 +391,30 @@ Make a plot or summary and then share with neighbor
 ### R
 
 ```{r}
-# TODO: model data
-# library(tidymodels)
-# set.seed(123)
-# inspect_split <- initial_split(inspections, prop = 0.8)
-# inspect_train <- training(inspect_split)
-# inspect_test <- testing(inspect_split)
+library(tidymodels)
+set.seed(123)
+housing_split <- housing |>
+  mutate(price = log10(price)) |> 
+  initial_split(prop = 0.8)
+housing_train <- training(housing_split)
+housing_test <- testing(housing_split)
 ```
 
 ### Python
 
 ```{python}
-# TODO: model data
-# from sklearn import model_selection
-# import numpy as np
-# np.random.seed(123)
-# inspections['inspection_date'] = pd.to_datetime(inspections['inspection_date'])
-# inspections['month'] = inspections['inspection_date'].dt.month
-# inspections['year'] = inspections['inspection_date'].dt.year
-# X, y = inspections.drop(columns=['aka_name', 'results', 'inspection_date']), inspections['results']
-# X_train, X_test, y_train, y_test = model_selection.train_test_split(
-#     X, y,
-#     test_size = 0.2
-# )
+from sklearn import model_selection
+import numpy as np
+np.random.seed(123)
+X, y = housing[["bedrooms", "bathrooms", "sqft_living", "yr_built"]], np.log10(housing["price"])
+X_train, X_test, y_train, y_test = model_selection.train_test_split(
+    X, y,
+    test_size = 0.2
+)
 ```
 
 
-## Fit a logistic regression model 🚀
+## Fit a linear regression model 🚀
 
 Or your model of choice!
 
@@ -420,33 +423,19 @@ Or your model of choice!
 ### R
 
 ```{r}
-# TODO: model data
-# inspection_rec <- 
-#   recipe(results ~ facility_type + risk + total_violations + inspection_date, 
-#          data = inspect_train) |> 
-#   step_date(inspection_date, features = c("month", "year"), keep_original_cols = FALSE)
-
-# inspection_fit <-
-#   workflow(inspection_rec, logistic_reg()) |> 
-#   fit(data = inspect_train)
+housing_fit <-
+  workflow(
+    price ~ bedrooms + bathrooms + sqft_living + yr_built, 
+    linear_reg()
+    ) |> 
+  fit(data = housing_train)
 ```
 
 ### Python
 
 ```{python}
-# TODO: model data
-# from sklearn import preprocessing, linear_model, pipeline, compose
-
-# categorical_features = ['facility_type', 'risk', 'month']
-
-# oe = compose.make_column_transformer(
-#     (preprocessing.OrdinalEncoder(
-#             handle_unknown="use_encoded_value", unknown_value=-1),
-#         categorical_features,),
-#     remainder="passthrough",
-# ).fit(X_train)
-# lr = linear_model.LogisticRegression().fit(oe.transform(X_train), y_train)
-# inspection_fit = pipeline.Pipeline([("ordinal_encoder", oe), ("random_forest", lr)])
+from sklearn import linear_model
+housing_fit = linear_model.LinearRegression().fit(X_train, y_train)
 ```
 
 :::
@@ -477,8 +466,7 @@ countdown(minutes = 5)
 
 ```{r}
 library(vetiver)
-# TODO: use model name
-#v <- vetiver_model(inspection_fit, "inspection-result-rstats")
+v <- vetiver_model(housing_fit, "seattle-housing-rstats")
 v
 ```
 
@@ -486,8 +474,7 @@ v
 
 ```{python}
 from vetiver import VetiverModel
-# TODO: use model name
-#v = VetiverModel(inspection_fit, "inspection-result-python", prototype_data = X_train)
+v = VetiverModel(housing_fit, "seattle-housing-python", prototype_data = X_train)
 v.description
 ```
 
@@ -606,9 +593,8 @@ countdown(minutes = 5)
 #| eval: false
 library(pins)
 library(vetiver)
-# TODO: use model name 
 board <- board_temp()
-#v <- vetiver_model(inspection_fit, "inspection-result-rstats")
+v <- vetiver_model(housing_fit, "seattle-housing-rstats")
 board |> vetiver_pin_write(v)
 ```
 
@@ -618,10 +604,9 @@ board |> vetiver_pin_write(v)
 #| eval: false
 from pins import board_temp
 from vetiver import VetiverModel, vetiver_pin_write
-# TODO: use model name 
 
 board = board_temp(allow_pickle_read = True)
-#v = VetiverModel(inspection_fit, "inspection-result-python", prototype_data = X_train)
+v = VetiverModel(housing_fit, "seattle-housing-python", prototype_data = X_train)
 vetiver_pin_write(board, v)
 ```
 
@@ -633,10 +618,9 @@ vetiver_pin_write(board, v)
 #| eval: false
 library(pins)
 library(vetiver)
-# TODO: update model name
 
 board <- board_connect()
-#v <- vetiver_model(inspection_fit, "julia.silge/inspection-result-rstats")
+v <- vetiver_model(housing_fit, "julia.silge/seattle-housing-rstats")
 board |> vetiver_pin_write(v)
 ```
 
@@ -648,10 +632,9 @@ from pins import board_connect
 from vetiver import VetiverModel, vetiver_pin_write
 from dotenv import load_dotenv
 load_dotenv()
-# TODO: update model name
 
 board = board_connect(allow_pickle_read = True)
-#v = VetiverModel(inspection_fit, "isabel.zimmerman/inspection-result-python", prototype_data = X_train)
+v = VetiverModel(housing_fit, "isabel.zimmerman/seattle-housing-python", prototype_data = X_train)
 vetiver_pin_write(board, v)
 ```
 
