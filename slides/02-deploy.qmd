@@ -48,7 +48,9 @@ path <- here::here("data", "housing.parquet")
 housing <- read_parquet(path)
 
 set.seed(123)
-housing_split <- initial_split(housing, prop = 0.8)
+housing_split <- housing |>
+  mutate(price = log10(price)) |>
+  initial_split(prop = 0.8)
 housing_train <- training(housing_split)
 housing_test <- testing(housing_split)
 
