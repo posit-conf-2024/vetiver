@@ -336,13 +336,13 @@ from sklearn import metrics
 ```{python}
 import vetiver
 # TODO: update new model
-v = vetiver.VetiverModel(
+#v = vetiver.VetiverModel(
 #    inspection_fit,
-    prototype_data = X_train,
+#    prototype_data = X_train,
 #    model_name = "chicago-inspections-python",
 #    metadata = inspect_metrics.to_dict(),
-)
-v.description
+#)
+#v.description
 ```
 
 
@@ -351,12 +351,12 @@ v.description
 ```{r}
 library(vetiver)
 # TODO: update new model
-v <- vetiver_model(
+#v <- vetiver_model(
     # inspection_fit, 
     # "chicago-inspections-rstats", 
     # metadata = list(metrics = inspect_metrics)
-)
-v
+# )
+# v
 ```
 
 :::
@@ -378,8 +378,8 @@ from vetiver import vetiver_pin_write
 from dotenv import load_dotenv
 load_dotenv()
 
-board = board_connect(allow_pickle_read = True)
-vetiver_pin_write(board, v)
+# board = board_connect(allow_pickle_read = True)
+# vetiver_pin_write(board, v)
 ```
 
 ```{python}
@@ -388,8 +388,8 @@ vetiver_pin_write(board, v)
 from pins import board_temp
 from vetiver import vetiver_pin_write
 
-board = board_temp(versioned=True, allow_pickle_read=True)
-vetiver_pin_write(board, v)
+# board = board_temp(versioned=True, allow_pickle_read=True)
+# vetiver_pin_write(board, v)
 ```
 
 
@@ -398,16 +398,16 @@ vetiver_pin_write(board, v)
 ```{r}
 #| eval: false
 library(pins)
-board <- board_connect()
-board |> vetiver_pin_write(v)
+# board <- board_connect()
+# board |> vetiver_pin_write(v)
 ```
 
 ```{r}
 #| echo: false
 #| output: false
 library(pins)
-board <- board_temp(versioned = TRUE)
-board |> vetiver_pin_write(v)
+# board <- board_temp(versioned = TRUE)
+# board |> vetiver_pin_write(v)
 ```
 
 :::
@@ -442,21 +442,21 @@ How do we extract our metrics out to use them?
 ```{python}
 # TODO: update metrics name
 #metadata = board.pin_meta("chicago-inspections-python")
-extracted_metrics = pd.DataFrame(metadata.user.get("user"))
-extracted_metrics
+# extracted_metrics = pd.DataFrame(metadata.user.get("user"))
+# extracted_metrics
 ```
 
 ## R
 
 ```{r}
 # TODO: update metrics name
-extracted_metrics <- 
-    board |> 
+# extracted_metrics <- 
+#     board |> 
 #    pin_meta("chicago-inspections-rstats") |> 
-    pluck("user", "metrics") |> 
-    as_tibble()
+#     pluck("user", "metrics") |> 
+#     as_tibble()
 
-extracted_metrics
+# extracted_metrics
 ```
 :::
 

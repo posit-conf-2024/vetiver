@@ -70,7 +70,7 @@ import pandas as pd
 import numpy as np
 from sklearn import preprocessing, ensemble, pipeline, compose, model_selection
 
-housing = pd.read_parquet("./data/housing.parquet", engine="pyarrow")
+housing = pd.read_parquet("../data/housing.parquet", engine="pyarrow")
 
 X, y = housing[["bedrooms", "bathrooms", "sqft_living", "yr_built"]], np.log10(housing["price"])
 X_train, X_test, y_train, y_test = model_selection.train_test_split(X, y, test_size=0.2)
@@ -311,7 +311,7 @@ library(vetiver)
 
 url <- "https://colorado.posit.co/rsc/seattle-housing-rstats/predict"
 endpoint <- vetiver_endpoint(url)
-predict(endpoint, slice_sample(inspect_test, n = 10))
+predict(endpoint, slice_sample(housing_test, n = 10))
 ```
 
 ### Python
@@ -427,7 +427,7 @@ Notice that our Python model has different inputs than our R model:
 ### R
 
 ```{r}
-glimpse(inspect_train)
+glimpse(housing_train)
 ```
 
 ### Python

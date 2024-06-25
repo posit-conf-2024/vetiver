@@ -306,7 +306,8 @@ from datetime import timedelta
 #| echo: false
 #| eval: true
 #| fig-align: center
-htmltools::includeHTML("plot.html")
+# TODO: print html (do we still need to do this?)
+# htmltools::includeHTML("plot.html")
 ```
 
 ## Monitor your model's outputs
