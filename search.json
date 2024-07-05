@@ -1,0 +1,891 @@
+[
+  {
+    "objectID": "slides/01-introduction.html#welcome",
+    "href": "slides/01-introduction.html#welcome",
+    "title": "1 - Introduction",
+    "section": "Welcome!",
+    "text": "Welcome!\n\nTODO: add bathrooms/lactation rooms/etc - Participants who do not wish to be photographed have red lanyards; please note everyone’s lanyard colors before taking a photo and respect their choices - The Code of Conduct and COVID policies can be found at https://posit.co/code-of-conduct/ - Please review them carefully! ❤️ - You can report Code of Conduct violations in person, by email, or by phone; see the policy linked above for contact information"
+  },
+  {
+    "objectID": "slides/01-introduction.html#who-are-you",
+    "href": "slides/01-introduction.html#who-are-you",
+    "title": "1 - Introduction",
+    "section": "Who are you?",
+    "text": "Who are you?\n\nYou have intermediate R or Python knowledge\nYou can read data from CSV and other flat files, transform and reshape data, and make a wide variety of graphs\nYou can fit a model to data with your modeling framework of choice wide variety of graphs\nYou have exposure to basic modeling and machine learning practice\nYou do not need expert familiarity with advanced ML or MLOps topics"
+  },
+  {
+    "objectID": "slides/01-introduction.html#who-are-we",
+    "href": "slides/01-introduction.html#who-are-we",
+    "title": "1 - Introduction",
+    "section": "Who are we?",
+    "text": "Who are we?\n\n\n\n\n\n @isabelizimm\n @isabelizimm@fosstodon.org\n isabelizimm.me\n\n\n\n\n @juliasilge\n @juliasilge@fosstodon.org\n youtube.com/juliasilge\n juliasilge.com"
+  },
+  {
+    "objectID": "slides/01-introduction.html#plan-for-this-workshop",
+    "href": "slides/01-introduction.html#plan-for-this-workshop",
+    "title": "1 - Introduction",
+    "section": "Plan for this workshop",
+    "text": "Plan for this workshop\n\nVersioning\n\nManaging change in models ✅\n\nDeploying\n\nPutting models in REST APIs 🎯\n\nMonitoring\n\nTracking model performance 👀"
+  },
+  {
+    "objectID": "slides/01-introduction.html#what-is-machine-learning",
+    "href": "slides/01-introduction.html#what-is-machine-learning",
+    "title": "1 - Introduction",
+    "section": "What is machine learning?",
+    "text": "What is machine learning?\n\n\nIllustration credit: https://vas3k.com/blog/machine_learning/"
+  },
+  {
+    "objectID": "slides/01-introduction.html#what-is-machine-learning-1",
+    "href": "slides/01-introduction.html#what-is-machine-learning-1",
+    "title": "1 - Introduction",
+    "section": "What is machine learning?",
+    "text": "What is machine learning?\n\n\nIllustration credit: Chapter 1 of Tidy Modeling with R"
+  },
+  {
+    "objectID": "slides/01-introduction.html#mlops-is",
+    "href": "slides/01-introduction.html#mlops-is",
+    "title": "1 - Introduction",
+    "section": "MLOps is…",
+    "text": "MLOps is…"
+  },
+  {
+    "objectID": "slides/01-introduction.html#mlops-is-1",
+    "href": "slides/01-introduction.html#mlops-is-1",
+    "title": "1 - Introduction",
+    "section": "MLOps is…",
+    "text": "MLOps is…\na set of practices to deploy and maintain machine learning models in production reliably and efficiently"
+  },
+  {
+    "objectID": "slides/01-introduction.html#mlops-with-vetiver",
+    "href": "slides/01-introduction.html#mlops-with-vetiver",
+    "title": "1 - Introduction",
+    "section": "MLOps with vetiver",
+    "text": "MLOps with vetiver\n\nVetiver, the oil of tranquility, is used as a stabilizing ingredient in perfumery to preserve more volatile fragrances."
+  },
+  {
+    "objectID": "slides/01-introduction.html#your-turn",
+    "href": "slides/01-introduction.html#your-turn",
+    "title": "1 - Introduction",
+    "section": "Your turn 🏺",
+    "text": "Your turn 🏺\n\n\n\n\nActivity\n\n\nWhat language does your team use for machine learning?\nWhat kinds of models do you commonly use?\nHave you ever deployed a model?\n\n\n\n\n\n\n−+\n03:00"
+  },
+  {
+    "objectID": "slides/01-introduction.html#your-turn-1",
+    "href": "slides/01-introduction.html#your-turn-1",
+    "title": "1 - Introduction",
+    "section": "Your turn 🏺",
+    "text": "Your turn 🏺\n\n\n\nActivity\n\n\nLog in at pos.it/class with the identifier vetiver2024\nStart a new session, either RStudio or VS Code.\nIn your new session, open the folder class-work in the vetiver directory, and choose the first Quarto file!\n\n\n\n\n\n\n−+\n05:00"
+  },
+  {
+    "objectID": "slides/01-introduction.html#seattle-housing-data",
+    "href": "slides/01-introduction.html#seattle-housing-data",
+    "title": "1 - Introduction",
+    "section": "Seattle housing data",
+    "text": "Seattle housing data\n\n\nHome sale prices for King County, including Seattle, between May 2014 and May 2015\nCan certain measurements be used to predict the sale price?\nData from Kaggle by way of mlr3data::kc_housing"
+  },
+  {
+    "objectID": "slides/01-introduction.html#seattle-housing-data-1",
+    "href": "slides/01-introduction.html#seattle-housing-data-1",
+    "title": "1 - Introduction",
+    "section": "Seattle housing data",
+    "text": "Seattle housing data\n\nN = 14633\nA numeric outcome, price\nOther variables to use for prediction:\n\nbedrooms, bathrooms, sqft_living, and yr_built are numeric predictors\nwaterfront could be a logical (or maybe nominal) predictor\ndate could be a date predictor\n\n\n\nR\n\nlibrary(arrow)\npath &lt;- here::here(\"data\", \"housing.parquet\")\nhousing &lt;- read_parquet(path)\n\nPython\n\nimport pandas as pd\nhousing = pd.read_parquet('../data/housing.parquet')"
+  },
+  {
+    "objectID": "slides/01-introduction.html#home-prices-in-seattle",
+    "href": "slides/01-introduction.html#home-prices-in-seattle",
+    "title": "1 - Introduction",
+    "section": "Home prices in Seattle",
+    "text": "Home prices in Seattle\n\n\n\n\n\n\n\n\nprice\ndate\nbedrooms\nbathrooms\nsqft_living\nyr_built\nwaterfront\nlat\nlong\n\n\n\n\n257100\n2014-12-15\n3\n1.50\n1500\n1945\nFALSE\n47.2043\n-121.996\n\n\n475000\n2014-10-09\n4\n3.00\n2410\n1969\nFALSE\n47.7202\n-122.220\n\n\n375000\n2014-10-19\n3\n2.25\n1140\n2007\nFALSE\n47.6947\n-122.342\n\n\n215000\n2014-07-08\n3\n1.75\n1770\n1959\nFALSE\n47.3204\n-122.364\n\n\n412500\n2014-05-14\n3\n1.50\n1490\n1963\nFALSE\n47.6571\n-122.133\n\n\n666570\n2014-07-19\n4\n2.00\n2320\n1913\nFALSE\n47.5558\n-122.269\n\n\n611000\n2014-05-18\n4\n2.50\n2460\n1998\nFALSE\n47.6031\n-122.021\n\n\n2475000\n2014-06-16\n3\n3.25\n4340\n1993\nFALSE\n47.6709\n-122.406\n\n\n320000\n2014-06-02\n3\n2.00\n1880\n1952\nFALSE\n47.5091\n-122.144\n\n\n749950\n2014-07-08\n4\n2.75\n2910\n1957\nFALSE\n47.7557\n-122.368\n\n\n1150000\n2014-06-30\n4\n2.50\n3340\n1996\nFALSE\n47.6515\n-122.197\n\n\n772500\n2014-09-01\n5\n2.75\n3890\n2004\nFALSE\n47.5407\n-121.860\n\n\n440000\n2014-08-19\n4\n1.75\n2800\n1978\nFALSE\n47.4649\n-122.034\n\n\n260000\n2014-06-30\n2\n1.00\n770\n1948\nFALSE\n47.7660\n-122.320\n\n\n275000\n2014-07-21\n3\n1.00\n1000\n1969\nFALSE\n47.7285\n-122.198"
+  },
+  {
+    "objectID": "slides/01-introduction.html#your-turn-2",
+    "href": "slides/01-introduction.html#your-turn-2",
+    "title": "1 - Introduction",
+    "section": "Your turn 🏺",
+    "text": "Your turn 🏺\n\n\n\nActivity\n\n\nExplore the housing data on your own!\n\n\nWhat’s the distribution of the outcome price?\nWhat’s the distribution of the numeric variable sqft_living?\nHow do results differ across the waterfront category?\n\n\nShare something you noticed with your neighbor.\n\n\n\n\n\n\n−+\n08:00\n\n\n\n\nMake a plot or summary and then share with neighbor"
+  },
+  {
+    "objectID": "slides/01-introduction.html#section-3",
+    "href": "slides/01-introduction.html#section-3",
+    "title": "1 - Introduction",
+    "section": "",
+    "text": "library(tidyverse)\nhousing |&gt;\n  group_by(date = floor_date(date, unit = \"week\")) |&gt;\n  summarise(price = mean(price)) |&gt;\n  ggplot(aes(date, price)) +\n  geom_line(alpha = 0.8, linewidth = 1.5) +\n  scale_y_continuous(labels = scales::dollar) +\n  labs(y = \"Mean price\", x = NULL)"
+  },
+  {
+    "objectID": "slides/01-introduction.html#section-4",
+    "href": "slides/01-introduction.html#section-4",
+    "title": "1 - Introduction",
+    "section": "",
+    "text": "from plotnine import ggplot, aes, geom_boxplot, coord_flip, scale_y_log10\n(ggplot(housing, aes('waterfront', 'price', fill = 'waterfront')) \n  + geom_boxplot(alpha = 0.5, show_legend = False)\n  + coord_flip()\n  + scale_y_log10()\n)\n#&gt; &lt;Figure Size: (640 x 480)&gt;"
+  },
+  {
+    "objectID": "slides/01-introduction.html#section-5",
+    "href": "slides/01-introduction.html#section-5",
+    "title": "1 - Introduction",
+    "section": "",
+    "text": "housing |&gt;\n  ggplot(aes(long, lat, z = log10(price))) +\n  stat_summary_hex(alpha = 0.7) +\n  scale_fill_viridis_c() +\n  labs(fill = \"Mean price\\n(log10)\", x = NULL)"
+  },
+  {
+    "objectID": "slides/01-introduction.html#time-for-building-a-model",
+    "href": "slides/01-introduction.html#time-for-building-a-model",
+    "title": "1 - Introduction",
+    "section": "Time for building a model!",
+    "text": "Time for building a model!"
+  },
+  {
+    "objectID": "slides/01-introduction.html#spend-your-data-budget",
+    "href": "slides/01-introduction.html#spend-your-data-budget",
+    "title": "1 - Introduction",
+    "section": "Spend your data budget",
+    "text": "Spend your data budget\nR\n\nlibrary(tidymodels)\nset.seed(123)\nhousing_split &lt;- housing |&gt;\n  mutate(price = log10(price)) |&gt; \n  initial_split(prop = 0.8)\nhousing_train &lt;- training(housing_split)\nhousing_test &lt;- testing(housing_split)\n\nPython\n\nfrom sklearn import model_selection\nimport numpy as np\nnp.random.seed(123)\nX, y = housing[[\"bedrooms\", \"bathrooms\", \"sqft_living\", \"yr_built\"]], np.log10(housing[\"price\"])\nX_train, X_test, y_train, y_test = model_selection.train_test_split(\n    X, y,\n    test_size = 0.2\n)"
+  },
+  {
+    "objectID": "slides/01-introduction.html#fit-a-linear-regression-model",
+    "href": "slides/01-introduction.html#fit-a-linear-regression-model",
+    "title": "1 - Introduction",
+    "section": "Fit a linear regression model 🚀",
+    "text": "Fit a linear regression model 🚀\nOr your model of choice!\n\nRPython\n\n\n\nhousing_fit &lt;-\n  workflow(\n    price ~ bedrooms + bathrooms + sqft_living + yr_built, \n    linear_reg()\n    ) |&gt; \n  fit(data = housing_train)\n\n\n\n\nfrom sklearn import linear_model\nhousing_fit = linear_model.LinearRegression().fit(X_train, y_train)"
+  },
+  {
+    "objectID": "slides/01-introduction.html#your-turn-3",
+    "href": "slides/01-introduction.html#your-turn-3",
+    "title": "1 - Introduction",
+    "section": "Your turn 🏺",
+    "text": "Your turn 🏺\n\n\n\nActivity\n\n\nSplit your data in training and testing.\nFit a model to your training data.\n\n\n\n\n\n\n−+\n05:00"
+  },
+  {
+    "objectID": "slides/01-introduction.html#create-a-deployable-model-object",
+    "href": "slides/01-introduction.html#create-a-deployable-model-object",
+    "title": "1 - Introduction",
+    "section": "Create a deployable model object",
+    "text": "Create a deployable model object\nR\n\nlibrary(vetiver)\nv &lt;- vetiver_model(housing_fit, \"seattle-housing-rstats\")\nv\n#&gt; \n#&gt; ── seattle-housing-rstats ─ &lt;bundled_workflow&gt; model for deployment \n#&gt; A lm regression modeling workflow using 4 features\n\nPython\n\nfrom vetiver import VetiverModel\nv = VetiverModel(housing_fit, \"seattle-housing-python\", prototype_data = X_train)\nv.description\n#&gt; 'A scikit-learn LinearRegression model'"
+  },
+  {
+    "objectID": "slides/01-introduction.html#deploy-preprocessors-and-models-together",
+    "href": "slides/01-introduction.html#deploy-preprocessors-and-models-together",
+    "title": "1 - Introduction",
+    "section": "Deploy preprocessors and models together",
+    "text": "Deploy preprocessors and models together"
+  },
+  {
+    "objectID": "slides/01-introduction.html#what-is-wrong-with-this",
+    "href": "slides/01-introduction.html#what-is-wrong-with-this",
+    "title": "1 - Introduction",
+    "section": "What is wrong with this?",
+    "text": "What is wrong with this?"
+  },
+  {
+    "objectID": "slides/01-introduction.html#your-turn-4",
+    "href": "slides/01-introduction.html#your-turn-4",
+    "title": "1 - Introduction",
+    "section": "Your turn 🏺",
+    "text": "Your turn 🏺\n\n\n\nActivity\n\n\nCreate your vetiver model object.\nCheck out the default description that is created, and try out using a custom description.\nShow your custom description to your neighbor.\n\n\n\n\n\n\n−+\n05:00"
+  },
+  {
+    "objectID": "slides/01-introduction.html#pins",
+    "href": "slides/01-introduction.html#pins",
+    "title": "1 - Introduction",
+    "section": "pins 📌",
+    "text": "pins 📌\nThe pins package publishes data, models, and other R and Python objects, making it easy to share them across projects and with your colleagues.\n\n\n\n\n\n\n\nYou can pin objects to a variety of pin boards, including:\n\n\n\n\na local folder (like a network drive or even a temporary directory)\nPosit Connect\nAmazon S3\nAzure Storage\nGoogle Cloud"
+  },
+  {
+    "objectID": "slides/01-introduction.html#version-your-model-1",
+    "href": "slides/01-introduction.html#version-your-model-1",
+    "title": "1 - Introduction",
+    "section": "Version your model",
+    "text": "Version your model\nLearn about the pins package for Python and for R\n\nPythonR\n\n\n\nfrom pins import board_temp\nfrom vetiver import vetiver_pin_write\n\nboard = board_temp(allow_pickle_read = True)\nvetiver_pin_write(board, v)\n#&gt; Model Cards provide a framework for transparent, responsible reporting. \n#&gt;  Use the vetiver `.qmd` Quarto template as a place to start, \n#&gt;  with vetiver.model_card()\n#&gt; Writing pin:\n#&gt; Name: 'seattle-housing-python'\n#&gt; Version: 20240705T170356Z-a140b\n\n\n\n\nlibrary(pins)\n\nboard &lt;- board_temp()\nboard |&gt; vetiver_pin_write(v)\n#&gt; Creating new version '20240705T210356Z-1b541'\n#&gt; Writing to pin 'seattle-housing-rstats'\n#&gt; \n#&gt; Create a Model Card for your published model\n#&gt; • Model Cards provide a framework for transparent, responsible reporting\n#&gt; • Use the vetiver `.Rmd` template as a place to start"
+  },
+  {
+    "objectID": "slides/01-introduction.html#your-turn-5",
+    "href": "slides/01-introduction.html#your-turn-5",
+    "title": "1 - Introduction",
+    "section": "Your turn 🏺",
+    "text": "Your turn 🏺\n\n\n\nActivity\n\n\nPin your vetiver model object to a temporary board.\nRetrieve the model metadata with pin_meta().\n\n\n\n\n\n\n−+\n05:00"
+  },
+  {
+    "objectID": "slides/01-introduction.html#version-your-model-2",
+    "href": "slides/01-introduction.html#version-your-model-2",
+    "title": "1 - Introduction",
+    "section": "Version your model",
+    "text": "Version your model\nR\n\nlibrary(pins)\nlibrary(vetiver)\nboard &lt;- board_temp()\nv &lt;- vetiver_model(housing_fit, \"seattle-housing-rstats\")\nboard |&gt; vetiver_pin_write(v)\n\nPython\n\nfrom pins import board_temp\nfrom vetiver import VetiverModel, vetiver_pin_write\n\nboard = board_temp(allow_pickle_read = True)\nv = VetiverModel(housing_fit, \"seattle-housing-python\", prototype_data = X_train)\nvetiver_pin_write(board, v)"
+  },
+  {
+    "objectID": "slides/01-introduction.html#version-your-model-3",
+    "href": "slides/01-introduction.html#version-your-model-3",
+    "title": "1 - Introduction",
+    "section": "Version your model",
+    "text": "Version your model\nR\n\nlibrary(pins)\nlibrary(vetiver)\n\nboard &lt;- board_connect()\nv &lt;- vetiver_model(housing_fit, \"julia.silge/seattle-housing-rstats\")\nboard |&gt; vetiver_pin_write(v)\n\nPython\n\nfrom pins import board_connect\nfrom vetiver import VetiverModel, vetiver_pin_write\nfrom dotenv import load_dotenv\nload_dotenv()\n\nboard = board_connect(allow_pickle_read = True)\nv = VetiverModel(housing_fit, \"isabel.zimmerman/seattle-housing-python\", prototype_data = X_train)\nvetiver_pin_write(board, v)"
+  },
+  {
+    "objectID": "slides/01-introduction.html#your-turn-6",
+    "href": "slides/01-introduction.html#your-turn-6",
+    "title": "1 - Introduction",
+    "section": "Your turn 🏺",
+    "text": "Your turn 🏺\n\n\n\nActivity\n\n\nEither:\n\n\nSet up Connect publishing from RStudio.\nCreate an API key for your Posit Connect server, and save it on Workbench in your working directory (in .Renviron for R or .env for Python).\n\n\nCreate a new vetiver model object that includes your username, and pin this vetiver model to your Connect instance.\nVisit your pin’s homepage on Connect.\nTrain your model again, using a different ML algorithm (decision tree or random forest are good options).\nWrite this new version of your model to the same pin, and see what versions you have with pin_versions.\n\n\n\n\n\n\n−+\n10:00\n\n\n\n\n\n\nhttps://posit-conf-2024.github.io/vetiver"
+  },
+  {
+    "objectID": "slides/02-deploy.html#plan-for-this-workshop",
+    "href": "slides/02-deploy.html#plan-for-this-workshop",
+    "title": "2 - Deploy your model",
+    "section": "Plan for this workshop",
+    "text": "Plan for this workshop\n\n\nVersioning\n\nManaging change in models ✅\n\nDeploying\n\nPutting models in REST APIs 🎯\n\nMonitoring\n\nTracking model performance 👀"
+  },
+  {
+    "objectID": "slides/02-deploy.html#fit-a-random-forest",
+    "href": "slides/02-deploy.html#fit-a-random-forest",
+    "title": "2 - Deploy your model",
+    "section": "Fit a random forest 🌳🌴🌲🌲🌴🌳🌴🌳🌲",
+    "text": "Fit a random forest 🌳🌴🌲🌲🌴🌳🌴🌳🌲\n\nRPython\n\n\n\nlibrary(tidyverse)\nlibrary(tidymodels)\nlibrary(arrow)\nset.seed(123)\n\npath &lt;- here::here(\"data\", \"housing.parquet\")\nhousing &lt;- read_parquet(path)\n\nset.seed(123)\nhousing_split &lt;- housing |&gt;\n  mutate(price = log10(price)) |&gt;\n  initial_split(prop = 0.8)\nhousing_train &lt;- training(housing_split)\nhousing_test &lt;- testing(housing_split)\n\nhousing_fit &lt;-\n  workflow(\n    price ~ bedrooms + bathrooms + sqft_living + yr_built,\n    linear_reg()\n    ) |&gt;\n  fit(data = housing_train)\n\n\n\n\nimport pandas as pd\nimport numpy as np\nfrom sklearn import preprocessing, ensemble, pipeline, compose, model_selection\n\nhousing = pd.read_parquet(\"../data/housing.parquet\", engine=\"pyarrow\")\n\nX, y = housing[[\"bedrooms\", \"bathrooms\", \"sqft_living\", \"yr_built\"]], np.log10(housing[\"price\"])\nX_train, X_test, y_train, y_test = model_selection.train_test_split(X, y, test_size=0.2)\n\nhousing_fit = ensemble.RandomForestRegressor(n_estimators=200).fit(X_train, y_train)"
+  },
+  {
+    "objectID": "slides/02-deploy.html#create-your-vetiver-model-and-version",
+    "href": "slides/02-deploy.html#create-your-vetiver-model-and-version",
+    "title": "2 - Deploy your model",
+    "section": "Create your vetiver model and version",
+    "text": "Create your vetiver model and version\nR\n\nlibrary(vetiver)\nlibrary(pins)\n\nv &lt;- vetiver_model(housing_fit, \"user.name/seattle-housing-rstats\")\nboard &lt;- board_connect()\nboard |&gt; vetiver_pin_write(v)\n\nPython\n\nfrom vetiver import VetiverModel, vetiver_pin_write\nfrom pins import board_connect\nfrom dotenv import load_dotenv\nload_dotenv()\n\nv = VetiverModel(housing_fit, \"user.name/seattle-housing-python\", prototype_data = X_train)\nboard = board_connect(allow_pickle_read = True)\nvetiver_pin_write(board, v)"
+  },
+  {
+    "objectID": "slides/02-deploy.html#make-it-easy-to-do-the-right-thing",
+    "href": "slides/02-deploy.html#make-it-easy-to-do-the-right-thing",
+    "title": "2 - Deploy your model",
+    "section": "Make it easy to do the right thing",
+    "text": "Make it easy to do the right thing\n\nRobust and human-friendly checking of new data\nTrack and document software dependencies of models\nModel cards for transparent, responsible reporting"
+  },
+  {
+    "objectID": "slides/02-deploy.html#make-it-easy-to-do-the-right-thing-1",
+    "href": "slides/02-deploy.html#make-it-easy-to-do-the-right-thing-1",
+    "title": "2 - Deploy your model",
+    "section": "Make it easy to do the right thing",
+    "text": "Make it easy to do the right thing"
+  },
+  {
+    "objectID": "slides/02-deploy.html#your-turn",
+    "href": "slides/02-deploy.html#your-turn",
+    "title": "2 - Deploy your model",
+    "section": "Your turn 🏺",
+    "text": "Your turn 🏺\n\n\n\nActivity\n\n\nOpen the Model Card template, and spend a few minutes exploring how you might create a Model Card for this inspection model.\nDiscuss something you notice about the Model Card with your neighbor.\n\n\n\n\n\n\n−+\n05:00"
+  },
+  {
+    "objectID": "slides/02-deploy.html#you-can-deploy-your-model-as-a",
+    "href": "slides/02-deploy.html#you-can-deploy-your-model-as-a",
+    "title": "2 - Deploy your model",
+    "section": "You can deploy your model as a…",
+    "text": "You can deploy your model as a…\n\n\nREST API"
+  },
+  {
+    "objectID": "slides/02-deploy.html#what-is-a-rest-api",
+    "href": "slides/02-deploy.html#what-is-a-rest-api",
+    "title": "2 - Deploy your model",
+    "section": "What is a REST API?",
+    "text": "What is a REST API?\n\nAn interface that can connect applications in a standard way"
+  },
+  {
+    "objectID": "slides/02-deploy.html#create-a-vetiver-rest-api",
+    "href": "slides/02-deploy.html#create-a-vetiver-rest-api",
+    "title": "2 - Deploy your model",
+    "section": "Create a vetiver REST API",
+    "text": "Create a vetiver REST API\nR\n\nlibrary(plumber)\n\npr() |&gt;\n  vetiver_api(v) |&gt;\n  pr_run()\n\nPython\n\napi = VetiverAPI(v)\napi.run()"
+  },
+  {
+    "objectID": "slides/02-deploy.html#your-turn-1",
+    "href": "slides/02-deploy.html#your-turn-1",
+    "title": "2 - Deploy your model",
+    "section": "Your turn 🏺",
+    "text": "Your turn 🏺\n\n\n\nActivity\n\n\nCreate a vetiver API for your model and run it locally.\nExplore the visual documentation.\nHow many endpoints are there?\nDiscuss what you notice with your neighbor.\n\n\n\n\n\n\n−+\n07:00"
+  },
+  {
+    "objectID": "slides/02-deploy.html#what-does-deploy-mean",
+    "href": "slides/02-deploy.html#what-does-deploy-mean",
+    "title": "2 - Deploy your model",
+    "section": "What does “deploy” mean?",
+    "text": "What does “deploy” mean?"
+  },
+  {
+    "objectID": "slides/02-deploy.html#what-does-deploy-mean-1",
+    "href": "slides/02-deploy.html#what-does-deploy-mean-1",
+    "title": "2 - Deploy your model",
+    "section": "What does “deploy” mean?",
+    "text": "What does “deploy” mean?"
+  },
+  {
+    "objectID": "slides/02-deploy.html#deploy-to-posit-connect",
+    "href": "slides/02-deploy.html#deploy-to-posit-connect",
+    "title": "2 - Deploy your model",
+    "section": "Deploy to Posit Connect",
+    "text": "Deploy to Posit Connect\nR\n\nvetiver_deploy_rsconnect(board, \"user.name/seattle-housing-rstats\")\n\nPython\n\nfrom rsconnect.api import RSConnectServer\n\nconnect_server = RSConnectServer(url = rsc_url, api_key = api_key)\nboard = pins.board_connect(allow_pickle_read = True)\n\nvetiver.deploy_rsconnect(\n    connect_server = connect_server,\n    board = board,\n    pin_name = \"user.name/seattle-housing-python\",\n)"
+  },
+  {
+    "objectID": "slides/02-deploy.html#your-turn-2",
+    "href": "slides/02-deploy.html#your-turn-2",
+    "title": "2 - Deploy your model",
+    "section": "Your turn 🏺",
+    "text": "Your turn 🏺\n\n\n\nActivity\n\n\nDeploy your model to your Posit Connect server.\nGive your API a vanity URL.\nSet your API as accessible to “Anyone”, for convenience.\nCompare the results to your local API. Is anything different?\nIf you visit Connect, do you see your neighbor’s API?\n\n\n\n\n\n\n−+\n07:00"
+  },
+  {
+    "objectID": "slides/02-deploy.html#section-1",
+    "href": "slides/02-deploy.html#section-1",
+    "title": "2 - Deploy your model",
+    "section": "",
+    "text": "You did it! 🥳"
+  },
+  {
+    "objectID": "slides/02-deploy.html#how-do-you-make-a-request-of-your-new-api",
+    "href": "slides/02-deploy.html#how-do-you-make-a-request-of-your-new-api",
+    "title": "2 - Deploy your model",
+    "section": "How do you make a request of your new API?",
+    "text": "How do you make a request of your new API?\n\nRPython\n\n\n\nurl &lt;- \"https://colorado.posit.co/rsc/seattle-housing-rstats/metadata\"\nr &lt;- httr::GET(url)\nmetadata &lt;- httr::content(r, as = \"text\", encoding = \"UTF-8\")\njsonlite::fromJSON(metadata)\n#&gt; $user\n#&gt; list()\n#&gt; \n#&gt; $version\n#&gt; [1] \"115901\"\n#&gt; \n#&gt; $url\n#&gt; [1] \"https://colorado.posit.co/rsc/content/6d28c55f-fca6-4631-b678-eccdcb574501/_rev115901/\"\n#&gt; \n#&gt; $required_pkgs\n#&gt; [1] \"parsnip\"   \"ranger\"    \"workflows\"\n\n\n\n\nimport requests\n\nurl = \"https://colorado.posit.co/rsc/seattle-housing-python/metadata\" \nprint(requests.get(url).content)\n#&gt; b'{\"user\":{},\"version\":\"115868\",\"url\":\"https://colorado.posit.co/rsc/content/420070ef-2de7-4a26-aa03-62ab3572290c/\",\"required_pkgs\":[\"scikit-learn\"],\"python_version\":[3,11,4,\"final\",0]}'"
+  },
+  {
+    "objectID": "slides/02-deploy.html#how-do-you-make-a-request-of-your-new-api-1",
+    "href": "slides/02-deploy.html#how-do-you-make-a-request-of-your-new-api-1",
+    "title": "2 - Deploy your model",
+    "section": "How do you make a request of your new API?",
+    "text": "How do you make a request of your new API?\n\nPython or R packages like requests or httr (or httr2!)\ncurl\nThere is special support in vetiver for the /predict endpoint"
+  },
+  {
+    "objectID": "slides/02-deploy.html#create-a-vetiver-endpoint",
+    "href": "slides/02-deploy.html#create-a-vetiver-endpoint",
+    "title": "2 - Deploy your model",
+    "section": "Create a vetiver endpoint",
+    "text": "Create a vetiver endpoint\nYou can treat your model API much like it is a local model in memory!\n\nRPython\n\n\n\nlibrary(vetiver)\n\nurl &lt;- \"https://colorado.posit.co/rsc/seattle-housing-rstats/predict\"\nendpoint &lt;- vetiver_endpoint(url)\npredict(endpoint, slice_sample(housing_test, n = 10))\n#&gt; # A tibble: 10 × 1\n#&gt;    .pred\n#&gt;    &lt;dbl&gt;\n#&gt;  1  5.64\n#&gt;  2  5.89\n#&gt;  3  5.60\n#&gt;  4  5.38\n#&gt;  5  6.16\n#&gt;  6  5.56\n#&gt;  7  5.54\n#&gt;  8  5.71\n#&gt;  9  5.45\n#&gt; 10  5.54\n\n\n\n\nfrom vetiver.server import predict, vetiver_endpoint\n\nurl = \"https://colorado.posit.co/rsc/seattle-housing-python/predict\"\nendpoint = vetiver_endpoint(url)\npredict(endpoint = endpoint, data = X_test.head(10))\n#&gt;     predict\n#&gt; 0  5.504140\n#&gt; 1  5.846709\n#&gt; 2  5.625492\n#&gt; 3  5.339321\n#&gt; 4  5.789151\n#&gt; 5  5.603150\n#&gt; 6  5.724723\n#&gt; 7  5.642215\n#&gt; 8  6.018536\n#&gt; 9  5.664991"
+  },
+  {
+    "objectID": "slides/02-deploy.html#your-turn-3",
+    "href": "slides/02-deploy.html#your-turn-3",
+    "title": "2 - Deploy your model",
+    "section": "Your turn 🏺",
+    "text": "Your turn 🏺\n\n\n\nActivity\n\n\nCreate a vetiver endpoint object for your API.\nPredict with your endpoint for new data.\nOptional: call another endpoint like /ping or /metadata.\n\n\n\n\n\n\n−+\n10:00"
+  },
+  {
+    "objectID": "slides/02-deploy.html#your-turn-4",
+    "href": "slides/02-deploy.html#your-turn-4",
+    "title": "2 - Deploy your model",
+    "section": "Your turn 🏺",
+    "text": "Your turn 🏺\n\n\n\nActivity\n\n\nCreate a vetiver endpoint object for your neighbor’s API.\nPredict with your endpoint for new data.\nYou get extra credit if your neighbor’s model is in a different language than yours!\n\n\n\n\n\n\n−+\n05:00"
+  },
+  {
+    "objectID": "slides/02-deploy.html#create-a-vetiver-endpoint-1",
+    "href": "slides/02-deploy.html#create-a-vetiver-endpoint-1",
+    "title": "2 - Deploy your model",
+    "section": "Create a vetiver endpoint",
+    "text": "Create a vetiver endpoint\nWhat if your model API requires authentication?\nR\nlibrary(vetiver)\n\nurl &lt;- \"https://colorado.posit.co/rsc/seattle-housing-rstats/predict\"\nendpoint &lt;- vetiver_endpoint(url)\npredict(endpoint, slice_sample(housing_test, n = 10))\nPython\nfrom vetiver.server import predict, vetiver_endpoint\n\nurl = \"https://colorado.posit.co/rsc/seattle-housing-python/predict\"\nendpoint = vetiver_endpoint(url)\npredict(endpoint = endpoint, data = housing_test)"
+  },
+  {
+    "objectID": "slides/02-deploy.html#create-a-vetiver-endpoint-2",
+    "href": "slides/02-deploy.html#create-a-vetiver-endpoint-2",
+    "title": "2 - Deploy your model",
+    "section": "Create a vetiver endpoint",
+    "text": "Create a vetiver endpoint\nWhat if your model API requires authentication?\nR\nlibrary(vetiver)\n\nurl &lt;- \"https://colorado.posit.co/rsc/seattle-housing-rstats/predict\"\nendpoint &lt;- vetiver_endpoint(url)\napiKey &lt;- Sys.getenv(\"CONNECT_API_KEY\")\npredict(endpoint, slice_sample(inspect_test, n = 10), \n        httr::add_headers(Authorization = paste(\"Key\", apiKey)))\nPython\nfrom vetiver.server import predict, vetiver_endpoint\n\nurl = \"https://colorado.posit.co/rsc/seattle-housing-python/predict\"\nendpoint = vetiver_endpoint(url)\nh = { 'Authorization': f'Key {api_key}' }\npredict(endpoint = endpoint, data = X_test, headers = h)"
+  },
+  {
+    "objectID": "slides/02-deploy.html#model-input-prototype-1",
+    "href": "slides/02-deploy.html#model-input-prototype-1",
+    "title": "2 - Deploy your model",
+    "section": "Model input prototype",
+    "text": "Model input prototype\nNotice that our Python model has different inputs than our R model:\n\nRPython\n\n\n\nglimpse(housing_train)\n#&gt; Rows: 11,706\n#&gt; Columns: 9\n#&gt; $ price       &lt;dbl&gt; 5.569374, 5.676694, 5.440909, 5.597695, 5.491362, 5.712229…\n#&gt; $ date        &lt;date&gt; 2014-06-10, 2014-06-10, 2014-10-08, 2014-09-10, 2014-11-1…\n#&gt; $ bedrooms    &lt;int&gt; 3, 3, 2, 5, 3, 4, 3, 3, 5, 5, 2, 3, 3, 4, 4, 3, 4, 3, 4, 4…\n#&gt; $ bathrooms   &lt;dbl&gt; 1.00, 2.25, 1.00, 2.75, 1.50, 2.50, 1.50, 1.75, 3.00, 2.25…\n#&gt; $ sqft_living &lt;int&gt; 890, 1630, 870, 2840, 1140, 2920, 1320, 1400, 3190, 2710, …\n#&gt; $ yr_built    &lt;int&gt; 1951, 2005, 2004, 1960, 1988, 2003, 1970, 1925, 2013, 1955…\n#&gt; $ waterfront  &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FA…\n#&gt; $ lat         &lt;dbl&gt; 47.7100, 47.5493, 47.5702, 47.7618, 47.5701, 47.7351, 47.5…\n#&gt; $ long        &lt;dbl&gt; -122.286, -121.998, -122.287, -122.253, -122.017, -121.975…\n\n\n\n\nX_train\n#&gt;        bedrooms  bathrooms  sqft_living  yr_built\n#&gt; 9628          4       2.50         2270      2014\n#&gt; 13469         4       1.75         1850      1956\n#&gt; 7789          3       1.00         1470      1950\n#&gt; 3782          4       2.50         1890      1996\n#&gt; 11174         4       2.50         3420      1989\n#&gt; ...         ...        ...          ...       ...\n#&gt; 791           4       3.25         2740      2003\n#&gt; 3136          3       2.00         1470      1987\n#&gt; 11687         3       1.00         1320      1943\n#&gt; 1330          4       2.75         2430      1967\n#&gt; 325           3       1.50         1260      2005\n#&gt; \n#&gt; [11706 rows x 4 columns]"
+  },
+  {
+    "objectID": "slides/02-deploy.html#your-turn-5",
+    "href": "slides/02-deploy.html#your-turn-5",
+    "title": "2 - Deploy your model",
+    "section": "Your turn 🏺",
+    "text": "Your turn 🏺\n\n\n\nActivity\n\n\nCall the prototype endpoints for both the Python and R model.\nHow do they compare?\n\n\n\n\n\n\n−+\n05:00"
+  },
+  {
+    "objectID": "slides/02-deploy.html#model-input-prototype-2",
+    "href": "slides/02-deploy.html#model-input-prototype-2",
+    "title": "2 - Deploy your model",
+    "section": "Model input prototype",
+    "text": "Model input prototype\n\nRPython\n\n\n\nurl &lt;- \"https://colorado.posit.co/rsc/seattle-housing-rstats/prototype\"\nr &lt;- httr::GET(url)\nprototype &lt;- httr::content(r, as = \"text\", encoding = \"UTF-8\")\njsonlite::fromJSON(prototype)\n#&gt; $bedrooms\n#&gt; $bedrooms$type\n#&gt; [1] \"integer\"\n#&gt; \n#&gt; $bedrooms$example\n#&gt; NULL\n#&gt; \n#&gt; $bedrooms$details\n#&gt; list()\n#&gt; \n#&gt; \n#&gt; $bathrooms\n#&gt; $bathrooms$type\n#&gt; [1] \"numeric\"\n#&gt; \n#&gt; $bathrooms$example\n#&gt; NULL\n#&gt; \n#&gt; $bathrooms$details\n#&gt; list()\n#&gt; \n#&gt; \n#&gt; $sqft_living\n#&gt; $sqft_living$type\n#&gt; [1] \"integer\"\n#&gt; \n#&gt; $sqft_living$example\n#&gt; NULL\n#&gt; \n#&gt; $sqft_living$details\n#&gt; list()\n#&gt; \n#&gt; \n#&gt; $yr_built\n#&gt; $yr_built$type\n#&gt; [1] \"integer\"\n#&gt; \n#&gt; $yr_built$example\n#&gt; NULL\n#&gt; \n#&gt; $yr_built$details\n#&gt; list()\n\n\n\n\nimport requests\n\nurl = \"https://colorado.posit.co/rsc/seattle-housing-python/prototype\" \nprint(requests.get(url).content)\n#&gt; b'{\"properties\":{\"bedrooms\":{\"example\":4.0,\"type\":\"number\"},\"bathrooms\":{\"example\":2.5,\"type\":\"number\"},\"sqft_living\":{\"example\":2900.0,\"type\":\"number\"},\"yr_built\":{\"example\":1993.0,\"type\":\"number\"}},\"required\":[\"bedrooms\",\"bathrooms\",\"sqft_living\",\"yr_built\"],\"title\":\"prototype\",\"type\":\"object\"}'"
+  },
+  {
+    "objectID": "slides/02-deploy.html#model-input-prototype-3",
+    "href": "slides/02-deploy.html#model-input-prototype-3",
+    "title": "2 - Deploy your model",
+    "section": "Model input prototype",
+    "text": "Model input prototype\n\nIn Python, you supply the model’s input prototype via prototype_data\nIn R, the model input prototype is found automatically in most cases, but you can override this default via save_prototype\nIn both cases, it is ultimately up to you to decide what your API’s inputs should be!\nThe vetiver framework has sensible defaults but is extensible for more complex use cases"
+  },
+  {
+    "objectID": "slides/02-deploy.html#your-turn-6",
+    "href": "slides/02-deploy.html#your-turn-6",
+    "title": "2 - Deploy your model",
+    "section": "Your turn 🏺",
+    "text": "Your turn 🏺\n\n\n\nActivity\n\n\nLet’s say you need to customize your model API’s inputs for a more complex use case.\nMake a new vetiver model object and change the input data prototype.\nRun an API locally for your new vetiver model object and explore the visual documentation. (Note that making predictions will not work now, since we haven’t updated the API behavior to match these inputs.)\nDiscuss a possible situation you might use this with your neighbor.\n\n\n\n\n\n\n−+\n07:00\n\n\n\n\n\n\nhttps://posit-conf-2024.github.io/vetiver"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Intro to MLOps with vetiver",
+    "section": "",
+    "text": "These are the materials for a one-day workshop on MLOps with vetiver on Monday, 12 Aug at posit::conf 2024!\nMany data scientists understand what goes into training a machine learning or statistical model, but creating a strategy to deploy and maintain that model can be daunting. In this workshop, learn what MLOps (machine learning operations) is, what principles can be used to create a practical MLOps strategy, and what kinds of tasks and components are involved. We’ll use vetiver, a framework for MLOps tasks in Python and R, to version, deploy, and monitor the models you have trained and want to deploy and maintain in production reliably and efficiently."
+  },
+  {
+    "objectID": "index.html#welcome",
+    "href": "index.html#welcome",
+    "title": "Intro to MLOps with vetiver",
+    "section": "",
+    "text": "These are the materials for a one-day workshop on MLOps with vetiver on Monday, 12 Aug at posit::conf 2024!\nMany data scientists understand what goes into training a machine learning or statistical model, but creating a strategy to deploy and maintain that model can be daunting. In this workshop, learn what MLOps (machine learning operations) is, what principles can be used to create a practical MLOps strategy, and what kinds of tasks and components are involved. We’ll use vetiver, a framework for MLOps tasks in Python and R, to version, deploy, and monitor the models you have trained and want to deploy and maintain in production reliably and efficiently."
+  },
+  {
+    "objectID": "index.html#is-this-workshop-for-me",
+    "href": "index.html#is-this-workshop-for-me",
+    "title": "Intro to MLOps with vetiver",
+    "section": "Is this workshop for me?",
+    "text": "Is this workshop for me?\nWe expect participants to have exposure to basic modeling and machine learning practice, but NOT expert familiarity with advanced ML or MLOps topics. This workshop is for you if you:\n\nhave intermediate R or Python knowledge (this will be a “choose your own adventure” workshop where you can work through the exercises in either R or Python)\ncan read data from CSV and other flat files, transform and reshape data, and make a wide variety of graphs\ncan fit a model to data with your modeling framework of choice"
+  },
+  {
+    "objectID": "index.html#preparation",
+    "href": "index.html#preparation",
+    "title": "Intro to MLOps with vetiver",
+    "section": "Preparation",
+    "text": "Preparation\nWe will provide an environment with Posit Workbench and Posit Connect available, but you also have the option to work locally on your laptop rather than on Posit Workbench. If this is your preference, please come to the workshop with your laptop already set up.\n\nClone the repo so you have the files and data locally\nTo use R: Install recent versions of R and RStudio, along with the packages outlined in our DESCRIPTION file\nTo use Python: Install Python 3.10 and your preferred IDE, along with the packages outlined in our requirements.txt.\nOptionally, install Docker Desktop\n\nJoin us on GitHub Discussions to ask questions and share ideas."
+  },
+  {
+    "objectID": "index.html#schedule",
+    "href": "index.html#schedule",
+    "title": "Intro to MLOps with vetiver",
+    "section": "Schedule",
+    "text": "Schedule\nQuarto files for working along are available on GitHub.\n\n\n\nTime\nActivity\n\n\n\n\n09:00 - 10:30\nIntroduction\n\n\n10:30 - 11:00\nCoffee break\n\n\n11:00 - 12:30\nDeploy your model\n\n\n12:30 - 13:30\nLunch break\n\n\n13:30 - 15:00\nDeeper into deployment\n\n\n15:00 - 15:30\nCoffee break\n\n\n15:30 - 17:00\nMonitor your model"
+  },
+  {
+    "objectID": "index.html#instructors",
+    "href": "index.html#instructors",
+    "title": "Intro to MLOps with vetiver",
+    "section": "Instructors",
+    "text": "Instructors\nIsabel Zimmerman is a software engineer on the open source team at Posit PBC, where she works on building MLOps frameworks. When she’s not geeking out over new data science techniques, she can be found hanging out with her dog or watching Marvel movies.\nJulia Silge is an engineering manager at Posit PBC focusing on open source MLOps tools, as well as an author and international keynote speaker. Julia loves making beautiful charts, Jane Austen, and her two cats."
+  },
+  {
+    "objectID": "index.html#acknowledgments",
+    "href": "index.html#acknowledgments",
+    "title": "Intro to MLOps with vetiver",
+    "section": "Acknowledgments",
+    "text": "Acknowledgments\n\nThis website, including the slides, is made with Quarto. Please submit an issue on the GitHub repo for this workshop if you find something that could be fixed or improved."
+  },
+  {
+    "objectID": "index.html#reuse-and-licensing",
+    "href": "index.html#reuse-and-licensing",
+    "title": "Intro to MLOps with vetiver",
+    "section": "Reuse and licensing",
+    "text": "Reuse and licensing\n\n This work is licensed under a Creative Commons Attribution 4.0 International License."
+  },
+  {
+    "objectID": "slides/04-monitor.html#plan-for-this-workshop",
+    "href": "slides/04-monitor.html#plan-for-this-workshop",
+    "title": "4 - Monitor your model",
+    "section": "Plan for this workshop",
+    "text": "Plan for this workshop\n\n\nVersioning\n\nManaging change in models ✅\n\nDeploying\n\nPutting models in REST APIs 🎯\n\nMonitoring\n\nTracking model performance 👀"
+  },
+  {
+    "objectID": "slides/04-monitor.html#data-for-model-development",
+    "href": "slides/04-monitor.html#data-for-model-development",
+    "title": "4 - Monitor your model",
+    "section": "Data for model development",
+    "text": "Data for model development\nData that you use while building a model for training/testing\nR\n\nlibrary(arrow)\n# TODO: update new data\n#path &lt;- here::here(\"data\", \"inspections.parquet\")\n#inspections &lt;- read_parquet(path)\n\nPython\n\nimport pandas as pd\n# TODO: update new data\n#inspections = pd.read_parquet('../data/inspections.parquet')"
+  },
+  {
+    "objectID": "slides/04-monitor.html#data-for-model-monitoring",
+    "href": "slides/04-monitor.html#data-for-model-monitoring",
+    "title": "4 - Monitor your model",
+    "section": "Data for model monitoring",
+    "text": "Data for model monitoring\nNew data that you predict on after your model deployed\nR\n\nlibrary(arrow)\n# TODO: update new data\n#path &lt;- here::here(\"data\", \"inspections_monitoring.parquet\")\n#inspections_new &lt;- read_parquet(path)\n\nPython\n\nimport pandas as pd\n# TODO: update new data\n#inspections_new = pd.read_parquet('../data/inspections_monitoring.parquet')"
+  },
+  {
+    "objectID": "slides/04-monitor.html#data-for-model-monitoring-1",
+    "href": "slides/04-monitor.html#data-for-model-monitoring-1",
+    "title": "4 - Monitor your model",
+    "section": "Data for model monitoring",
+    "text": "Data for model monitoring"
+  },
+  {
+    "objectID": "slides/04-monitor.html#my-model-is-performing-well",
+    "href": "slides/04-monitor.html#my-model-is-performing-well",
+    "title": "4 - Monitor your model",
+    "section": "My model is performing well!",
+    "text": "My model is performing well!\n\n👩🏼‍🔧 My model returns predictions quickly, doesn’t use too much memory or processing power, and doesn’t have outages.\n\n\n\n\n\nMetrics\n\n\n\n\nlatency\nmemory and CPU usage\nuptime"
+  },
+  {
+    "objectID": "slides/04-monitor.html#my-model-is-performing-well-1",
+    "href": "slides/04-monitor.html#my-model-is-performing-well-1",
+    "title": "4 - Monitor your model",
+    "section": "My model is performing well!",
+    "text": "My model is performing well!\n\n👩🏽‍🔬 My model returns predictions that are close to the true values for the predicted quantity.\n\n\n\n\n\nMetrics\n\n\n\n\naccuracy\nROC AUC\nF1 score\nRMSE\nlog loss"
+  },
+  {
+    "objectID": "slides/04-monitor.html#model-drift",
+    "href": "slides/04-monitor.html#model-drift",
+    "title": "4 - Monitor your model",
+    "section": "Model drift 📉",
+    "text": "Model drift 📉\n\n\nDATA drift"
+  },
+  {
+    "objectID": "slides/04-monitor.html#model-drift-1",
+    "href": "slides/04-monitor.html#model-drift-1",
+    "title": "4 - Monitor your model",
+    "section": "Model drift 📉",
+    "text": "Model drift 📉\n\n\nCONCEPT drift"
+  },
+  {
+    "objectID": "slides/04-monitor.html#your-turn",
+    "href": "slides/04-monitor.html#your-turn",
+    "title": "4 - Monitor your model",
+    "section": "Your turn 🏺",
+    "text": "Your turn 🏺\n\n\n\nActivity\n\n\nUsing our data, what could be an example of data drift? Concept drift?\n\n\n\n\n\n\n−+\n05:00"
+  },
+  {
+    "objectID": "slides/04-monitor.html#monitor-your-models-inputs-1",
+    "href": "slides/04-monitor.html#monitor-your-models-inputs-1",
+    "title": "4 - Monitor your model",
+    "section": "Monitor your model’s inputs",
+    "text": "Monitor your model’s inputs\nTypically it is most useful to compare to your model development data1\n\nStatistical distribution of features individually\nStatistical characteristics of features as a whole\n\nApplicability scores: https://applicable.tidymodels.org/\n\n\nRemember you can store metrics of any kind from model development as metadata!"
+  },
+  {
+    "objectID": "slides/04-monitor.html#monitor-your-models-inputs-2",
+    "href": "slides/04-monitor.html#monitor-your-models-inputs-2",
+    "title": "4 - Monitor your model",
+    "section": "Monitor your model’s inputs",
+    "text": "Monitor your model’s inputs"
+  },
+  {
+    "objectID": "slides/04-monitor.html#monitor-your-models-inputs-3",
+    "href": "slides/04-monitor.html#monitor-your-models-inputs-3",
+    "title": "4 - Monitor your model",
+    "section": "Monitor your model’s inputs",
+    "text": "Monitor your model’s inputs"
+  },
+  {
+    "objectID": "slides/04-monitor.html#your-turn-1",
+    "href": "slides/04-monitor.html#your-turn-1",
+    "title": "4 - Monitor your model",
+    "section": "Your turn 🏺",
+    "text": "Your turn 🏺\n\n\n\nActivity\n\n\nCreate a plot or table comparing the development vs. monitoring distributions of a model input/feature.\nHow might you make this comparison if you didn’t have all the model development data available when monitoring?\nWhat summary statistics might you record during model development, to prepare for monitoring?\n\n\n\n\n\n\n−+\n07:00"
+  },
+  {
+    "objectID": "slides/04-monitor.html#monitor-your-models-outputs-1",
+    "href": "slides/04-monitor.html#monitor-your-models-outputs-1",
+    "title": "4 - Monitor your model",
+    "section": "Monitor your model’s outputs",
+    "text": "Monitor your model’s outputs\n\nIn some ML systems, you eventually get a “real” result after making a prediction # TODO: update potential output\nIf the Chicago of Public Health used a model like this one, they would get:\n\nA prediction from their model\nA real inspection result after they did their inspection\n\nIn this case, we can monitor our model’s statistical performance\n\nIf you don’t ever get a “real” result, you can still monitor the distribution of your outputs"
+  },
+  {
+    "objectID": "slides/04-monitor.html#monitor-your-models-outputs-2",
+    "href": "slides/04-monitor.html#monitor-your-models-outputs-2",
+    "title": "4 - Monitor your model",
+    "section": "Monitor your model’s outputs",
+    "text": "Monitor your model’s outputs\nPython\n\nfrom vetiver import vetiver_endpoint, predict, compute_metrics, plot_metrics\nfrom sklearn.metrics import recall_score, accuracy_score\nfrom datetime import timedelta\n# TODO: monitoring\n# inspections_new['inspection_date'] = pd.to_datetime(inspections_new['inspection_date'])\n# inspections_new['month'] = inspections_new['inspection_date'].dt.month\n# inspections_new['year'] = inspections_new['inspection_date'].dt.year\n\n# url = \"https://colorado.posit.co/rsc/chicago-inspections-python/predict\"\n# endpoint = vetiver_endpoint(url)\n# inspections_new[\"preds\"] = predict(endpoint = url, data = inspections_new.drop(columns = [\"results\", \"aka_name\", \"inspection_date\"]))\n\n# inspections_new[\"preds\"] = inspections_new[\"preds\"].map({\"PASS\": 0, \"FAIL\": 1})\n# inspections_new[\"results\"] = inspections_new[\"results\"].map({\"PASS\": 0, \"FAIL\": 1})\n\n# td = timedelta(weeks = 4)\n# metric_set = [accuracy_score, recall_score]\n\n# m = compute_metrics(\n#     data = inspections_new,\n#     date_var = \"inspection_date\", \n#     period = td,\n#     metric_set = metric_set,\n#     truth = \"results\",\n#     estimate = \"preds\"\n#   )\n  \n# metrics_plot = plot_metrics(m)"
+  },
+  {
+    "objectID": "slides/04-monitor.html#monitor-your-models-outputs-3",
+    "href": "slides/04-monitor.html#monitor-your-models-outputs-3",
+    "title": "4 - Monitor your model",
+    "section": "Monitor your model’s outputs",
+    "text": "Monitor your model’s outputs"
+  },
+  {
+    "objectID": "slides/04-monitor.html#monitor-your-models-outputs-4",
+    "href": "slides/04-monitor.html#monitor-your-models-outputs-4",
+    "title": "4 - Monitor your model",
+    "section": "Monitor your model’s outputs",
+    "text": "Monitor your model’s outputs\nR\n\n# TODO: monitoring\nlibrary(vetiver)\nlibrary(tidymodels)\n# url &lt;- \"https://colorado.posit.co/rsc/chicago-inspections-rstats/predict\"\n# endpoint &lt;- vetiver_endpoint(url)\n\n# augment(endpoint, new_data = inspections_new) |&gt;\n#   mutate(.pred_class = as.factor(.pred_class)) |&gt; \n#   vetiver_compute_metrics(\n#     inspection_date, \n#     \"month\", \n#     results, \n#     .pred_class,\n#     metric_set = metric_set(accuracy, sensitivity)\n#   ) |&gt; \n#   vetiver_plot_metrics()"
+  },
+  {
+    "objectID": "slides/04-monitor.html#monitor-your-models-outputs-4-output",
+    "href": "slides/04-monitor.html#monitor-your-models-outputs-4-output",
+    "title": "4 - Monitor your model",
+    "section": "Monitor your model’s outputs",
+    "text": "Monitor your model’s outputs"
+  },
+  {
+    "objectID": "slides/04-monitor.html#your-turn-2",
+    "href": "slides/04-monitor.html#your-turn-2",
+    "title": "4 - Monitor your model",
+    "section": "Your turn 🏺",
+    "text": "Your turn 🏺\n\n\n\nActivity\n\n\nUse the functions for metrics monitoring from vetiver to create a monitoring visualization.\nChoose a different set of metrics or time aggregation.\nNote that there are functions for using pins as a way to version and update monitoring results too!\n\n\n\n\n\n\n−+\n05:00"
+  },
+  {
+    "objectID": "slides/04-monitor.html#feedback-loops-1",
+    "href": "slides/04-monitor.html#feedback-loops-1",
+    "title": "4 - Monitor your model",
+    "section": "Feedback loops 🔁",
+    "text": "Feedback loops 🔁\n\nUsers take some action as a result of a prediction\nUsers rate or correct the quality of a prediction\nProduce annotations (crowdsource or expert)\nProduce feedback automatically\n\n\nBuilding Machine Learning Pipelines by Hapke & Nelson"
+  },
+  {
+    "objectID": "slides/04-monitor.html#your-turn-3",
+    "href": "slides/04-monitor.html#your-turn-3",
+    "title": "4 - Monitor your model",
+    "section": "Your turn 🏺",
+    "text": "Your turn 🏺\n\n\n\nActivity\n\n\nWhat is a possible feedback loop for the Chicago inspections data?\nDo you think your example would be harmful or helpful?\n\n\n\n\n\n\n−+\n05:00"
+  },
+  {
+    "objectID": "slides/04-monitor.html#ml-metrics-organizational-outcomes",
+    "href": "slides/04-monitor.html#ml-metrics-organizational-outcomes",
+    "title": "4 - Monitor your model",
+    "section": "ML metrics ➡️ organizational outcomes",
+    "text": "ML metrics ➡️ organizational outcomes\n\nAre machine learning metrics like F1 score or accuracy what matter to your organization?\nConsider how ML metrics are related to important outcomes or KPIs for your business or org\nThere isn’t always a 1-to-1 mapping 😔\nYou can partner with stakeholders to monitor what’s truly important about your model"
+  },
+  {
+    "objectID": "slides/04-monitor.html#your-turn-4",
+    "href": "slides/04-monitor.html#your-turn-4",
+    "title": "4 - Monitor your model",
+    "section": "Your turn 🏺",
+    "text": "Your turn 🏺\n\n\n\nActivity\n\n\nTODO: update to not use Chicago\nLet’s say that the most important organizational outcome for the Chicago Department of Public Health is what proportion of failed inspections were predicted to fail.\nIf “fail” is the event we are predicting, this is the sensitivity or recall.\nCompute this quantity with the monitoring data, and aggregate by week/month or facility type.\nFor extra credit, make a visualization showing your results.\n\n\n\n\n\n\n\n−+\n07:00"
+  },
+  {
+    "objectID": "slides/04-monitor.html#ml-metrics-organizational-outcomes-1",
+    "href": "slides/04-monitor.html#ml-metrics-organizational-outcomes-1",
+    "title": "4 - Monitor your model",
+    "section": "ML metrics ➡️ organizational outcomes",
+    "text": "ML metrics ➡️ organizational outcomes\n\nRPython\n\n\n\n# TODO: update data\n\n# augment(endpoint, inspections_new) |&gt; \n#   mutate(.pred_class = as.factor(.pred_class)) |&gt; \n#   group_by(facility_type) |&gt; \n#   sensitivity(results, .pred_class)\n\n\n\n\n# TODO: update data\n# by_facility_type = pd.DataFrame()\n# for metric in metric_set:\n#     by_facility_type[metric.__qualname__] = inspections_new.groupby(\"facility_type\")\\\n#         .apply(lambda x: metric(y_pred=x[\"preds\"], y_true=x[\"results\"]))\n# by_facility_type"
+  },
+  {
+    "objectID": "slides/04-monitor.html#what-is-going-on-with-these-inspections",
+    "href": "slides/04-monitor.html#what-is-going-on-with-these-inspections",
+    "title": "4 - Monitor your model",
+    "section": "What is going on with these inspections?! 😳",
+    "text": "What is going on with these inspections?! 😳"
+  },
+  {
+    "objectID": "slides/04-monitor.html#possible-model-monitoring-artifacts",
+    "href": "slides/04-monitor.html#possible-model-monitoring-artifacts",
+    "title": "4 - Monitor your model",
+    "section": "Possible model monitoring artifacts",
+    "text": "Possible model monitoring artifacts\n\nAdhoc analysis that you post in Slack\nReport that you share in Google Drive\nFully automated dashboard published to Posit Connect\n\n\n5 Levels of MLOps Maturity"
+  },
+  {
+    "objectID": "slides/04-monitor.html#possible-model-monitoring-artifacts-1",
+    "href": "slides/04-monitor.html#possible-model-monitoring-artifacts-1",
+    "title": "4 - Monitor your model",
+    "section": "Possible model monitoring artifacts",
+    "text": "Possible model monitoring artifacts"
+  },
+  {
+    "objectID": "slides/04-monitor.html#your-turn-5",
+    "href": "slides/04-monitor.html#your-turn-5",
+    "title": "4 - Monitor your model",
+    "section": "Your turn 🏺",
+    "text": "Your turn 🏺\n\n\n\nActivity\n\n\nCreate a Quarto report or R Markdown dashboard for model monitoring.\nKeep in mind that we are seeing some real ✨problems✨ with this model we trained.\nPublish your document to Connect.\n\n\n\n\n\n\n−+\n15:00"
+  },
+  {
+    "objectID": "slides/04-monitor.html#section-1",
+    "href": "slides/04-monitor.html#section-1",
+    "title": "4 - Monitor your model",
+    "section": "",
+    "text": "We made it! 🎉"
+  },
+  {
+    "objectID": "slides/04-monitor.html#your-turn-6",
+    "href": "slides/04-monitor.html#your-turn-6",
+    "title": "4 - Monitor your model",
+    "section": "Your turn 🏺",
+    "text": "Your turn 🏺\n\n\n\nActivity\n\n\nWhat is one thing you learned that surprised you?\nWhat is one thing you learned that you plan to use?\n\n\n\n\n\n\n−+\n05:00"
+  },
+  {
+    "objectID": "slides/04-monitor.html#resources-to-keep-learning",
+    "href": "slides/04-monitor.html#resources-to-keep-learning",
+    "title": "4 - Monitor your model",
+    "section": "Resources to keep learning",
+    "text": "Resources to keep learning\n\nDocumentation at https://vetiver.rstudio.com/\nIsabel’s talk from rstudio::conf() 2022 on Demystifying MLOps\nEnd-to-end demos from Posit Solution Engineering in R and Python\nAre you on the right track with your MLOps system? Use the rubric in “The ML Test Score: A Rubric for ML Production Readiness and Technical Debt Reduction” by Breck et al (2017)\nWant to learn about how MLOps is being practiced? Read one of our favorite 😍 papers of the last year, “Operationalizing Machine Learning: An Interview Study” by Shankar et al (20222)\n\n\nFollow Posit and/or us on your preferred social media for updates!"
+  },
+  {
+    "objectID": "slides/03-deploy.html#plan-for-this-workshop",
+    "href": "slides/03-deploy.html#plan-for-this-workshop",
+    "title": "3 - Deeper into deployment",
+    "section": "Plan for this workshop",
+    "text": "Plan for this workshop\n\n\nVersioning\n\nManaging change in models ✅\n\nDeploying\n\nPutting models in REST APIs 🎯\n\nMonitoring\n\nTracking model performance 👀"
+  },
+  {
+    "objectID": "slides/03-deploy.html#why-docker",
+    "href": "slides/03-deploy.html#why-docker",
+    "title": "3 - Deeper into deployment",
+    "section": "Why Docker?",
+    "text": "Why Docker?\n\n\nOpen source\nReproducible\nBring your own container philosophy\n\n\n\nECR in AWS, etc huggingface"
+  },
+  {
+    "objectID": "slides/03-deploy.html#why-docker-1",
+    "href": "slides/03-deploy.html#why-docker-1",
+    "title": "3 - Deeper into deployment",
+    "section": "Why Docker?",
+    "text": "Why Docker?"
+  },
+  {
+    "objectID": "slides/03-deploy.html#create-docker-artifacts",
+    "href": "slides/03-deploy.html#create-docker-artifacts",
+    "title": "3 - Deeper into deployment",
+    "section": "Create Docker artifacts",
+    "text": "Create Docker artifacts\nStart with a trained and versioned model\n\n\n\nDockerfile\nModel dependencies, typically requirements.txt or renv.lock\nFile to serve API, typically app.py or plumber.R"
+  },
+  {
+    "objectID": "slides/03-deploy.html#create-docker-artifacts-1",
+    "href": "slides/03-deploy.html#create-docker-artifacts-1",
+    "title": "3 - Deeper into deployment",
+    "section": "Create Docker artifacts",
+    "text": "Create Docker artifacts\nStart with a trained and versioned model\nPython\n\nvetiver.prepare_docker(\n    board, \n    \"isabel.zimmerman/seattle-housing-python\"\n    port = 8080\n)\n\nR\n\nvetiver_prepare_docker(\n  board, \n  \"julia.silge/seattle-housing-rstats\", \n  docker_args = list(port = 8080)\n)"
+  },
+  {
+    "objectID": "slides/03-deploy.html#dockerfiles-for-vetiver",
+    "href": "slides/03-deploy.html#dockerfiles-for-vetiver",
+    "title": "3 - Deeper into deployment",
+    "section": "Dockerfiles for vetiver",
+    "text": "Dockerfiles for vetiver\nPython\n# # Generated by the vetiver package; edit with care\n# start with python base image\nFROM python:3.11\n\n# create directory in container for vetiver files\nWORKDIR /vetiver\n\n# copy and install requirements\nCOPY vetiver_requirements.txt /vetiver/requirements.txt\n\n#\nRUN pip install --no-cache-dir --upgrade -r /vetiver/requirements.txt\n\n# copy app file\nCOPY app.py /vetiver/app/app.py\n\n# expose port\nEXPOSE 8080\n\n# run vetiver API\nCMD [\"uvicorn\", \"app.app:api\", \"--host\", \"0.0.0.0\", \"--port\", \"8080\"]"
+  },
+  {
+    "objectID": "slides/03-deploy.html#dockerfiles-for-vetiver-1",
+    "href": "slides/03-deploy.html#dockerfiles-for-vetiver-1",
+    "title": "3 - Deeper into deployment",
+    "section": "Dockerfiles for vetiver",
+    "text": "Dockerfiles for vetiver\nR\n# Generated by the vetiver package; edit with care\n\nFROM rocker/r-ver:4.2.2\nENV RENV_CONFIG_REPOS_OVERRIDE https://packagemanager.rstudio.com/cran/latest\n\nRUN apt-get update -qq && apt-get install -y --no-install-recommends \\\n  libcurl4-openssl-dev \\\n  libicu-dev \\\n  libsodium-dev \\\n  libssl-dev \\\n  make \\\n  zlib1g-dev \\\n  && apt-get clean\n\nCOPY vetiver_renv.lock renv.lock\nRUN Rscript -e \"install.packages('renv')\"\nRUN Rscript -e \"renv::restore()\"\nCOPY plumber.R /opt/ml/plumber.R\nEXPOSE 8080\nENTRYPOINT [\"R\", \"-e\", \"pr &lt;- plumber::plumb('/opt/ml/plumber.R'); pr$run(host = '0.0.0.0', port = 8080)\"]"
+  },
+  {
+    "objectID": "slides/03-deploy.html#build-your-container",
+    "href": "slides/03-deploy.html#build-your-container",
+    "title": "3 - Deeper into deployment",
+    "section": "Build your container",
+    "text": "Build your container\ndocker build -t housing ."
+  },
+  {
+    "objectID": "slides/03-deploy.html#run-your-container",
+    "href": "slides/03-deploy.html#run-your-container",
+    "title": "3 - Deeper into deployment",
+    "section": "Run your container",
+    "text": "Run your container\ndocker run -p 8080:8080 housing"
+  },
+  {
+    "objectID": "slides/03-deploy.html#run-your-container-1",
+    "href": "slides/03-deploy.html#run-your-container-1",
+    "title": "3 - Deeper into deployment",
+    "section": "Run your container",
+    "text": "Run your container\ndocker run --env-file .env -p 8080:8080 housing\n\nprobably .Renv if you are in R"
+  },
+  {
+    "objectID": "slides/03-deploy.html#make-predictions",
+    "href": "slides/03-deploy.html#make-predictions",
+    "title": "3 - Deeper into deployment",
+    "section": "Make predictions",
+    "text": "Make predictions\nR\n\nendpoint &lt;- vetiver_endpoint(\"http://0.0.0.0:8080/predict\")\npredict(endpoint, X_test)\n\nPython\n\nendpoint = vetiver.vetiver_endpoint(\"http://0.0.0.0:8080/predict\")\nvetiver.predict(endpoint=endpoint, data=X_test)"
+  },
+  {
+    "objectID": "slides/03-deploy.html#docker-resources",
+    "href": "slides/03-deploy.html#docker-resources",
+    "title": "3 - Deeper into deployment",
+    "section": "Docker resources",
+    "text": "Docker resources\n\nEnough Docker to be Dangerous\nPython Docker\nTen simple rules for writing Dockerfiles for reproducible data science\nDocker info from Posit Solutions Engineering"
+  },
+  {
+    "objectID": "slides/03-deploy.html#model-metrics-as-metadata-1",
+    "href": "slides/03-deploy.html#model-metrics-as-metadata-1",
+    "title": "3 - Deeper into deployment",
+    "section": "Model metrics as metadata",
+    "text": "Model metrics as metadata\n\nPythonR\n\n\n\nimport pandas as pd\nimport numpy as np\nfrom sklearn import model_selection, ensemble\n\nhousing = pd.read_parquet('../data/housing.parquet')\n\nnp.random.seed(123)\nX, y = housing[[\"bedrooms\", \"bathrooms\", \"sqft_living\", \"yr_built\"]], np.log10(housing[\"price\"])\nX_train, X_test, y_train, y_test = model_selection.train_test_split(\n    X, y,\n    test_size = 0.2\n)\n\nhousing_fit = ensemble.RandomForestRegressor(n_estimators=200).fit(X, y)\n\n\n\n\nlibrary(tidyverse)\nlibrary(tidymodels)\nlibrary(arrow)\npath &lt;- here::here(\"data\", \"housing.parquet\")\nhousing &lt;- read_parquet(path)\n\nset.seed(123)\nhousing_split &lt;- housing |&gt;\n  mutate(price = log10(price)) |&gt; \n  initial_split(prop = 0.8)\nhousing_train &lt;- training(housing_split)\nhousing_test &lt;- testing(housing_split)\n\nhousing_fit &lt;-\n  workflow(\n    price ~ bedrooms + bathrooms + sqft_living + yr_built, \n    linear_reg()\n    ) |&gt; \n  fit(data = housing_train)"
+  },
+  {
+    "objectID": "slides/03-deploy.html#model-metrics-as-metadata-2",
+    "href": "slides/03-deploy.html#model-metrics-as-metadata-2",
+    "title": "3 - Deeper into deployment",
+    "section": "Model metrics as metadata",
+    "text": "Model metrics as metadata\n\nPythonR\n\n\n\nfrom sklearn import metrics\n\nmetric_set = [metrics.root_mean_squared_error, metrics.r2_score, metrics.mean_absolute_error]\ny_predictions = pd.Series(housing_fit.predict(X_test))\n\nhousing_metrics = pd.DataFrame()\n\nfor metric in metric_set:\n    metric_name = str(metric.__name__)\n    metric_output = metric(y_test, y_predictions)\n    housing_metrics = pd.concat(\n        (\n            housing_metrics,\n            pd.DataFrame({\"name\": [metric_name],\n                          \"score\": [metric_output]}),\n        ),\n        axis=0,\n    )\n\nhousing_metrics.reset_index(inplace=True, drop=True)\nhousing_metrics\n#&gt;                       name     score\n#&gt; 0  root_mean_squared_error  0.063563\n#&gt; 1                 r2_score  0.921755\n#&gt; 2      mean_absolute_error  0.048792\n\n\n\n\nhousing_metrics &lt;-\n    augment(housing_fit, new_data = housing_test) |&gt;\n    metrics(truth = price, estimate = .pred)\n\nhousing_metrics\n#&gt; # A tibble: 3 × 3\n#&gt;   .metric .estimator .estimate\n#&gt;   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;\n#&gt; 1 rmse    standard       0.154\n#&gt; 2 rsq     standard       0.537\n#&gt; 3 mae     standard       0.124"
+  },
+  {
+    "objectID": "slides/03-deploy.html#model-metrics-as-metadata-3",
+    "href": "slides/03-deploy.html#model-metrics-as-metadata-3",
+    "title": "3 - Deeper into deployment",
+    "section": "Model metrics as metadata",
+    "text": "Model metrics as metadata\n\nPythonR\n\n\n\nfrom vetiver import VetiverModel\nv = VetiverModel(housing_fit, \"seattle-housing-python\", prototype_data = X_train)\nv.description\n#&gt; 'A scikit-learn RandomForestRegressor model'\n\n\n\n\nlibrary(vetiver)\nv &lt;- vetiver_model(housing_fit, \"seattle-housing-rstats\")\nv\n#&gt; \n#&gt; ── seattle-housing-rstats ─ &lt;bundled_workflow&gt; model for deployment \n#&gt; A lm regression modeling workflow using 4 features"
+  },
+  {
+    "objectID": "slides/03-deploy.html#model-metrics-as-metadata-4",
+    "href": "slides/03-deploy.html#model-metrics-as-metadata-4",
+    "title": "3 - Deeper into deployment",
+    "section": "Model metrics as metadata",
+    "text": "Model metrics as metadata\n\nWe pin our vetiver model to a board to version it\nThe metadata, including our metrics, are versioned along with the model\n\n\n\nPythonR\n\n\n\nfrom pins import board_connect\nfrom vetiver import vetiver_pin_write\nfrom dotenv import load_dotenv\nload_dotenv()\n\nboard = board_connect(allow_pickle_read = True)\nvetiver_pin_write(board, v)\n\n\n\n\nlibrary(pins)\nboard &lt;- board_connect()\nboard |&gt; vetiver_pin_write(v)"
+  },
+  {
+    "objectID": "slides/03-deploy.html#your-turn",
+    "href": "slides/03-deploy.html#your-turn",
+    "title": "3 - Deeper into deployment",
+    "section": "Your turn 🏺",
+    "text": "Your turn 🏺\n\n\n\nActivity\n\n\nCompute metrics for your model using the testing data.\nStore these metrics as metadata in a vetiver model object.\nWrite this new vetiver model object as a new version of your pin.\n\n\n\n\n\n\n−+\n07:00"
+  },
+  {
+    "objectID": "slides/03-deploy.html#model-metrics-as-metadata-5",
+    "href": "slides/03-deploy.html#model-metrics-as-metadata-5",
+    "title": "3 - Deeper into deployment",
+    "section": "Model metrics as metadata",
+    "text": "Model metrics as metadata\nHow do we extract our metrics out to use them?\n\nPythonR\n\n\n\nmetadata = board.pin_meta(\"seattle-housing-python\")\nextracted_metrics = pd.DataFrame(metadata.user.get(\"user\"))\nextracted_metrics\n#&gt; Empty DataFrame\n#&gt; Columns: []\n#&gt; Index: []\n\n\n\n\nextracted_metrics &lt;- \n    board |&gt; \n    pin_meta(\"seattle-housing-rstats\") |&gt; \n    pluck(\"user\", \"metrics\") |&gt; \n    as_tibble()\n\nextracted_metrics\n#&gt; # A tibble: 0 × 0"
+  },
+  {
+    "objectID": "slides/03-deploy.html#your-turn-1",
+    "href": "slides/03-deploy.html#your-turn-1",
+    "title": "3 - Deeper into deployment",
+    "section": "Your turn 🏺",
+    "text": "Your turn 🏺\n\n\n\nActivity\n\n\nObtain the metrics metadata for your versioned model.\nOptional: Redeploy your model to your Connect server, then obtain the metrics metadata for your neighbor’s model by calling the /metadata endpoint for their API.\nWhat else might you want to store as model metadata?\nHow or when might you use model metadata?\n\n\n\n\n\n\n−+\n07:00"
+  },
+  {
+    "objectID": "slides/03-deploy.html#add-a-new-endpoint-to-your-api-1",
+    "href": "slides/03-deploy.html#add-a-new-endpoint-to-your-api-1",
+    "title": "3 - Deeper into deployment",
+    "section": "Add a new endpoint to your API",
+    "text": "Add a new endpoint to your API\n\nA lot of code is being generated throughout this deployment process\nYou have access to that code and can alter it yourself!\nThe vetiver framework has sensible defaults but is extensible for more complex use cases\nWhat really sets up your model API?"
+  },
+  {
+    "objectID": "slides/03-deploy.html#add-a-new-endpoint-to-your-api-2",
+    "href": "slides/03-deploy.html#add-a-new-endpoint-to-your-api-2",
+    "title": "3 - Deeper into deployment",
+    "section": "Add a new endpoint to your API",
+    "text": "Add a new endpoint to your API\nR\n\nvetiver_write_plumber(board, \"julia.silge/seattle-housing-rstats\")\n\n# Generated by the vetiver package; edit with care\n\nlibrary(pins)\nlibrary(plumber)\nlibrary(rapidoc)\nlibrary(vetiver)\n\n# Packages needed to generate model predictions\nif (FALSE) {\n    library(kernlab)\n    library(parsnip)\n    library(recipes)\n    library(workflows)\n}\nb &lt;- board_connect(auth = \"envvar\")\nv &lt;- vetiver_pin_read(b, \"julia.silge/seattle-housing-rstats\", version = \"78859\")\n\n#* @plumber\nfunction(pr) {\n    pr %&gt;% vetiver_api(v)\n}"
+  },
+  {
+    "objectID": "slides/03-deploy.html#add-a-new-endpoint-to-your-api-3",
+    "href": "slides/03-deploy.html#add-a-new-endpoint-to-your-api-3",
+    "title": "3 - Deeper into deployment",
+    "section": "Add a new endpoint to your API",
+    "text": "Add a new endpoint to your API\nPython\n\nvetiver.write_app(board, \"isabel.zimmerman/seattle-housing-python\")\n\nfrom vetiver import VetiverModel\nimport vetiver\nimport pins\n\n\nb = pins.board_connect(allow_pickle_read=True)\nv = VetiverModel.from_pin(b, 'isabel.zimmerman/seattle-housing-python', version = '78841')\n\nvetiver_api = vetiver.VetiverAPI(v)\napi = vetiver_api.app"
+  },
+  {
+    "objectID": "slides/03-deploy.html#your-turn-2",
+    "href": "slides/03-deploy.html#your-turn-2",
+    "title": "3 - Deeper into deployment",
+    "section": "Your turn 🏺",
+    "text": "Your turn 🏺\n\n\n\nActivity\n\n\nCreate a Plumber or FastAPI app file to serve your model’s predictions.\nRun this app locally and check out the visual documentation again.\n\n\n\n\n\n\n−+\n05:00"
+  },
+  {
+    "objectID": "slides/03-deploy.html#add-a-new-endpoint-to-your-api-4",
+    "href": "slides/03-deploy.html#add-a-new-endpoint-to-your-api-4",
+    "title": "3 - Deeper into deployment",
+    "section": "Add a new endpoint to your API",
+    "text": "Add a new endpoint to your API\n\nIn Python, you add more endpoints to your FastAPI app file\nIn R, you add more endpoints in your Plumber app file\nIn both cases, it is ultimately up to you to decide what your API’s endpoints should be!"
+  },
+  {
+    "objectID": "slides/03-deploy.html#add-a-new-endpoint-to-your-api-5",
+    "href": "slides/03-deploy.html#add-a-new-endpoint-to-your-api-5",
+    "title": "3 - Deeper into deployment",
+    "section": "Add a new endpoint to your API",
+    "text": "Add a new endpoint to your API\nR\n# Generated by the vetiver package; edit with care\n\nlibrary(pins)\nlibrary(plumber)\nlibrary(rapidoc)\nlibrary(vetiver)\n\n# Packages needed to generate model predictions\nif (FALSE) {\n    library(kernlab)\n    library(parsnip)\n    library(recipes)\n    library(workflows)\n}\nb &lt;- board_connect(auth = \"envvar\")\n\nv &lt;- vetiver_pin_read(b, \"julia.silge/seattle-housing-rstats\", version = \"78859\")\n\n#* @plumber\nfunction(pr) {\n    pr %&gt;% vetiver_api(v)\n}"
+  },
+  {
+    "objectID": "slides/03-deploy.html#add-a-new-endpoint-to-your-api-6",
+    "href": "slides/03-deploy.html#add-a-new-endpoint-to-your-api-6",
+    "title": "3 - Deeper into deployment",
+    "section": "Add a new endpoint to your API",
+    "text": "Add a new endpoint to your API\nR\n# Generated by the vetiver package; edit with care\n\nlibrary(pins)\nlibrary(plumber)\nlibrary(rapidoc)\nlibrary(vetiver)\nlibrary(lubridate)\n\n# Packages needed to generate model predictions\nif (FALSE) {\n    library(kernlab)\n    library(parsnip)\n    library(recipes)\n    library(workflows)\n}\nb &lt;- board_connect(auth = \"envvar\")\n\nv &lt;- vetiver_pin_read(b, \"julia.silge/seattle-housing-rstats\", version = \"78859\")\n\n# todo: shap"
+  },
+  {
+    "objectID": "slides/03-deploy.html#add-a-new-endpoint-to-your-api-7",
+    "href": "slides/03-deploy.html#add-a-new-endpoint-to-your-api-7",
+    "title": "3 - Deeper into deployment",
+    "section": "Add a new endpoint to your API",
+    "text": "Add a new endpoint to your API\nPython\nfrom vetiver import VetiverModel\nimport vetiver\nimport pins\n\n\nb = pins.board_connect(allow_pickle_read=True)\nv = VetiverModel.from_pin(b, 'isabel.zimmerman/seattle-housing-python', version = '78841')\n\nvetiver_api = vetiver.VetiverAPI(v)\napi = vetiver_api.app"
+  },
+  {
+    "objectID": "slides/03-deploy.html#add-a-new-endpoint-to-your-api-8",
+    "href": "slides/03-deploy.html#add-a-new-endpoint-to-your-api-8",
+    "title": "3 - Deeper into deployment",
+    "section": "Add a new endpoint to your API",
+    "text": "Add a new endpoint to your API\nPython\nfrom vetiver import VetiverModel\nimport vetiver\nimport pins\nfrom dotenv import load_dotenv\nload_dotenv()\n\nb = pins.board_connect(allow_pickle_read=True)\nv = VetiverModel.from_pin(b, 'isabel.zimmerman/seattle-housing-python')\n\nconnect_url = \"https://colorado.posit.co/rsc\"\npin_path = {\"shap_python\": \"seattle-shap-python/\"}\nshap_board = pins.board_url(connect_url, pin_path, allow_pickle_read = True)\nexplainer = shap_board.pin_read(\"shap_python\")\n\ndef shap_explainer(data):\n    import pandas as pd\n    values_as_json = pd.DataFrame(explainer.shap_values(data)).to_json(orient='records')\n    return values_as_json\n\nvetiver_api = vetiver.VetiverAPI(v)\nvetiver_api.vetiver_post(shap_explainer, \"shap\")\napi = vetiver_api.app"
+  },
+  {
+    "objectID": "slides/03-deploy.html#your-turn-3",
+    "href": "slides/03-deploy.html#your-turn-3",
+    "title": "3 - Deeper into deployment",
+    "section": "Your turn 🏺",
+    "text": "Your turn 🏺\n\n\n\nActivity\n\n\nAdd a new endpoint to the API app file you already made.\nRun the app locally and check out your new endpoint.\nHow might you want to use an additional endpoint?\n\n\n\n\n\n\n−+\n07:00\n\n\n\n\n\n\nhttps://posit-conf-2024.github.io/vetiver"
+  }
+]
