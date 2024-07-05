@@ -224,7 +224,7 @@ import pandas as pd
 import numpy as np
 from sklearn import model_selection, ensemble
 
-housing = pd.read_parquet('./data/housing.parquet')
+housing = pd.read_parquet('../data/housing.parquet')
 
 np.random.seed(123)
 X, y = housing[["bedrooms", "bathrooms", "sqft_living", "yr_built"]], np.log10(housing["price"])
@@ -418,7 +418,7 @@ extracted_metrics
 ```{r}
 extracted_metrics <- 
     board |> 
-    pin_meta("seattle-housing-python") |> 
+    pin_meta("seattle-housing-rstats") |> 
     pluck("user", "metrics") |> 
     as_tibble()
 
