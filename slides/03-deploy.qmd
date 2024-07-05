@@ -222,7 +222,7 @@ vetiver.predict(endpoint=endpoint, data=X_test)
 ```{python}
 import pandas as pd
 import numpy as np
-from sklearn import model_selection, linear_model
+from sklearn import model_selection, ensemble
 
 housing = pd.read_parquet('./data/housing.parquet')
 
@@ -233,7 +233,7 @@ X_train, X_test, y_train, y_test = model_selection.train_test_split(
     test_size = 0.2
 )
 
-housing_fit = linear_model.LinearRegression().fit(X_train, y_train)
+housing_fit = ensemble.RandomForestRegressor(n_estimators=200).fit(X, y)
 ```
 
 
@@ -619,16 +619,19 @@ api = vetiver_api.app
 from vetiver import VetiverModel
 import vetiver
 import pins
-
+from dotenv import load_dotenv
+load_dotenv()
 
 b = pins.board_connect(allow_pickle_read=True)
-v = VetiverModel.from_pin(b, 'isabel.zimmerman/seattle-housing-python', version = '78841')
+v = VetiverModel.from_pin(b, 'isabel.zimmerman/seattle-housing-python')
+
+connect_url = "https://colorado.posit.co/rsc"
+pin_path = {"shap_python": "seattle-shap-python/"}
+shap_board = pins.board_url(connect_url, pin_path, allow_pickle_read = True)
+explainer = shap_board.pin_read("shap_python")
 
 def shap_explainer(data):
     import pandas as pd
-    import shap
-    # TODO: pin this?
-    explainer = shap.LinearExplainer(v.model, X_train)
     values_as_json = pd.DataFrame(explainer.shap_values(data)).to_json(orient='records')
     return values_as_json
 
