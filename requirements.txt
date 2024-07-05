@@ -8,7 +8,7 @@ pandas
 pins
 plotnine
 pydantic
-scikit-learn==1.3.0
+scikit-learn==1.5.1
 vetiver
 aiohttp
 pyarrow
