@@ -46,17 +46,15 @@ Data that you use while building a model for training/testing
 
 ```{r}
 library(arrow)
-# TODO: update new data
-#path <- here::here("data", "inspections.parquet")
-#inspections <- read_parquet(path)
+path <- here::here("data", "housing.parquet")
+housing <- read_parquet(path)
 ```
 
 ### Python
 
 ```{python}
 import pandas as pd
-# TODO: update new data
-#inspections = pd.read_parquet('../data/inspections.parquet')
+housing = pd.read_parquet('./data/housing.parquet')
 ```
 
 
@@ -68,17 +66,15 @@ New data that you predict on after your model deployed
 
 ```{r}
 library(arrow)
-# TODO: update new data
-#path <- here::here("data", "inspections_monitoring.parquet")
-#inspections_new <- read_parquet(path)
+path <- here::here("data", "housing_monitoring.parquet")
+housing_new <- read_parquet(path)
 ```
 
 ### Python
 
 ```{python}
 import pandas as pd
-# TODO: update new data
-#inspections_new = pd.read_parquet('../data/inspections_monitoring.parquet')
+housing_new = pd.read_parquet('./data/housing_monitoring.parquet')
 ```
 
 ## Data for model monitoring
@@ -88,17 +84,17 @@ import pandas as pd
 #| fig-width: 9
 #| fig-height: 4.5
 #| fig-align: center
+library(tidyverse)
 
-# TODO: update data 
-# library(tidyverse)
-
-# bind_rows(inspections |> mutate(monitoring = "Data available at training time"),
-#           inspections_new |> mutate(monitoring = "New data")) |> 
-#   ggplot(aes(inspection_date)) +
-#   geom_histogram(alpha = 0.8, fill = "midnightblue", bins = 100) +
-#   facet_wrap(vars(monitoring), nrow = 2) +
-#   theme_light() +
-#   labs(x = NULL)
+bind_rows(
+    housing |> mutate(monitoring = "Data available at training time"),
+    housing_new |> mutate(monitoring = "New data")
+) |> 
+    ggplot(aes(date)) +
+    geom_histogram(alpha = 0.8, fill = "midnightblue", bins = 35) +
+    facet_wrap(vars(monitoring), nrow = 2) +
+    theme_light() +
+    labs(x = NULL)
 ```
 
 
@@ -186,7 +182,7 @@ Typically it is most useful to compare to your _model development_ data^[Remembe
 
 - Statistical distribution of features individually
 - Statistical characteristics of features as a whole
-    - Applicability scores: <https://applicable.tidymodels.org/>
+- Applicability scores: <https://applicable.tidymodels.org/>
 
 ## Monitor your model's inputs
 
@@ -194,14 +190,14 @@ Typically it is most useful to compare to your _model development_ data^[Remembe
 #| echo: false
 #| fig-align: center
 
-# TODO: update monitoring
-# bind_rows(
-#   inspections |> mutate(monitor = "Training/testing"),
-#   inspections_new |> mutate(monitor = "Monitoring")
-# ) |> 
-#   ggplot(aes(total_violations, after_stat(density), fill = monitor)) +
-#   geom_histogram(alpha = 0.5, position = "identity") +
-#   labs(fill = NULL)
+bind_rows(
+    housing |> mutate(monitor = "Training/testing"),
+    housing_new |> mutate(monitor = "Monitoring")
+) |> 
+    ggplot(aes(price, after_stat(density), fill = monitor)) +
+    geom_histogram(alpha = 0.5, position = "identity") +
+    scale_x_log10(labels = scales::dollar) +
+    labs(fill = NULL)
 ```
 
 ## Monitor your model's inputs
@@ -210,18 +206,14 @@ Typically it is most useful to compare to your _model development_ data^[Remembe
 #| echo: false
 #| fig-align: center
 
-# TODO: update monitoring
-# bind_rows(
-#   inspections |> mutate(monitor = "Training/testing"),
-#   inspections_new |> mutate(monitor = "Monitoring")
-# ) |> 
-#   count(monitor, facility_type) |> 
-#   group_by(monitor) |> 
-#   mutate(proportion = n / sum(n)) |> 
-#   ggplot(aes(facility_type, proportion, fill = monitor)) +
-#   geom_col(alpha = 0.8, position = "dodge") +
-#   scale_y_continuous(labels = scales::percent) +
-#   labs(fill = NULL, y = "% of establishments", x = NULL)
+bind_rows(
+    housing |> mutate(monitor = "Training/testing"),
+    housing_new |> mutate(monitor = "Monitoring")
+) |> 
+    ggplot(aes(waterfront, price, fill = monitor)) +
+    geom_boxplot(alpha = 0.8, position = "dodge") +
+    scale_y_log10(labels = scales::dollar) +
+    labs(fill = NULL)
 ```
 
 ## Your turn 🏺 {transition="slide-in"}
@@ -250,13 +242,15 @@ countdown(minutes = 7)
 ## Monitor your model's outputs
 
 - In some ML systems, you eventually get a "real" result after making a prediction
-# TODO: update potential output
-- If the Chicago of Public Health used a model like this one, they would get:
-    - A prediction from their model
-    - A real inspection result after they did their inspection
+- If a realtor used a model like this one before putting a house on the market, they would get:
+    - A predicted price from their model
+    - A real price result after the home was sold
 - In this case, we can monitor our model's statistical performance    
 - If you don't ever get a "real" result, you can still monitor the distribution of your outputs
 
+::: aside
+Read about [real problems](https://www.wired.com/story/zillow-ibuyer-real-estate/) that [have arisen](https://www.wsj.com/articles/zillow-offers-real-estate-algorithm-homes-ibuyer-11637159261) in building predictive pricing models for real estate.
+:::
 
 ## Monitor your model's outputs
 
@@ -264,40 +258,34 @@ countdown(minutes = 7)
 
 ```{python}
 from vetiver import vetiver_endpoint, predict, compute_metrics, plot_metrics
-from sklearn.metrics import recall_score, accuracy_score
+from sklearn.metrics import root_mean_squared_error, r2_score, mean_absolute_error
 from datetime import timedelta
-# TODO: monitoring
-# inspections_new['inspection_date'] = pd.to_datetime(inspections_new['inspection_date'])
-# inspections_new['month'] = inspections_new['inspection_date'].dt.month
-# inspections_new['year'] = inspections_new['inspection_date'].dt.year
+import numpy as np
 
-# url = "https://colorado.posit.co/rsc/chicago-inspections-python/predict"
-# endpoint = vetiver_endpoint(url)
-# inspections_new["preds"] = predict(endpoint = url, data = inspections_new.drop(columns = ["results", "aka_name", "inspection_date"]))
+url = "https://colorado.posit.co/rsc/seattle-housing-python/predict"
+endpoint = vetiver_endpoint(url)
+housing_new["pred"] = predict(endpoint = url, 
+    data = housing_new[["bedrooms", "bathrooms", "sqft_living", "yr_built"]])
+housing_new["price"] = np.log10(housing_new["price"])
 
-# inspections_new["preds"] = inspections_new["preds"].map({"PASS": 0, "FAIL": 1})
-# inspections_new["results"] = inspections_new["results"].map({"PASS": 0, "FAIL": 1})
+td = timedelta(weeks = 2)
+metric_set = [root_mean_squared_error, r2_score, mean_absolute_error]
 
-# td = timedelta(weeks = 4)
-# metric_set = [accuracy_score, recall_score]
+m = compute_metrics(
+    data = housing_new,
+    date_var = "date", 
+    period = td,
+    metric_set = metric_set,
+    truth = "price",
+    estimate = "pred")
 
-# m = compute_metrics(
-#     data = inspections_new,
-#     date_var = "inspection_date", 
-#     period = td,
-#     metric_set = metric_set,
-#     truth = "results",
-#     estimate = "preds"
-#   )
-  
-# metrics_plot = plot_metrics(m)
+metrics_plot = plot_metrics(m)
 ```
 
 ```{python}
 #| echo: false
-# # TODO: monitoring plot
-# import plotly.io as pio
-# pio.write_html(metrics_plot, file="plot.html", auto_open=False)
+import plotly.io as pio
+pio.write_html(metrics_plot, file="plot.html", auto_open=False)
 ```
 
 ## Monitor your model's outputs
@@ -306,8 +294,7 @@ from datetime import timedelta
 #| echo: false
 #| eval: true
 #| fig-align: center
-# TODO: print html (do we still need to do this?)
-# htmltools::includeHTML("plot.html")
+htmltools::includeHTML("plot.html")
 ```
 
 ## Monitor your model's outputs
@@ -316,24 +303,23 @@ from datetime import timedelta
 
 ```{r}
 #| fig-align: center
-#| output-location: slide 
+#| output-location: slide
 
-# TODO: monitoring
 library(vetiver)
 library(tidymodels)
-# url <- "https://colorado.posit.co/rsc/chicago-inspections-rstats/predict"
-# endpoint <- vetiver_endpoint(url)
+url <- "https://colorado.posit.co/rsc/seattle-housing-rstats/predict"
+endpoint <- vetiver_endpoint(url)
 
-# augment(endpoint, new_data = inspections_new) |>
-#   mutate(.pred_class = as.factor(.pred_class)) |> 
-#   vetiver_compute_metrics(
-#     inspection_date, 
-#     "month", 
-#     results, 
-#     .pred_class,
-#     metric_set = metric_set(accuracy, sensitivity)
-#   ) |> 
-#   vetiver_plot_metrics()
+augment(endpoint, new_data = housing_new) |>
+    mutate(price = log10(price)) |>
+    vetiver_compute_metrics(
+        date,
+        "week",
+        price,
+        .pred,
+        metric_set = metric_set(rmse, rsq, mae)
+    ) |>
+    vetiver_plot_metrics()
 ```
 
 ## Your turn 🏺 {transition="slide-in"}
@@ -392,9 +378,9 @@ Deployment of an ML model may *alter* the training data
 
 ## Activity
 
-What is a possible feedback loop for the Chicago inspections data?
+What is a possible feedback loop for the Seattle housing data?
 
-Do you think your example would be harmful or helpful?
+Do you think your example would be harmful or helpful? To whom?
 
 :::
 
@@ -407,7 +393,7 @@ countdown(minutes = 5)
 
 ## ML metrics ➡️ organizational outcomes
 
-- Are machine learning metrics like F1 score or accuracy what matter to your organization?
+- Are machine learning metrics like F1 score or RMSE what matter to your organization?
 - Consider how ML metrics are related to important outcomes or KPIs for your business or org
 - There isn't always a 1-to-1 mapping 😔
 - You can **partner** with stakeholders to monitor what's truly important about your model
@@ -418,12 +404,11 @@ countdown(minutes = 5)
 
 ## Activity
 
-# TODO: update to not use Chicago
-Let's say that the most important organizational outcome for the Chicago Department of Public Health is what proportion of failed inspections were predicted to fail.
+Let's say that the most important organizational outcome for a Seattle realtor is how accurate a pricing model is in terms of **percentage** on prices in USD rather than an absolute value. (Think about being 20% wrong vs. $20,000 wrong.) 
 
-If "fail" is the event we are predicting, this is the **sensitivity** or **recall**.
+We can measure this with the **mean absolute percentage error**.
 
-Compute this quantity with the monitoring data, and aggregate by week/month or facility type.
+Compute this quantity with the monitoring data, and aggregate by week/month, number of bedrooms/bathrooms, or waterfront status.
 
 For extra credit, make a visualization showing your results.
 
@@ -442,51 +427,24 @@ countdown(minutes = 7)
 ### R
 
 ```{r}
-# TODO: update data
-
-# augment(endpoint, inspections_new) |> 
-#   mutate(.pred_class = as.factor(.pred_class)) |> 
-#   group_by(facility_type) |> 
-#   sensitivity(results, .pred_class)
+augment(endpoint, housing_new) |> 
+    mutate(.pred = 10 ^ .pred) |> 
+    group_by(waterfront) |> 
+    mape(price, .pred)
 ```
 
 ### Python
 
 ```{python}
-# TODO: update data
-# by_facility_type = pd.DataFrame()
-# for metric in metric_set:
-#     by_facility_type[metric.__qualname__] = inspections_new.groupby("facility_type")\
-#         .apply(lambda x: metric(y_pred=x["preds"], y_true=x["results"]))
-# by_facility_type
+from sklearn.metrics import mean_absolute_percentage_error
+
+housing_new \
+    .groupby("waterfront") \
+    .apply(lambda x: mean_absolute_percentage_error(
+        y_pred= 10 ** x["pred"], y_true= 10 ** x["price"]), include_groups=False)
 ```
 
 :::
-
-## What is going on with these inspections?! 😳
-
-. . .
-
-```{r}
-#| fig-align: 'center'
-#| echo: false
-
-# TODO: update data
-# bind_rows(
-#   inspections |> mutate(monitor = "Training/testing"),
-#   inspections_new |> mutate(monitor = "Monitoring")
-# ) |> 
-#   group_by(monitor, 
-#            inspection_date = floor_date(inspection_date, unit = "month")) |> 
-#   summarise(results = mean(results == "PASS")) |> 
-#   ggplot(aes(inspection_date, results, color = monitor)) +
-#   geom_line(alpha = 0.8, linewidth = 1.5) +
-#   scale_y_continuous(labels = scales::percent) +
-#   labs(y = "% of inspections that have a PASS result", 
-#        x = NULL, 
-#        color = NULL)
-```
-
 
 ## Possible model monitoring artifacts
 
@@ -509,8 +467,6 @@ countdown(minutes = 7)
 ## Activity
 
 Create a Quarto report or R Markdown dashboard for model monitoring.
-
-Keep in mind that we are seeing some real ✨problems✨ with this model we trained.
 
 Publish your document to Connect.
 
@@ -548,7 +504,7 @@ countdown(minutes = 5)
 
 ## Resources to keep learning
 
--   Documentation at <https://vetiver.rstudio.com/>
+-   Documentation at <https://vetiver.posit.co/>
 
 -   Isabel's talk from rstudio::conf() 2022 on [Demystifying MLOps](https://www.rstudio.com/conference/2022/talks/demystifying-mlops/)
 
@@ -557,7 +513,7 @@ countdown(minutes = 5)
 
 -   Are you on the right track with your MLOps system? Use the rubric in ["The ML Test Score: A Rubric for ML Production Readiness and Technical Debt Reduction"](https://research.google/pubs/pub46555/) by Breck et al (2017)
 
-- Want to learn about how MLOps is being practiced? Read one of our favorite 😍 papers of the last year, ["Operationalizing Machine Learning: An Interview Study"](https://arxiv.org/abs/2209.09125) by Shankar et al (20222)
+- Want to learn about how MLOps is being practiced? Read one of our favorite 😍 recent papers, ["Operationalizing Machine Learning: An Interview Study"](https://arxiv.org/abs/2209.09125) by Shankar et al (2022)
 
 . . .
 
