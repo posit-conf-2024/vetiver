@@ -444,7 +444,6 @@ housing_new \
         y_pred= 10 ** x["pred"], y_true= 10 ** x["price"]), include_groups=False)
 ```
 
-:::
 
 ## Possible model monitoring artifacts
 
