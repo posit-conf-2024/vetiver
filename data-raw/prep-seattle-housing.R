@@ -17,7 +17,7 @@ housing |>
   write_parquet(path1)
 
 housing |> 
-  filter(date >= ymd("2015-01-01")) |> 
+  filter(date >= ymd("2015-01-01"), date < "2015-05-14") |> 
   arrange(date) |> 
   write_parquet(path2)
 
@@ -41,11 +41,27 @@ housing_fit <-
 
 augment(housing_fit, new_data = slice_sample(housing_test, n = 10))
 
+library(DALEXtra)
+
+explainer_rf <-
+  explain_tidymodels(
+    housing_fit,
+    data = housing_train |> select(bedrooms, bathrooms, sqft_living, yr_built),
+    y = housing_train$price,
+    label = "Seattle housing random forest",
+    verbose = FALSE
+  )
+
+big_house <- tibble(bedrooms = 4, bathrooms = 3.5, sqft_living = 3e3, yr_built = 1999)
+shap <- predict_parts(explainer_rf, big_house, type = "shap", B = 25)
+plot(shap)
+
 library(vetiver)
 
 v <- vetiver_model(housing_fit, "julia.silge/seattle-housing-rstats")
 board <- board_connect()
 board |> vetiver_pin_write(v)
+board |> pin_write(explainer_rf, "julia.silge/seattle-shap-rstats")
 
 vetiver_deploy_rsconnect(
   board = board, 
