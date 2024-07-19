@@ -331,7 +331,7 @@ library(vetiver)
 v <- vetiver_model(
     housing_fit, 
     "seattle-housing-rstats",
-    metadata = list(metrics = inspect_metrics)
+    metadata = list(metrics = housing_metrics)
 )
 v
 ```
