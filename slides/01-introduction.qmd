@@ -62,6 +62,7 @@ TODO: WIFI
 
 ::: {.nonincremental}
 TODO: add bathrooms/lactation rooms/etc
+
 - Participants who do not wish to be photographed have red lanyards; please note everyone's lanyard colors before taking a photo and respect their choices
 - The Code of Conduct and COVID policies can be found at <https://posit.co/code-of-conduct/>
   - Please review them carefully! ❤️ 
@@ -226,6 +227,7 @@ countdown(minutes = 3)
 # Workshop infrastructure
 
 TODO: update infra
+
 - Log in at [pos.it/class](https://pos.it/class) with the identifier `vetiver2024`
 - Even if you plan to work locally, set this up with us so you can use Posit Connect as a deployment target
 - For Posit Workbench, use RStudio for R or VS Code for Python
@@ -252,7 +254,7 @@ countdown(minutes = 5)
 ```
 
 
-##  Seattle housing data {background-color="black" background-image="images/stephen-plopper-UmEYn_GYqFo-unsplash.jpg" background-opacity=0.3}
+##  Seattle housing data {background-color="black" background-image="images/stephen-plopper-UmEYn_GYqFo-unsplash.jpg" background-opacity=0.4}
 
 
 ::: {.nonincremental}

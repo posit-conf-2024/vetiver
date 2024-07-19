@@ -57,7 +57,7 @@ housing_test <- testing(housing_split)
 housing_fit <-
   workflow(
     price ~ bedrooms + bathrooms + sqft_living + yr_built,
-    linear_reg()
+    rand_forest(trees = 200, mode = "regression")
     ) |>
   fit(data = housing_train)
 ```
@@ -311,7 +311,7 @@ library(vetiver)
 
 url <- "https://colorado.posit.co/rsc/seattle-housing-rstats/predict"
 endpoint <- vetiver_endpoint(url)
-predict(endpoint, slice_sample(housing_test, n = 10))
+predict(endpoint, slice_sample(housing_test, n = 5))
 ```
 
 ### Python
@@ -321,7 +321,7 @@ from vetiver.server import predict, vetiver_endpoint
 
 url = "https://colorado.posit.co/rsc/seattle-housing-python/predict"
 endpoint = vetiver_endpoint(url)
-predict(endpoint = endpoint, data = X_test.head(10))
+predict(endpoint = endpoint, data = X_test.head(5))
 ```
 :::
 
@@ -420,7 +420,7 @@ predict(endpoint = endpoint, data = X_test, headers = h)
 
 ## Model input prototype
 
-Notice that our Python model has different inputs than our R model:
+What are the inputs to your model?
 
 ::: panel-tabset
 

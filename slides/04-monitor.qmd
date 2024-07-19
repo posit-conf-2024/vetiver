@@ -242,7 +242,6 @@ countdown(minutes = 7)
 
 ## Monitor your model's outputs
 
-- In some ML systems, you eventually get a "real" result after making a prediction
 - If a realtor used a model like this one before putting a house on the market, they would get:
     - A predicted price from their model
     - A real price result after the home was sold
@@ -445,6 +444,7 @@ housing_new \
         y_pred= 10 ** x["pred"], y_true= 10 ** x["price"]), include_groups=False)
 ```
 
+:::
 
 ## Possible model monitoring artifacts
 
@@ -520,7 +520,9 @@ countdown(minutes = 5)
 Follow Posit and/or us on your preferred social media for updates!
 
 # Submit feedback before you leave 🗳️
-# TODO: update link
+
+TODO: update link
+
 [pos.it/conf-workshop-survey](https://pos.it/conf-workshop-survey)
 
 Your feedback is crucial! Data from the survey informs curriculum and format decisions for future conf workshops and we really appreciate you taking the time to provide it.
