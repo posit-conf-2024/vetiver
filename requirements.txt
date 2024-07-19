@@ -2,6 +2,7 @@
 python-dotenv
 fastparquet
 fsspec
+ipykernel
 ipython
 numpy<2.0
 pandas
