@@ -364,7 +364,7 @@ housing |>
   ggplot(aes(long, lat, z = log10(price))) +
   stat_summary_hex(alpha = 0.7) +
   scale_fill_viridis_c() +
-  labs(fill = "Mean price\n(log10)", x = NULL)
+  labs(fill = "Mean price\n(log10)", x = NULL, y = NULL)
 ```
 
 
