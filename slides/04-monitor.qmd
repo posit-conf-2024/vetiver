@@ -54,7 +54,8 @@ housing <- read_parquet(path)
 
 ```{python}
 import pandas as pd
-housing = pd.read_parquet('./data/housing.parquet')
+
+housing = pd.read_parquet("../data/housing.parquet")
 ```
 
 
@@ -74,7 +75,7 @@ housing_new <- read_parquet(path)
 
 ```{python}
 import pandas as pd
-housing_new = pd.read_parquet('./data/housing_monitoring.parquet')
+housing_new = pd.read_parquet('../data/housing_monitoring.parquet')
 ```
 
 ## Data for model monitoring
