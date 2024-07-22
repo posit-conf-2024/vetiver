@@ -311,15 +311,15 @@ url <- "https://colorado.posit.co/rsc/seattle-housing-rstats/predict"
 endpoint <- vetiver_endpoint(url)
 
 augment(endpoint, new_data = housing_new) |>
-  mutate(price = log10(price)) |>
-  vetiver_compute_metrics(
-    date,
-    "week",
-    price,
-    .pred,
-    metric_set = metric_set(rmse, rsq, mae)
-  ) |>
-  vetiver_plot_metrics()
+    mutate(price = log10(price)) |>
+    vetiver_compute_metrics(
+        date,
+        "week",
+        price,
+        .pred,
+        metric_set = metric_set(rmse, rsq, mae)
+    ) |>
+    vetiver_plot_metrics()
 ```
 
 ## Your turn 🏺 {transition="slide-in"}
