@@ -248,17 +248,17 @@ housing <- read_parquet(path)
 
 set.seed(123)
 housing_split <- housing |>
-  mutate(price = log10(price)) |>
-  initial_split(prop = 0.8)
+    mutate(price = log10(price)) |>
+    initial_split(prop = 0.8)
 housing_train <- training(housing_split)
 housing_test <- testing(housing_split)
 
 housing_fit <-
-  workflow(
-    price ~ bedrooms + bathrooms + sqft_living + yr_built,
-    rand_forest(trees = 200, mode = "regression")
-  ) |>
-  fit(data = housing_train)
+    workflow(
+        price ~ bedrooms + bathrooms + sqft_living + yr_built,
+        rand_forest(trees = 200, mode = "regression")
+    ) |>
+    fit(data = housing_train)
 ```
 
 
@@ -284,8 +284,7 @@ for metric in metric_set:
     housing_metrics = pd.concat(
         (
             housing_metrics,
-            pd.DataFrame({"name": [metric_name],
-                          "score": [metric_output]}),
+            pd.DataFrame({"name": [metric_name], "score": [metric_output]}),
         ),
         axis=0,
     )
@@ -486,13 +485,12 @@ library(vetiver)
 
 # Packages needed to generate model predictions
 if (FALSE) {
-    library(kernlab)
     library(parsnip)
-    library(recipes)
+    library(ranger)
     library(workflows)
 }
 b <- board_connect(auth = "envvar")
-v <- vetiver_pin_read(b, "julia.silge/seattle-housing-rstats", version = "78859")
+v <- vetiver_pin_read(b, "julia.silge/seattle-housing-rstats", version = "117005")
 
 #* @plumber
 function(pr) {
@@ -560,14 +558,12 @@ library(vetiver)
 
 # Packages needed to generate model predictions
 if (FALSE) {
-    library(kernlab)
     library(parsnip)
-    library(recipes)
+    library(ranger)
     library(workflows)
 }
 b <- board_connect(auth = "envvar")
-
-v <- vetiver_pin_read(b, "julia.silge/seattle-housing-rstats", version = "78859")
+v <- vetiver_pin_read(b, "julia.silge/seattle-housing-rstats", version = "117005")
 
 #* @plumber
 function(pr) {
@@ -586,20 +582,32 @@ library(pins)
 library(plumber)
 library(rapidoc)
 library(vetiver)
-library(lubridate)
+library(DALEXtra)
+library(dplyr)
 
 # Packages needed to generate model predictions
 if (FALSE) {
-    library(kernlab)
     library(parsnip)
-    library(recipes)
+    library(ranger)
     library(workflows)
 }
 b <- board_connect(auth = "envvar")
+v <- vetiver_pin_read(b, "julia.silge/seattle-housing-rstats", version = "117005")
+explainer <- pin_read(b, "julia.silge/seattle-shap-rstats")
 
-v <- vetiver_pin_read(b, "julia.silge/seattle-housing-rstats", version = "78859")
+handler_explain <- function(req) {
+    new_data <- req$body
+    new_data <- vetiver_type_convert(new_data, v$prototype)
+    shap <- predict_parts(explainer, new_data, type = "shap", B = 25)
+    shap |> group_by(variable) |> summarise(contribution = mean(contribution))
+}
 
-# todo: shap
+#* @plumber
+function(pr) {
+    pr |>
+        vetiver_api(v) |>
+        pr_post(path = "/explain", handler = handler_explain)
+}
 ```
 
 ## Add a new endpoint to your API {auto-animate=true}
