@@ -304,7 +304,6 @@ pio.write_html(metrics_plot, file="plot.html", auto_open=False)
 #| fig-width: 9
 #| fig-height: 6
 
-
 library(vetiver)
 library(tidymodels)
 url <- "https://colorado.posit.co/rsc/seattle-housing-rstats/predict"
@@ -396,7 +395,7 @@ countdown(minutes = 5)
 - Are machine learning metrics like F1 score or RMSE what matter to your organization?
 - Consider how ML metrics are related to important outcomes or KPIs for your business or org
 - There isn't always a 1-to-1 mapping 😔
-- You can **partner** with stakeholders to monitor what's truly important about your model
+- You can *partner* with stakeholders to monitor what's truly important about your model
 
 ## Your turn 🏺 {transition="slide-in"}
 
@@ -404,9 +403,9 @@ countdown(minutes = 5)
 
 ## Activity
 
-Let's say that the most important organizational outcome for a Seattle realtor is how accurate a pricing model is in terms of **percentage** on prices in USD rather than an absolute value. (Think about being 20% wrong vs. $20,000 wrong.) 
+Let's say that the most important organizational outcome for a Seattle realtor is how accurate a pricing model is in terms of *percentage* on prices in USD rather than an absolute value. (Think about being 20% wrong vs. $20,000 wrong.) 
 
-We can measure this with the **mean absolute percentage error**.
+We can measure this with the *mean absolute percentage error*.
 
 Compute this quantity with the monitoring data, and aggregate by week/month, number of bedrooms/bathrooms, or waterfront status.
 

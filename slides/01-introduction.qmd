@@ -80,7 +80,7 @@ wide variety of graphs
 
 -   You have exposure to basic modeling and machine learning practice
 
--   You do **not** need expert familiarity with advanced ML or MLOps topics
+-   You do *not* need expert familiarity with advanced ML or MLOps topics
 
 
 ## Who are we?
