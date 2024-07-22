@@ -553,7 +553,7 @@
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_84f256dc" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_59393096" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -598,7 +598,7 @@
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_d54fa8b5" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_afe86b29" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">07</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -666,22 +666,21 @@
 <h2>Monitor your model’s outputs</h2>
 <h3 id="r-2">R</h3>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a></span>
-<span id="cb6-2"><a></a><span class="fu">library</span>(vetiver)</span>
-<span id="cb6-3"><a></a><span class="fu">library</span>(tidymodels)</span>
-<span id="cb6-4"><a></a>url <span class="ot">&lt;-</span> <span class="st">"https://colorado.posit.co/rsc/seattle-housing-rstats/predict"</span></span>
-<span id="cb6-5"><a></a>endpoint <span class="ot">&lt;-</span> <span class="fu">vetiver_endpoint</span>(url)</span>
-<span id="cb6-6"><a></a></span>
-<span id="cb6-7"><a></a><span class="fu">augment</span>(endpoint, <span class="at">new_data =</span> housing_new) <span class="sc">|&gt;</span></span>
-<span id="cb6-8"><a></a>    <span class="fu">mutate</span>(<span class="at">price =</span> <span class="fu">log10</span>(price)) <span class="sc">|&gt;</span></span>
-<span id="cb6-9"><a></a>    <span class="fu">vetiver_compute_metrics</span>(</span>
-<span id="cb6-10"><a></a>        date,</span>
-<span id="cb6-11"><a></a>        <span class="st">"week"</span>,</span>
-<span id="cb6-12"><a></a>        price,</span>
-<span id="cb6-13"><a></a>        .pred,</span>
-<span id="cb6-14"><a></a>        <span class="at">metric_set =</span> <span class="fu">metric_set</span>(rmse, rsq, mae)</span>
-<span id="cb6-15"><a></a>    ) <span class="sc">|&gt;</span></span>
-<span id="cb6-16"><a></a>    <span class="fu">vetiver_plot_metrics</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a><span class="fu">library</span>(vetiver)</span>
+<span id="cb6-2"><a></a><span class="fu">library</span>(tidymodels)</span>
+<span id="cb6-3"><a></a>url <span class="ot">&lt;-</span> <span class="st">"https://colorado.posit.co/rsc/seattle-housing-rstats/predict"</span></span>
+<span id="cb6-4"><a></a>endpoint <span class="ot">&lt;-</span> <span class="fu">vetiver_endpoint</span>(url)</span>
+<span id="cb6-5"><a></a></span>
+<span id="cb6-6"><a></a><span class="fu">augment</span>(endpoint, <span class="at">new_data =</span> housing_new) <span class="sc">|&gt;</span></span>
+<span id="cb6-7"><a></a>    <span class="fu">mutate</span>(<span class="at">price =</span> <span class="fu">log10</span>(price)) <span class="sc">|&gt;</span></span>
+<span id="cb6-8"><a></a>    <span class="fu">vetiver_compute_metrics</span>(</span>
+<span id="cb6-9"><a></a>        date,</span>
+<span id="cb6-10"><a></a>        <span class="st">"week"</span>,</span>
+<span id="cb6-11"><a></a>        price,</span>
+<span id="cb6-12"><a></a>        .pred,</span>
+<span id="cb6-13"><a></a>        <span class="at">metric_set =</span> <span class="fu">metric_set</span>(rmse, rsq, mae)</span>
+<span id="cb6-14"><a></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb6-15"><a></a>    <span class="fu">vetiver_plot_metrics</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 </section>
@@ -709,7 +708,7 @@
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_326a62a8" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_b2550a84" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -763,7 +762,7 @@
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_f8e81bf7" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_04ee687e" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -776,7 +775,7 @@
 <li class="fragment">Are machine learning metrics like F1 score or RMSE what matter to your organization?</li>
 <li class="fragment">Consider how ML metrics are related to important outcomes or KPIs for your business or org</li>
 <li class="fragment">There isn’t always a 1-to-1 mapping 😔</li>
-<li class="fragment">You can <strong>partner</strong> with stakeholders to monitor what’s truly important about your model</li>
+<li class="fragment">You can <em>partner</em> with stakeholders to monitor what’s truly important about your model</li>
 </ul>
 </section>
 <section id="your-turn-4" class="slide level2" data-transition="slide-in">
@@ -787,8 +786,8 @@
 <p><strong>Activity</strong></p>
 </div>
 <div class="callout-content">
-<p>Let’s say that the most important organizational outcome for a Seattle realtor is how accurate a pricing model is in terms of <strong>percentage</strong> on prices in USD rather than an absolute value. (Think about being 20% wrong vs.&nbsp;$20,000 wrong.)</p>
-<p>We can measure this with the <strong>mean absolute percentage error</strong>.</p>
+<p>Let’s say that the most important organizational outcome for a Seattle realtor is how accurate a pricing model is in terms of <em>percentage</em> on prices in USD rather than an absolute value. (Think about being 20% wrong vs.&nbsp;$20,000 wrong.)</p>
+<p>We can measure this with the <em>mean absolute percentage error</em>.</p>
 <p>Compute this quantity with the monitoring data, and aggregate by week/month, number of bedrooms/bathrooms, or waterfront status.</p>
 <p>For extra credit, make a visualization showing your results.</p>
 </div>
@@ -796,7 +795,7 @@
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_b0ce0d88" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_6b5f9704" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">07</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -868,7 +867,7 @@
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_6e8e3215" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_4f21db57" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">15</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -896,7 +895,7 @@
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_d4bd1b7f" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_2cfd6662" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
