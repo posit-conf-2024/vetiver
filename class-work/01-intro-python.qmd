@@ -1,0 +1,114 @@
+---
+title: Introduction
+subtitle: Deploy and maintain models with vetiver (Python)
+format: html
+---
+
+## Explore the data 👀
+
+```{python}
+import pandas as pd
+housing = pd.read_parquet('./data/housing.parquet')
+housing.head()
+```
+
+Explore the `housing` data on your own!
+
+```{python}
+housing.groupby('waterfront').price.agg('mean')
+```
+
+```{python}
+## more EDA here
+```
+
+## Build a model 🔧
+
+Spend your data budget:
+
+```{python}
+from sklearn import model_selection
+import numpy as np
+
+np.random.seed(123)
+X, y = housing[["bedrooms", "bathrooms", "sqft_living", "yr_built"]], np.log10(
+    housing["price"]
+)
+X_train, X_test, y_train, y_test = model_selection.train_test_split(X, y, test_size=0.2)
+```
+
+Train a logistic regression model:
+
+```{python}
+from sklearn import linear_model
+
+housing_fit = linear_model.LinearRegression().fit(X_train, y_train)
+```
+
+## Create a deployable model object 🏺
+
+```{python}
+from vetiver import VetiverModel
+v = VetiverModel(___, ___, ___)
+v.description
+```
+
+```{python}
+## create a vetiver model with a custom description
+```
+
+## Version your model 📌
+
+```{python}
+## create a temp board and pin your model
+from pins import board_temp
+from vetiver import vetiver_pin_write
+
+board = ___
+___(board, v)
+```
+
+```{python}
+## retrieve your model metadata
+board.pin_meta(___)
+```
+
+## Publish your model on Posit Connect 🚀
+
+- Create an API key on Connect: <https://docs.posit.co/connect/user/api-keys/>
+- Store it as `CONNECT_API_KEY` in `.env`
+
+```{python}
+## now write your model pin to Posit Connect
+from dotenv import load_dotenv
+from pins import board_connect
+load_dotenv()
+
+board = ___
+___(board, v)
+```
+
+Visit your pin's homepage on Connect.
+
+## Store a new version 👯
+
+Train your model with a new algorithm:
+
+```{python}
+from sklearn import tree
+
+housing_fit = tree.DecisionTreeRegressor().fit(___, ___)
+```
+
+Store this new model as a new version of the same pin:
+
+```{python}
+v = VetiverModel(___, ___)
+___(board, v)
+```
+
+What versions do you have?
+
+```{python}
+board.pin_versions(___)
+```

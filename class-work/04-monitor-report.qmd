@@ -1,0 +1,95 @@
+---
+title: Monitor your model
+execute:
+  echo: false
+---
+
+```{python}
+# | include: false
+# | tags: [parameters]
+import pins
+from IPython.display import display, Markdown, IFrame
+from datetime import datetime, timedelta
+import pandas as pd
+import numpy as np
+import plotly.express as px
+from sklearn import metrics
+from vetiver import VetiverModel, compute_metrics, plot_metrics
+from sklearn.metrics import root_mean_squared_error, r2_score
+
+raw = "https://colorado.rstudio.com/rsc"
+paths = {"seattle-model-python": "seattle-model-python/"}
+board = pins.board_url(raw, paths, allow_pickle_read=True)
+```
+
+```{python}
+v = VetiverModel.from_pin(board, "seattle-model-python")
+v_meta = board.pin_meta("seattle-model-python")
+```
+
+```{python}
+days_old = datetime.today() - datetime.strptime(v_meta.created, "%Y%m%dT%H%M%SZ")
+display(Markdown(f"""
+The `{v.model_name}` model is {days_old.days} days old.
+"""))
+```
+
+```{python}
+housing_new = pd.read_parquet("../data/housing_monitoring.parquet")
+
+housing_new["pred"] = v.model.predict(
+    housing_new[["bedrooms", "bathrooms", "sqft_living", "yr_built"]]
+)
+housing_new["price"] = np.log10(housing_new["price"])
+```
+
+### Model metrics
+
+```{python}
+td = timedelta(weeks=2)
+metric_set = [root_mean_squared_error, r2_score]
+
+metrics_df = compute_metrics(
+    data=housing_new,
+    date_var="date",
+    period=td,
+    metric_set=metric_set,
+    truth="price",
+    estimate="pred",
+)
+metrics_df
+```
+
+```{python}
+plot_metrics(metrics_df).update_yaxes(matches=None).show()
+```
+
+Plot model metrics over time to *monitor* your model.
+
+### Explore validation data
+
+```{python}
+housing_new.head()
+```
+
+```{python}
+px.histogram(
+    housing_new,
+    x="price",
+    color="waterfront",
+    barmode="overlay",
+    nbins=30,
+    histnorm="probability density",
+)
+```
+
+Write your own code to make visualizations or tables with the new validation data, and/or the new predictions.
+
+### API visual documentation
+
+Interact directly with your model via its visual documentation, and get `curl` examples.
+
+```{python}
+IFrame('https://colorado.posit.co/rsc/seattle-housing-python/', width=700, height=350)
+```
+

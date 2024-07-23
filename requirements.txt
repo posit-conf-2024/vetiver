@@ -4,6 +4,7 @@ fastparquet
 fsspec
 ipykernel
 ipython
+jupyter
 numpy<2.0
 pandas
 pins
