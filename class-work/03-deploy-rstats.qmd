@@ -1,0 +1,126 @@
+---
+title: Deeper into deployment
+subtitle: Deploy and maintain models with vetiver (R)
+format: html
+---
+
+## Create your vetiver model 🏺
+
+```{r}
+library(tidyverse)
+library(tidymodels)
+library(arrow)
+set.seed(123)
+
+path <- here::here("data", "housing.parquet")
+housing <- read_parquet(path)
+
+set.seed(123)
+housing_split <- housing |>
+  mutate(price = log10(price)) |>
+  initial_split(prop = 0.8)
+housing_train <- training(housing_split)
+housing_test <- testing(housing_split)
+
+housing_fit <-
+  workflow(
+    price ~ bedrooms + bathrooms + sqft_living + yr_built,
+    rand_forest(trees = 200, mode = "regression")
+    ) |>
+  fit(data = housing_train)
+
+v <- vetiver_model(___, ___)
+v
+```
+
+## Docker 🐳
+
+See `docker-rstats.qmd` in this same folder if you want to work along with the Docker demo.
+
+## Model metrics as metadata 🎯
+
+Compute metrics for your model:
+
+```{r}
+housing_metrics <-
+    augment(housing_fit, new_data = ___) |>
+    metrics(truth = price, estimate = .pred)
+
+housing_metrics
+```
+
+Store these metrics as vetiver metadata:
+
+```{r}
+library(vetiver)
+v <- vetiver_model(
+  ___, 
+  ___, 
+  metadata = list(metrics = ___)
+)
+```
+
+Write a new version of your pin:
+
+```{r}
+library(pins)
+board <- ___
+board |> ___
+```
+
+Get your metrics metadata:
+
+```{r}
+extracted_metrics <- 
+  board |> 
+  pin_meta(___) |> 
+  pluck("user", "metrics") |> 
+  as_tibble()
+
+extracted_metrics
+```
+
+If you have time, redeploy your model and then get **your neighbor's** metrics metadata by calling the `/metadata` endpoint of their model:
+
+```{r}
+url <- ___
+r <- httr::content(httr::GET(url), as = "text", encoding = "UTF-8")
+jsonlite::fromJSON(___) |> 
+  pluck("user", "metrics") |> 
+  as_tibble()
+```
+
+## Add a new endpoint to your API ✨
+
+Write a `plumber.R` file:
+
+```{r}
+vetiver_write_plumber(board, ___)
+```
+
+Open the file and run it locally; use the "Run API" button in RStudio.
+
+Add a new endpoint to this file! 
+
+One option is to read in a model explainer, make a new handler function, and add `library(DALEXtra)` and `library(dplyr)`:
+
+```r
+explainer <- pin_read(b, "julia.silge/seattle-shap-rstats")
+
+handler_explain <- function(req) {
+    new_data <- req$body
+    new_data <- vetiver_type_convert(new_data, v$prototype)
+    shap <- predict_parts(explainer, new_data, type = "shap", B = 25)
+    shap |> group_by(variable) |> summarise(contribution = mean(contribution))
+}
+```
+
+Change your `#* @plumber` decorated function so its body looks like:
+
+```r
+pr |>  
+  vetiver_api(v) |> 
+  pr_post(path = "/explain", handler = handler_explain)
+```
+
+After you add a new endpoint, run the API locally again.
