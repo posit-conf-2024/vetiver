@@ -37,7 +37,7 @@ Welcome!
 
 Wi-Fi network name
 
-TODO: WIFI
+`Posit Conf 2024`
 
 </center>
 
@@ -51,7 +51,7 @@ TODO: WIFI
 
 Wi-Fi password
 
-TODO: WIFI
+`conf2024`
 
 </center>
 
@@ -61,10 +61,13 @@ TODO: WIFI
 ## Welcome! {.smaller}
 
 ::: {.nonincremental}
-TODO: add bathrooms/lactation rooms/etc
-
-- Participants who do not wish to be photographed have red lanyards; please note everyone's lanyard colors before taking a photo and respect their choices
-- The Code of Conduct and COVID policies can be found at <https://posit.co/code-of-conduct/>
+- There are gender-neutral bathrooms located on levels 3, 4, 5, 6, & 7
+- A meditation/prayer room is available in room 503
+  - Open Monday & Tuesday 7am - 7pm, Wednesday 7am - 5pm
+- A lactation room is available in room 509
+  - Open Monday & Tuesday 7am - 7pm, Wednesday 7am - 5pm
+- Participants who do not wish to be photographed have **red lanyards**; please note everyone's lanyard colors before taking a photo and respect their choices
+- The Code of Conduct can be found at <https://posit.co/code-of-conduct/>
   - Please review them carefully! ❤️ 
   - You can report Code of Conduct violations in person, by email, or by phone; see the policy linked above for contact information
 :::
