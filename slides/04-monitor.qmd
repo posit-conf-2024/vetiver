@@ -279,7 +279,7 @@ m = compute_metrics(
     truth = "price",
     estimate = "pred")
 
-metrics_plot = plot_metrics(m)
+metrics_plot = plot_metrics(m).update_yaxes(matches = None)
 ```
 
 ```{python}
