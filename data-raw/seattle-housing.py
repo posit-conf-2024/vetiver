@@ -1,6 +1,7 @@
 import os
 import pins
 import rsconnect
+import shap
 import vetiver
 import pandas as pd
 import numpy as np
@@ -27,6 +28,13 @@ v = VetiverModel(
 board = pins.board_connect(server_url=url, api_key=api_key, allow_pickle_read=True)
 
 vetiver_pin_write(board, v)
+
+explainer = shap.TreeExplainer(housing_fit, X_train)
+big_house = pd.DataFrame({'bedrooms': [4], 'bathrooms': [3.5], 'sqft_living': [3e3], 'yr_built': [1999]})
+shap_values = explainer(big_house)
+shap.plots.bar(shap_values, show=False)
+
+board.pin_write(explainer,"isabel.zimmerman/seattle-shap-python", type="joblib")
 
 vetiver.deploy_rsconnect(
     connect_server=connect_server,
