@@ -1,0 +1,79 @@
+---
+title: Monitor your model
+subtitle: Deploy and maintain models with vetiver (Python)
+format: html
+---
+
+## Data for modeling & data for monitoring 🤝
+
+```{python}
+import pandas as pd
+
+housing = pd.read_parquet("../data/housing.parquet")
+housing_new = pd.read_parquet("../data/housing_monitoring.parquet")
+```
+
+Compare the modeling and monitoring datasets:
+
+```{python}
+## make a plot or table
+```
+
+## Monitor metrics over time ⏳
+
+```{python}
+# | fig-align: center
+from vetiver import vetiver_endpoint, predict, compute_metrics, plot_metrics
+from sklearn.metrics import root_mean_squared_error, r2_score, mean_absolute_error
+from datetime import timedelta
+import numpy as np
+
+url = "https://colorado.posit.co/rsc/seattle-housing-python/predict"
+endpoint = vetiver_endpoint(url)
+housing_new["pred"] = predict(
+  endpoint=url, data=housing_new[["bedrooms", "bathrooms", "sqft_living", "yr_built"]])
+housing_new["price"] = np.log10(housing_new["price"])
+
+td = timedelta(weeks=2)
+metric_set = [root_mean_squared_error, r2_score, mean_absolute_error]
+
+metrics_df = compute_metrics(
+  data=___,
+  date_var="date",
+  period=td,
+  metric_set=metric_set,
+  truth="price",
+  estimate="pred",
+)
+metrics_df
+```
+
+```{python}
+plot_metrics(metrics_df).update_yaxes(matches=None)
+```
+
+Read about how you can use pins for versioning metrics: <https://rstudio.github.io/vetiver-python/stable/reference/pin_metrics.html>
+
+## ML metrics ➡️ organizational outcomes
+
+What is the mean absolute percentage error?
+
+```{python}
+from sklearn.metrics import mean_absolute_percentage_error
+
+housing_new \
+    .groupby("waterfront") \
+    .apply(lambda x: mean_absolute_percentage_error(
+        y_pred= 10 ** x["pred"], y_true= 10 ** x["price"]), include_groups=False)
+```
+
+```{python}
+## make a visualization
+```
+
+## Create a monitoring dashboard or report 📊
+
+To wrap up, create a model monitoring report and/or dashboard and publish it to Connect. You have a few options:
+
+- Open the `04-monitor-report.qmd`, make any changes you like (for example, different metrics or visualizations), render it, and publish to Connect.
+- Open a fresh copy of the dashboard template with `vetiver.templates.monitoring_dashboard()`, update it to make a dashboard for _your_ model, and publish to Connect.

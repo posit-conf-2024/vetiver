@@ -1,0 +1,133 @@
+---
+title: Deeper into deployment
+subtitle: Deploy and maintain models with vetiver (Python)
+format: html
+---
+
+## Create your vetiver model 🏺
+
+```{python}
+import pandas as pd
+import numpy as np
+from sklearn import preprocessing, ensemble, pipeline, compose, model_selection
+
+housing = pd.read_parquet("../data/housing.parquet")
+X, y = housing[["bedrooms", "bathrooms", "sqft_living", "yr_built"]], np.log10(
+    housing["price"]
+)
+X_train, X_test, y_train, y_test = model_selection.train_test_split(X, y, test_size=0.2)
+
+housing_fit = ensemble.RandomForestRegressor(n_estimators=200).fit(X_train, y_train)
+
+v = VetiverModel(___, ___, ___)
+```
+
+## Docker 🐳
+
+See `docker-python.qmd` in this same folder if you want to work along with the Docker demo.
+
+## Model metrics as metadata 🎯
+
+Compute metrics for your model:
+
+```{python}
+from sklearn import metrics
+
+metric_set = [
+    metrics.root_mean_squared_error,
+    metrics.r2_score,
+    metrics.mean_absolute_error,
+]
+y_predictions = pd.Series(housing_fit.predict(X_test))
+
+housing_metrics = pd.DataFrame()
+
+for metric in metric_set:
+    metric_name = str(metric.__name__)
+    metric_output = metric(y_test, y_predictions)
+    housing_metrics = pd.concat(
+        (
+            housing_metrics,
+            pd.DataFrame({"name": [metric_name], "score": [metric_output]}),
+        ),
+        axis=0,
+    )
+
+housing_metrics.reset_index(inplace=True, drop=True)
+housing_metrics
+```
+
+Store these metrics as vetiver metadata:
+
+```{python}
+v = VetiverModel(
+    ___, 
+    ___,
+    prototype_data = ___,
+    metadata = ___.to_dict()
+)
+```
+
+Write a new version of your pin:
+
+```{python}
+from pins import board_connect
+from vetiver import vetiver_pin_write
+from dotenv import load_dotenv()
+load_dotenv()
+
+board =  ___
+vetiver_write_pin(___, ___)
+```
+
+Get your metrics metadata:
+
+```{python}
+metadata = board.pin_meta(___)
+extracted_metrics = pd.DataFrame(metadata.user.get("user"))
+extracted_metrics
+```
+
+If you have time, redeploy your model and then get **your neighbor's** metrics metadata by calling the `/metadata` endpoint of their model:
+
+```{python}
+url = ___
+print(requests.get(url).content)
+```
+
+## Add a new endpoint to your API ✨
+
+Write an `app.py` file:
+
+```{python}
+from vetiver import write_app
+write_app(board, ___)
+```
+
+Open the file and view it locally. To start the API, add `vetiver_api.run()` as a last line and run file.
+
+Add a new endpoint to this file! 
+
+One option is to read in a model explainer and make a new handler function:
+
+```python
+connect_url = "https://colorado.posit.co/rsc"
+pin_path = {"shap_python": "seattle-shap-python/"}
+shap_board = pins.board_url(connect_url, pin_path, allow_pickle_read = True)
+explainer = shap_board.pin_read("shap_python")
+
+def shap_explainer(data):
+    import pandas as pd
+    values_as_json = pd.DataFrame(explainer.shap_values(data)).to_json(orient='records')
+    return values_as_json
+```
+
+Change your `VetiverAPI` object so it looks like:
+
+```python
+vetiver_api = vetiver.VetiverAPI(v)
+vetiver_api.vetiver_post(shap_explainer, "shap")
+api = vetiver_api.app
+```
+
+After you add a new endpoint, run the API locally again.

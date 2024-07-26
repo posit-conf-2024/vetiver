@@ -1,0 +1,114 @@
+---
+title: Introduction
+subtitle: Deploy and maintain models with vetiver (R)
+format: html
+---
+
+## Explore the data 👀
+
+```{r}
+library(tidyverse)
+library(arrow)
+path <- here::here("data", "housing.parquet")
+housing <- read_parquet(path)
+glimpse(housing)
+```
+
+Explore the `housing` data on your own!
+
+```{r}
+housing |> 
+  group_by(waterfront) |>
+  summarize(price = mean(price))
+```
+
+```{r}
+## more EDA here
+```
+
+## Build a model 🔧
+
+Spend your data budget:
+
+```{r}
+library(tidymodels)
+set.seed(123)
+housing_split <- initial_split(housing, prop = 0.8)
+housing_train <- training(housing_split)
+housing_test <- testing(housing_split)
+```
+
+Train a linear regression model:
+
+```{r}
+housing_fit <-
+  workflow(
+    price ~ bedrooms + bathrooms + sqft_living + yr_built, 
+    linear_reg()
+    ) |> 
+  fit(data = housing_train)
+```
+
+## Create a deployable model object 🏺
+
+```{r}
+library(vetiver)
+v <- vetiver_model(___, ___)
+v
+```
+
+```{r}
+## create a vetiver model with a custom description
+```
+
+## Version your model 📌
+
+```{r}
+library(pins)
+
+board <- ___
+board |> ___(v)
+```
+
+```{r}
+## retrieve your model metadata
+board |> pin_meta(___)
+```
+
+## Publish your model on Posit Connect 🚀
+
+Set up publishing to Connect from RStudio: <https://docs.posit.co/connect/user/publishing/>
+
+```{r}
+## now write your model pin to Posit Connect
+board <- ___
+board |> ___(v)
+```
+
+Visit your pin's homepage on Connect.
+
+## Store a new version 👯
+
+Train your model with a new algorithm:
+
+```{r}
+housing_fit <-
+  workflow(
+    price ~ bedrooms + bathrooms + sqft_living + yr_built,
+    ___
+  ) |>
+  fit(data = housing_train)
+```
+
+Store this new model as a new version of the same pin:
+
+```{r}
+v <- vetiver_model(___, ___)
+board |> ___(v)
+```
+
+What versions do you have?
+
+```{r}
+board |> pin_versions()
+```

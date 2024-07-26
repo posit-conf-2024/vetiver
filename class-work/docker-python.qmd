@@ -1,0 +1,50 @@
+---
+title: Deploy a model with Docker
+subtitle: Deploy and maintain models with vetiver (Python)
+format: html
+---
+
+## Choose a pinned model to deploy
+
+```{python}
+import pins
+from vetiver import VetiverModel
+raw = "https://colorado.rstudio.com/rsc"
+paths = {"seattle-model-python": "seattle-model-python/"}
+board = pins.board_url(raw, paths, allow_pickle_read=True)
+
+VetiverModel.from_pin(board,"seattle-model-python")
+```
+
+## Create artifacts to run a Dockerfile
+
+```{python}
+import vetiver
+
+vetiver.prepare_docker(
+    board = board, 
+    pin_name = "seattle-model-python",
+    version = None
+)
+```
+
+What outputs are created?
+
+## Build your container
+
+```bash
+docker build -t inspections .
+```
+
+## Run your container
+
+```bash
+docker run -p 8080:8080 inspections
+```
+
+## Make predictions
+
+```{python}
+endpoint = vetiver.vetiver_endpoint(url = ___)
+vetiver.predict(endpoint = ___, data = ___)
+```
