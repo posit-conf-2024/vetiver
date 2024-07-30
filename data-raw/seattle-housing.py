@@ -43,3 +43,13 @@ vetiver.deploy_rsconnect(
     title="seattle-housing-python-model-api",
     extra_files=["./data-raw/requirements.txt"],
 )
+
+## URLS on demo PTD:
+## https://pub.demo.posit.team/public/seattle-python-model-pin/
+## https://pub.demo.posit.team/public/seattle-shap-python/
+## https://pub.demo.posit.team/public/seattle-housing-python/
+
+## URLS on Colorado:
+## https://colorado.posit.co/rsc/seattle-model-python/
+## https://colorado.posit.co/rsc/seattle-shap-python/
+## https://colorado.posit.co/rsc/seattle-housing-python/
