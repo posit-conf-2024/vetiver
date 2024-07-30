@@ -69,5 +69,16 @@ vetiver_deploy_rsconnect(
   predict_args = list(debug = TRUE),
   account = "julia.silge",
   appName = "seattle-housing-rstats-model-api",
+  server = "pub.demo.posit.team",
   forceUpdate = TRUE
 )
+
+## URLS on demo PTD:
+## https://pub.demo.posit.team/public/seattle-rstats-model-pin/
+## https://pub.demo.posit.team/public/seattle-shap-rstats/
+## https://pub.demo.posit.team/public/seattle-housing-rstats/
+
+## URLS on Colorado:
+## https://colorado.posit.co/rsc/seattle-rstats-model-pin/
+## https://colorado.posit.co/rsc/seattle-shap-rstats/
+## https://colorado.posit.co/rsc/seattle-housing-rstats/
