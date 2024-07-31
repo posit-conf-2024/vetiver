@@ -35,7 +35,7 @@ We will provide an environment with [Posit Workbench](https://posit.co/products/
 
 - Clone the [repo](https://github.com/posit-conf-2024/vetiver) so you have the files and data locally
 - To use R: Install recent versions of [R](https://cran.r-project.org/) and [RStudio](https://www.rstudio.com/download), along with the packages outlined in our [`DESCRIPTION`](https://github.com/posit-conf-2024/vetiver/blob/main/DESCRIPTION) file
-- To use Python: Install Python 3.10 and your preferred IDE, along with the packages outlined in our [`requirements.txt`](https://github.com/posit-conf-2024/vetiver/blob/main/requirements.txt). 
+- To use Python: Install Python 3.9 or higher and your preferred IDE, along with the packages outlined in our [`requirements.txt`](https://github.com/posit-conf-2024/vetiver/blob/main/requirements.txt). 
 - Optionally, install [Docker Desktop](https://docs.docker.com/desktop/)
 
 Join us on [GitHub Discussions](https://github.com/posit-conf-2024/vetiver/discussions) to ask questions and share ideas.
