@@ -27,7 +27,7 @@ website:
       - text: Learn more
         menu:
           - href: https://vetiver.posit.co/
-            text: "Get started at vetiver.rstudio.com"
+            text: "Get started at vetiver.posit.co"
           - href: https://rstudio.github.io/vetiver-python/
             text: "Python package docs"
           - href: https://rstudio.github.io/vetiver-r/
