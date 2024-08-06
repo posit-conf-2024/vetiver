@@ -10,6 +10,7 @@ format: html
 import pandas as pd
 import numpy as np
 from sklearn import preprocessing, ensemble, pipeline, compose, model_selection
+from vetiver import VetiverModel
 
 housing = pd.read_parquet("../data/housing.parquet")
 X, y = housing[["bedrooms", "bathrooms", "sqft_living", "yr_built"]], np.log10(
