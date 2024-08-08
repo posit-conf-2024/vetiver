@@ -28,7 +28,7 @@ from sklearn.metrics import root_mean_squared_error, r2_score, mean_absolute_err
 from datetime import timedelta
 import numpy as np
 
-url = "https://colorado.posit.co/rsc/seattle-housing-python/predict"
+url = "https://pub.demo.posit.team/public/seattle-housing-python/predict"
 endpoint = vetiver_endpoint(url)
 housing_new["pred"] = predict(
   endpoint=url, data=housing_new[["bedrooms", "bathrooms", "sqft_living", "yr_built"]])

@@ -17,8 +17,8 @@ from sklearn import metrics
 from vetiver import VetiverModel, compute_metrics, plot_metrics
 from sklearn.metrics import root_mean_squared_error, r2_score
 
-raw = "https://colorado.rstudio.com/rsc"
-paths = {"seattle-model-python": "seattle-model-python/"}
+raw = "https://pub.demo.posit.team/public"
+paths = {"seattle-model-python": "seattle-python-model-pin/"}
 board = pins.board_url(raw, paths, allow_pickle_read=True)
 ```
 
@@ -90,6 +90,6 @@ Write your own code to make visualizations or tables with the new validation dat
 Interact directly with your model via its visual documentation, and get `curl` examples.
 
 ```{python}
-IFrame('https://colorado.posit.co/rsc/seattle-housing-python/', width=700, height=350)
+IFrame('https://pub.demo.posit.team/public/seattle-housing-python/', width=700, height=350)
 ```
 

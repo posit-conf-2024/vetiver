@@ -642,7 +642,7 @@ load_dotenv()
 b = pins.board_connect(allow_pickle_read=True)
 v = VetiverModel.from_pin(b, 'isabel.zimmerman/seattle-housing-python')
 
-connect_url = "https://colorado.posit.co/rsc"
+connect_url = "https://pub.demo.posit.team/public"
 pin_path = {"shap_python": "seattle-shap-python/"}
 shap_board = pins.board_url(connect_url, pin_path, allow_pickle_read = True)
 explainer = shap_board.pin_read("shap_python")

@@ -276,7 +276,7 @@ You did it! 🥳
 ### R
 
 ```{r}
-url <- "https://colorado.posit.co/rsc/seattle-housing-rstats/metadata"
+url <- "https://pub.demo.posit.team/public/seattle-housing-rstats/metadata"
 r <- httr::GET(url)
 metadata <- httr::content(r, as = "text", encoding = "UTF-8")
 jsonlite::fromJSON(metadata)
@@ -287,7 +287,7 @@ jsonlite::fromJSON(metadata)
 ```{python}
 import requests
 
-url = "https://colorado.posit.co/rsc/seattle-housing-python/metadata" 
+url = "https://pub.demo.posit.team/public/seattle-housing-python/metadata" 
 print(requests.get(url).content)
 ```
 
@@ -309,7 +309,7 @@ You can treat your model API much like it is a local model in memory!
 ```{r}
 library(vetiver)
 
-url <- "https://colorado.posit.co/rsc/seattle-housing-rstats/predict"
+url <- "https://pub.demo.posit.team/public/seattle-housing-rstats/predict"
 endpoint <- vetiver_endpoint(url)
 predict(endpoint, slice_sample(housing_test, n = 5))
 ```
@@ -319,7 +319,7 @@ predict(endpoint, slice_sample(housing_test, n = 5))
 ```{python}
 from vetiver.server import predict, vetiver_endpoint
 
-url = "https://colorado.posit.co/rsc/seattle-housing-python/predict"
+url = "https://pub.demo.posit.team/public/seattle-housing-python/predict"
 endpoint = vetiver_endpoint(url)
 predict(endpoint = endpoint, data = X_test.head(5))
 ```
@@ -372,7 +372,7 @@ What if your model API requires authentication?
 ```r
 library(vetiver)
 
-url <- "https://colorado.posit.co/rsc/seattle-housing-rstats/predict"
+url <- "https://pub.demo.posit.team/public/seattle-housing-rstats/predict"
 endpoint <- vetiver_endpoint(url)
 predict(endpoint, slice_sample(housing_test, n = 10))
 ```
@@ -382,7 +382,7 @@ predict(endpoint, slice_sample(housing_test, n = 10))
 ```python
 from vetiver.server import predict, vetiver_endpoint
 
-url = "https://colorado.posit.co/rsc/seattle-housing-python/predict"
+url = "https://pub.demo.posit.team/public/seattle-housing-python/predict"
 endpoint = vetiver_endpoint(url)
 predict(endpoint = endpoint, data = housing_test)
 ```
@@ -396,7 +396,7 @@ What if your model API requires authentication?
 ```r
 library(vetiver)
 
-url <- "https://colorado.posit.co/rsc/seattle-housing-rstats/predict"
+url <- "https://pub.demo.posit.team/public/seattle-housing-rstats/predict"
 endpoint <- vetiver_endpoint(url)
 apiKey <- Sys.getenv("CONNECT_API_KEY")
 predict(endpoint, slice_sample(inspect_test, n = 10), 
@@ -408,7 +408,7 @@ predict(endpoint, slice_sample(inspect_test, n = 10),
 ```python
 from vetiver.server import predict, vetiver_endpoint
 
-url = "https://colorado.posit.co/rsc/seattle-housing-python/predict"
+url = "https://pub.demo.posit.team/public/seattle-housing-python/predict"
 endpoint = vetiver_endpoint(url)
 h = { 'Authorization': f'Key {api_key}' }
 predict(endpoint = endpoint, data = X_test, headers = h)
@@ -462,7 +462,7 @@ countdown(minutes = 5)
 ### R
 
 ```{r}
-url <- "https://colorado.posit.co/rsc/seattle-housing-rstats/prototype"
+url <- "https://pub.demo.posit.team/public/seattle-housing-rstats/prototype"
 r <- httr::GET(url)
 prototype <- httr::content(r, as = "text", encoding = "UTF-8")
 jsonlite::fromJSON(prototype)
@@ -473,7 +473,7 @@ jsonlite::fromJSON(prototype)
 ```{python}
 import requests
 
-url = "https://colorado.posit.co/rsc/seattle-housing-python/prototype" 
+url = "https://pub.demo.posit.team/public/seattle-housing-python/prototype" 
 print(requests.get(url).content)
 ```
 
