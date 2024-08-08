@@ -105,7 +105,10 @@ Add a new endpoint to this file!
 One option is to read in a model explainer, make a new handler function, and add `library(DALEXtra)` and `library(dplyr)`:
 
 ```r
-explainer <- pin_read(b, "julia.silge/seattle-shap-rstats")
+board <- board_url(c(
+  shap_explainer = "https://pub.demo.posit.team/public/seattle-shap-rstats/"
+))
+explainer <- pin_read(board, "shap_explainer")
 
 handler_explain <- function(req) {
     new_data <- req$body
