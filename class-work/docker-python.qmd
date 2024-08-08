@@ -9,8 +9,8 @@ format: html
 ```{python}
 import pins
 from vetiver import VetiverModel
-raw = "https://colorado.rstudio.com/rsc"
-paths = {"seattle-model-python": "seattle-model-python/"}
+raw = "https://pub.demo.posit.team/public"
+paths = {"seattle-model-python": "seattle-python-model-pin/"}
 board = pins.board_url(raw, paths, allow_pickle_read=True)
 
 VetiverModel.from_pin(board,"seattle-model-python")

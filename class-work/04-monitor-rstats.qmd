@@ -27,7 +27,7 @@ Compare the modeling and monitoring datasets:
 ```{r}
 library(vetiver)
 library(tidymodels)
-url <- "https://colorado.posit.co/rsc/seattle-housing-rstats/predict"
+url <- "https://pub.demo.posit.team/public/seattle-housing-rstats/predict"
 endpoint <- vetiver_endpoint(url)
 
 metrics_df <-

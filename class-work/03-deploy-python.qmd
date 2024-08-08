@@ -112,7 +112,7 @@ Add a new endpoint to this file!
 One option is to read in a model explainer and make a new handler function:
 
 ```python
-connect_url = "https://colorado.posit.co/rsc"
+connect_url = "https://pub.demo.posit.team/public"
 pin_path = {"shap_python": "seattle-shap-python/"}
 shap_board = pins.board_url(connect_url, pin_path, allow_pickle_read = True)
 explainer = shap_board.pin_read("shap_python")

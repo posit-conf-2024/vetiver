@@ -96,7 +96,7 @@ predict(___, slice_sample(housing_test, n = 10))
 For our R model:
 
 ```{r}
-url <- "https://colorado.posit.co/rsc/seattle-housing-rstats/prototype/"
+url <- "https://pub.demo.posit.team/public/seattle-housing-rstats/prototype/"
 r <- ___
 prototype <- httr::content(r, as = "text", encoding = "UTF-8")
 jsonlite::fromJSON(___)
@@ -105,7 +105,7 @@ jsonlite::fromJSON(___)
 For our Python model:
 
 ```{r}
-url <- "https://colorado.posit.co/rsc/seattle-housing-python/prototype/"
+url <- "https://pub.demo.posit.team/public/seattle-housing-python/prototype/"
 r <- ___
 prototype <- httr::content(r, as = "text", encoding = "UTF-8")
 jsonlite::fromJSON(___)

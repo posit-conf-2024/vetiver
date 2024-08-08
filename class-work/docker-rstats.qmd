@@ -10,7 +10,7 @@ format: html
 library(vetiver)
 library(pins)
 board <- board_url(c(
-  seattle_model = "https://colorado.posit.co/rsc/seattle-rstats-model-pin/"
+  seattle_model = "https://pub.demo.posit.team/public/seattle-rstats-model-pin/"
 ))
 v <- vetiver_pin_read(board, "seattle_model")
 v

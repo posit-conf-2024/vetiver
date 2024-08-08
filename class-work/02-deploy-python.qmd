@@ -105,14 +105,14 @@ For our R model:
 ```{python}
 import requests
 
-url = "https://colorado.posit.co/rsc/seattle-housing-rstats/prototype"
+url = "https://pub.demo.posit.team/public/seattle-housing-rstats/prototype"
 print(requests.get(url).content)
 ```
 
 For our Python model:
 
 ```{python}
-url = "https://colorado.posit.co/rsc/seattle-housing-python/prototype"
+url = "https://pub.demo.posit.team/public/seattle-housing-python/prototype"
 print(requests.get(url).content)
 ```
 
