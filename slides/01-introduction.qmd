@@ -229,9 +229,8 @@ countdown(minutes = 3)
 
 # Workshop infrastructure
 
-TODO: update infra
-
-- Log in at [pos.it/class](https://pos.it/class) with the identifier `vetiver2024`
+- Log in at <https://vetiver.posit.team>
+- You'll use your GitHub account to get access
 - Even if you plan to work locally, set this up with us so you can use Posit Connect as a deployment target
 - For Posit Workbench, use RStudio for R or VS Code for Python
 - Open the folder `class-work` in the `vetiver` directory
@@ -242,9 +241,11 @@ TODO: update infra
 
 ## Activity
 
-Log in at [pos.it/class](https://pos.it/class) with the identifier `vetiver2024`
+Log in to Posit Workbench at <https://vetiver.posit.team>
 
 Start a new session, either RStudio or VS Code.
+
+We recommend that you open the `vetiver` directory as a project (RStudio) or workspace (VS Code).
 
 In your new session, open the folder `class-work` in the `vetiver` directory, and choose the first Quarto file!
 
