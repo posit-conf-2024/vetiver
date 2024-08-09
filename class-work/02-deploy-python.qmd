@@ -120,6 +120,6 @@ Make a custom input data prototype after checking out this documentation:
 <https://rstudio.github.io/vetiver-python/stable/reference/VetiverModel.html#VetiverModel>
 
 ```{python}
-v = vetiver_model(___, ___, prototype_data = ___)
+v = VetiverModel(___, ___, prototype_data = ___)
 VetiverAPI(___).run()
 ```

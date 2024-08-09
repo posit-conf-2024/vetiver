@@ -10,7 +10,10 @@ format: html
 import pins
 from vetiver import VetiverModel
 raw = "https://pub.demo.posit.team/public"
-paths = {"seattle-model-python": "seattle-python-model-pin/"}
+paths = {
+    "seattle-model-python": "seattle-python-model-pin/", 
+    "test-data": "seattle-test-data/"
+}
 board = pins.board_url(raw, paths, allow_pickle_read=True)
 
 VetiverModel.from_pin(board,"seattle-model-python")
@@ -43,6 +46,10 @@ docker run -p 8080:8080 inspections
 ```
 
 ## Make predictions
+
+```{python}
+data = board.pin_read("test-data")
+```
 
 ```{python}
 endpoint = vetiver.vetiver_endpoint(url = ___)

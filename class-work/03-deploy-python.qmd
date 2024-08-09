@@ -74,11 +74,11 @@ Write a new version of your pin:
 ```{python}
 from pins import board_connect
 from vetiver import vetiver_pin_write
-from dotenv import load_dotenv()
+from dotenv import load_dotenv
 load_dotenv()
 
 board =  ___
-vetiver_write_pin(___, ___)
+vetiver_pin_write(___, ___)
 ```
 
 Get your metrics metadata:

@@ -39,6 +39,13 @@ docker run -p 8000:8000 inspections
 ## Make predictions
 
 ```{r}
+board_data <- board_url(c(
+  test_data = "https://pub.demo.posit.team/public/seattle-test-data/"
+))
+data <- pin_read(board_data, "test_data")
+```
+
+```{r}
 ## check your URL here:
 endpoint <- vetiver_endpoint("http://127.0.0.1:8000/predict/")
 predict(endpoint = ___, new_data = ___)
