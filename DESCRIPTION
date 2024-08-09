@@ -18,6 +18,7 @@ Imports:
     gt,
     hexbin,
     partykit,
+    packrat,
     pins (>= 1.2.2),
     plotly,
     plumber,
@@ -26,6 +27,7 @@ Imports:
     rmarkdown,
     rpart,
     rsample,
+    rsconnect,
     tidymodels,
     tidyverse,
     vetiver (>= 0.2.5)
