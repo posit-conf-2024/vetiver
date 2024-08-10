@@ -27,13 +27,13 @@ What outputs are created?
 ## Build your container
 
 ```bash
-docker build -t inspections .
+docker build -t housing .
 ```
 
 ## Run your container
 
 ```bash
-docker run -p 8000:8000 inspections
+docker run -p 8000:8000 housing
 ```
 
 ## Make predictions
@@ -48,5 +48,5 @@ data <- pin_read(board_data, "test_data")
 ```{r}
 ## check your URL here:
 endpoint <- vetiver_endpoint("http://127.0.0.1:8000/predict/")
-predict(endpoint = ___, new_data = ___)
+predict(endpoint, new_data = ___)
 ```
