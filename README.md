@@ -9,8 +9,8 @@ by Isabel Zimmerman and Julia Silge
 
 :spiral_calendar: August 12, 2024  
 :alarm_clock:     09:00 - 17:00  
-:hotel:           ROOM TBD  
-:writing_hand:    [pos.it/conf](http://pos.it/conf)  
+:hotel:           ROOM 604 (Skykomish)  
+:writing_hand:    [posit-conf-2024.github.io/vetiver](https://posit-conf-2024.github.io/vetiver/)  
 :speaking_head:   [GitHub Discussions](https://github.com/posit-conf-2024/vetiver/discussions)
 
 -----
